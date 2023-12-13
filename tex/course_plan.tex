@@ -1,0 +1,267 @@
+\documentclass[12pt, a4paper]{article}
+%\usepackage{geometry}
+\usepackage[inner=1.0cm,outer=1.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\pagestyle{empty}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage, bbding, pmboxdraw, tabularx}
+\usepackage[usenames,dvipsnames]{color}
+\definecolor{darkblue}{rgb}{0,0,.6}
+\definecolor{darkred}{rgb}{.7,0,0}
+\definecolor{darkgreen}{rgb}{0,.6,0}
+\definecolor{red}{rgb}{.98,0,0}
+\usepackage[colorlinks,pagebackref,pdfusetitle,urlcolor=darkblue,citecolor=darkblue,linkcolor=darkred,bookmarksnumbered,plainpages=false]{hyperref}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\pagestyle{fancyplain}
+\fancyhf{}
+\lhead{ \fancyplain{}{\textsc{GRA 4160} }}
+\chead{ \fancyplain{}{} }
+\rhead{ \fancyplain{}{\textsc{Course description} }}
+%\rfoot{\fancyplain{}{page \thepage\ of \pageref{LastPage}}}
+\fancyfoot[RO, LE] {page \thepage\ of \pageref{LastPage} }
+\thispagestyle{plain}
+
+%%%%%%%%%%%% LISTING %%%
+\usepackage{listings}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\usepackage{verbatim} % used to display code
+\usepackage{fancyvrb}
+\usepackage{acronym}
+\usepackage{amsthm}
+\VerbatimFootnotes % Required, otherwise verbatim does not work in footnotes!
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+\definecolor{lightlightgray}{gray}{0.93}
+\lstset{
+%language=bash,                          % Code langugage
+basicstyle=\ttfamily,                   % Code font, Examples: \footnotesize, \ttfamily
+keywordstyle=\color{OliveGreen},        % Keywords font ('*' = uppercase)
+commentstyle=\color{gray},              % Comments font
+numbers=left,                           % Line nums position
+numberstyle=\tiny,                      % Line-numbers fonts
+stepnumber=1,                           % Step between two line-numbers
+numbersep=5pt,                          % How far are line-numbers from code
+backgroundcolor=\color{lightlightgray}, % Choose background color
+frame=none,                             % A frame around the code
+tabsize=2,                              % Default tab size
+captionpos=t,                           % Caption-position = bottom
+breaklines=true,                        % Automatic line breaking?
+breakatwhitespace=false,                % Automatic breaks only at whitespace?
+showspaces=false,                       % Dont make spaces visible
+showtabs=false,                         % Dont make tabls visible
+columns=flexible,                       % Column format
+morekeywords={__global__, __device__},  % CUDA specific keywords
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{center}
+{\LARGE \textsc{Advanced Regression and Classification Analysis, Ensemble Methods and Neural Networks}}
+\end{center}
+\begin{center}
+Semester: Spring 2023\\
+%Program: Bachelor of Digital Business\\
+Course code: GRA 4160\\
+BI Norwegian Business School\\
+{\small This version: \today}
+\end{center}
+%\date{September 26, 2014}
+
+\begin{center}
+\rule{\textwidth}{0.4pt}
+\begin{minipage}[t]{\textwidth}
+\medskip
+\begin{tabularx}{\linewidth}{XXXX}
+\textbf{Instructor:}   & Vegard H. Larsen & \textbf{Contact:}       & \href{mailto:vegard.h.larsen@bi.no}{vegard.h.larsen@bi.no} \medskip \\
+\textbf{Office:}       & B3Y-097          & \textbf{Office Hours:}  & Wednesdays 10--12  \medskip \\
+\textbf{Course Pages:} & \href{https://bi.itslearning.com/}{bi.itslearning.com}  &   & \medskip \\
+
+\end{tabularx}\medskip
+\end{minipage}
+\rule{\textwidth}{0.4pt}
+\end{center}
+\vspace{.2cm}
+\setlength{\unitlength}{1in}
+\renewcommand{\arraystretch}{2}
+
+\noindent
+{\bf This course description is preliminary and subject to change.}
+
+\vskip.25in
+\noindent
+In this course we focus on basic machine learning methods, both for supervised and unsupervised learning.
+The course covers both the theory and the practice of machine learning using Python.
+
+%\vskip.25in
+%\noindent
+%\textbf{\large Course Objectives} \\
+
+\vskip.25in
+\noindent\textbf{\large Compulsory Readings} 
+\begin{enumerate}
+\item The elements of statistical learning: data mining, inference, and prediction by \it{Trevor J. Hastie; Robert J. Tibshirani; Jerome Friedman} 
+(\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
+\end{enumerate}
+
+\vskip.25in
+\noindent\textbf{\large Mini project} \\
+You will work on a mini project in groups of 3 students.
+The mini project will be a small-scale project where you will apply the methods you learn in the course to a real-world problem.
+
+\noindent
+To complete the project, you will need to perform the following steps:
+\begin{itemize}
+    \item Identify a problem or research question that you would like to address.
+    \item Collect and preprocess data for your model.
+    \item Choose a machine learning algorithm (or several) and implement it in your project.
+    \item All the groups can book two meetings with me to discuss the project and get some feedback either in person or on Zoom during the semester.
+    \item Make a presentation summarizing your findings and discussing the results.
+    \item Present for the class.
+\end{itemize}
+
+\noindent
+The project is an important part of the course, as it allows you to demonstrate your understanding of machine learning concepts and techniques,
+and to apply them in a practical setting.
+It is also an opportunity for you to explore a topic of interest and to develop your skills as a data scientist.
+The project will be graded and will count for 30\% of your final grade.
+
+\newpage
+\noindent\textbf{\large Lecture Plan}
+ -- Lectures are Thursdays from 12:00--13:45 in C2-055. \\
+\begin{enumerate}
+  \item[] \underline{Lecture 1:} [January 12th] \underline{\bf Introduction and data preprocessing}
+     {\small
+         \begin{itemize}
+             \item Ch. 1 in ESL
+             \item Notebooks: \texttt{01\_Intro\_to\_GRA4160.ipynb}, \texttt{02\_Data\_preprocessing.ipynb}
+             \item Exercise: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
+         \end{itemize}
+     }
+  \item[] \underline{Lecture 2:} [January 19th] \underline{\bf Machine learning basics and supervised learning}
+    {\small
+          \begin{itemize}
+                \item Ch. 2 and 6.6 in ESL
+                \item Notebooks: \texttt{03\_OLS.ipynb}, \texttt{04\_Supervised\_learning\_with\_kNN.ipynb}
+                \item Exercise: \texttt{02\_Spam\_filtering\_with\_naive\_bayes.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 3:} [January 26th] \underline{\bf LDA and regularised regression analysis}
+    {\small
+          \begin{itemize}
+              \item Ch. 3 and 5 in ESL
+              \item Notebooks: \texttt{05\_Linear\_discriminant\_analysis.ipynb}, \texttt{06\_Regularised\_regressions.ipynb}
+              \item Exercise: \texttt{03\_Predicting\_house\_prices.ipynb}
+          \end{itemize}
+    }
+  \item [] \underline{Lecture 4:} [February 2nd] \underline{\bf Classification analysis}
+    {\small
+            \begin{itemize}
+                \item Ch. 4 and 9 in ESL
+                \item Notebooks \texttt{07\_Logistic\_regression.ipynb}, \texttt{08\_Decision\_trees.ipynb}
+                \item Exercise: \texttt{04\_Recognizing\_handwritten\_digits.ipynb}
+            \end{itemize}
+    }
+ \item[] \underline{Lecture 5:} [February 16th] \underline{\bf Model selection, evaluation and assessment}
+    {\small
+          \begin{itemize}
+            \item Ch. 7 in ESL
+            \item Notebooks: \texttt{09\_IC\_and\_CV.ipynb}, \texttt{10\_Bias\_variance\_tradeoff.ipynb}
+            \item Exercise: \texttt{05\_Model\_selection\_evaluation\_and\_assessment.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 6:} [February 23rd] \underline{\bf Unsupervised learning}
+    {\small
+          \begin{itemize}
+            \item Ch. 13 and 14 in ESL
+            \item Notebooks: \texttt{11\_PCA.ipynb}, \texttt{12\_K-means.ipynb}
+            \item Exercise: \texttt{06\_Text\_classification.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 7:} [March 2nd] \underline{\bf Ensemble methods}
+    {\small
+          \begin{itemize}
+            \item Ch. 8, 10 and  16 in ESL
+            \item Notebooks \texttt{13\_Introducing\_ensemble\_methods.ipynb}, \texttt{14\_Bagging.ipynb}
+            \item Exercise: \texttt{07\_Predicting\_income.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 8:} [March 9th] \underline{\bf Random forests}
+    {\small
+          \begin{itemize}
+            \item Ch. 15 in ESL
+            \item Notebooks: \texttt{15\_Random\_forests.ipynb}, \texttt{16\_ExtraTrees.ipynb}
+            \item Exercise: \texttt{08\_Predicting\_credit\_risk.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 9:} [March 16th] \underline{\bf Neural networks I}
+  {\small
+          \begin{itemize}
+            \item Chapter 11 in ESL
+            \item Notebooks: \texttt{17\_Stochastic\_gradient\_decent.ipynb}, \texttt{18\_Backpropagation.ipynb}
+            \item Exercise: \texttt{09\_Neural\_Networks\_with\_Keras\_I.ipynb}
+          \end{itemize}
+  }
+  \item[] \underline{Lecture 10:} [March 23rd] \underline{\bf Neural networks II}
+    {\small
+          \begin{itemize}
+            \item Ch. 11 in ESL
+            \item Notebooks: \texttt{19\_Multilayer\_neural\_networks.ipynb}, \texttt{20\_Convolutional\_neural\_networks.ipynb}
+            \item Exercise: \texttt{10\_Neural\_Networks\_with\_Keras\_II.ipynb.ipynb}
+          \end{itemize}
+    }
+  \item[] \underline{Lecture 11:} [March 30th] {\bf Presentation and defense of the mini projects}
+  \item[] \underline{Lecture 12:} [April 13th] {\bf Summing up and Q\&A}
+\end{enumerate}
+
+\vskip.25in
+\noindent\textbf{\large Final exam}
+\begin{itemize}
+    \item Exam format: 30 hour take-home exam
+    \item Start: 24.05.2023 at 09:00
+    \item Submission deadline: 25.05.2023 at 15:00
+    \item Weight: 70\%
+\end{itemize}
+
+\vskip.25in
+\noindent\textbf{\large Software} \\
+In this course we will use Python.
+I recommend installing Python through the \href{https://www.anaconda.com/}{Anaconda} distribution.
+You can run into some problems if you don't have the correct version of the software installed.
+Try to install the latest version you find.
+Python 2 will not be supported.
+
+\vskip.25in
+\noindent
+Most of the material will be in the form of Jupyter notebooks.
+I also recommend installing an integrated development environment (IDE) for Python.
+Two good options are \href{https://www.jetbrains.com/pycharm/}{PyCharm} and \href{https://code.visualstudio.com}{VS code}.
+Both IDEs are free for students, and they support Jupyter notebooks.
+
+\vskip.25in
+\noindent
+We will also rely on some third party Python libraries. I recomend spending some time familiarizing yourself with the following libraries:
+
+\begin{enumerate}
+    \item Scikit-learn: \href{https://scikit-learn.org/stable/}{https://scikit-learn.org/stable/}
+    \item Keras: \href{https://keras.io/}{https://keras.io/}
+    \item Pandas: \href{https://pandas.pydata.org/}{https://pandas.pydata.org/}
+    %\item Tensorflow: \href{https://www.tensorflow.org/}{https://www.tensorflow.org/}
+\end{enumerate}
+
+%\vskip.15in
+%\noindent\textbf{\large Supplementary Material} \\%\footnotemark
+%Here are some interesting resources that will be useful during the course.
+%This is not mandatory readings.
+%\begin{itemize}
+%\item \href{https://docs.python.org/3/tutorial/}{Python tutorial}
+%\item \href{https://jupyter-notebook.readthedocs.io/}{Jupyter Notebook documentation}
+%\item \href{https://numpy.org/doc/}{NumPy documentation}
+%\item \href{https://pandas.pydata.org/docs/}{Pandas documentation}
+%\item \href{https://matplotlib.org/stable/users/index}{Matplotlib documentation}
+%\item \href{https://docs.python.org/3/library/sqlite3.html}{SQLite Python API documentation}
+%\end{itemize}
+
+\end{document} 

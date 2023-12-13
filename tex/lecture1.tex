@@ -1,0 +1,154 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{bi}
+
+\title{Lecture 1: \\ Introduction and data preprocessing}
+\institute{GRA4160: Advanced Regression and Classification Analysis,\\
+Ensemble Methods and Neural Networks}
+\date{January 11th 2024}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+	\frametitle{About me:}
+	Vegard H\o ghaug Larsen (Department of Data Science and Analytics, BI)\\
+	$\;$\\
+	Email: vegard.h.larsen@bi.no\\
+	$\;$\\
+	Office hours: Wednesday 12:00-13:00 (or by appointment)\\
+	$\;$\\
+	Office: B3Y-097
+}
+
+\frame{
+	\frametitle{Syllabus}
+
+The text book for this course is:\\
+	\begin{enumerate}
+		\item[] \textit{The elements of statistical learning: data mining, inference, and prediction} by \it{Trevor J. Hastie; Robert J. Tibshirani; Jerome Friedman}
+		(\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
+	\end{enumerate}
+
+For a more gentle introduction to many of the same subjects, I recommend the following book:\\
+	\begin{enumerate}
+		\item[] \textit{An introduction to statistical learning} by \it{Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani}
+		(\href{https://www.statlearning.com/}{Link})
+	\end{enumerate}
+
+}
+
+\frame{
+	\frametitle{Prerequisites/What I expect that you know}
+
+	\begin{itemize}
+		\item Linear algebra and multivariate calculus
+		\item Probability and statistics
+		\item Programming in Python (NumPy, pandas, matplotlib)
+		\item Object oriented programming
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Mini project}
+
+\begin{itemize}
+	\item You will work on a mini project in groups of 3 students.
+	\item The mini project will be a small-scale project where you will apply the methods you learn in the course to a real-world problem.
+	\item All the groups can book two meetings with me to discuss the project and get some feedback either in person or on Zoom during the semester.
+	\item Present the project for the rest of the class.
+	\item The project will be graded and will count for 30\% of the final grade.
+\end{itemize}
+}
+
+\frame{
+	\frametitle{Course structure}
+	\begin{itemize}
+		\item Traditional lectures will only be used to a small extent in GRA4160.
+		\item Often I will show a few slides to introduce a topic, but the main part of the lectures will be spent on working through examples and exercises.
+		\item I will usually provide two notebooks with material and one notebook with an exercises that we will work on during the lectures.
+		\item These notebooks will be available on itslearning before the class and I expect that you have read through them before we meet.
+		\item After (or during) the lecture I will provide a solutions to the exercises.
+	\end{itemize}
+}
+
+
+\frame{
+	\frametitle{You?}
+	\begin{itemize}
+		\item Do you have any specific career goals in mind?
+		\pause
+		\item What do you hope to learn from this course?
+		\pause
+		\item Do you have any specific questions about the course structure?
+	\end{itemize}
+}
+
+	\frame{
+		\frametitle{Plan for today}
+
+	\underline{\bf Introduction and data preprocessing}
+
+		\begin{itemize}
+			\item Data preprocessing is a very important part of any data science project.
+			\item We will have to use some type of preprocessing in almost every project we do.
+			\item In this lecture we will go through some of the most common preprocessing techniques and how to implement them in Python.
+		\end{itemize}
+
+		\bigskip
+		\pause
+
+	Material:\\
+         \begin{itemize}
+             \item Notebooks: \texttt{01\_Intro\_to\_GRA4160.ipynb}, \texttt{02\_Data\_preprocessing.ipynb}
+             \item Exercise: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
+         \end{itemize}
+	}
+
+\frame{
+	\frametitle{Scikit-learn}
+
+	\url{https://scikit-learn.org/stable/}\\
+
+}
+
+\frame{
+	\frametitle{Keras}
+
+	\url{https://keras.io/}\\
+}
+
+\frame{
+	\frametitle{Conda virtual environments}
+
+	\begin{itemize}
+			\item Conda is a package manager that can be used to create virtual environments.
+			\item A virtual environment is a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
+			\item Virtual environments are used to isolate different projects from each other.
+			\item This is useful because different projects may require different versions of the same package.
+	\end{itemize}
+
+	\pause
+	My setup: Environment called \texttt{GRA4160}\\
+	\begin{itemize}
+		\item Python 3.10
+		\item Jupyter
+		\item Scikit-learn
+		\item Pandas
+		\item Matplotlib and Seaborn
+	\end{itemize}
+
+	I have not installed Keras and Tensorflow in my environment.
+	I will create a new environment for neural networks later.
+
+
+}
+
+
+
+
+\end{document}
