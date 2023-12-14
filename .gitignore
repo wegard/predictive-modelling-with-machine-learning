@@ -171,4 +171,8 @@ cython_debug/
 *.lof
 *.lot
 *.out
+*.toc
+*.pdf
+*.fls 
+*.fdb_latexmk
 out/
