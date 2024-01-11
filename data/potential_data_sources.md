@@ -1,0 +1,9 @@
+There are several open datasets that can be used for consumer segmentation. Here are a few examples:
+
+Online Retail Data Set: This dataset contains transactional data from an online retailer based in the UK, and can be used for customer segmentation and market basket analysis. It includes customer ID, product description, quantity, and transaction date, among other variables. The dataset can be found on the UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Online+Retail.
+
+Mall Customer Segmentation Data: This dataset contains information on customers of a mall, including gender, age, annual income, and spending score, which is a measure of how much a customer spends on a scale from 1 to 100. The dataset can be found on Kaggle: https://www.kaggle.com/vjchoudhary7/customer-segmentation-tutorial-in-python.
+
+Telco Customer Churn Dataset: This dataset contains information on customers of a telecommunications company, including demographic information, services used, and whether the customer churned or not. It can be used for customer segmentation and churn prediction. The dataset can be found on Kaggle: https://www.kaggle.com/blastchar/telco-customer-churn.
+
+Bank Marketing Data Set: This dataset contains information on customers of a Portuguese bank, including demographic information, account information, and the outcome of a marketing campaign (whether the customer subscribed to a term deposit or not). It can be used for customer segmentation and marketing analytics. The dataset can be found on the UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Bank+Marketing.
