@@ -1,0 +1,103 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+%\documentclass[handout, aspectratio=169]{beamer} % for handouts
+
+\usetheme{bi}
+
+\title{Lecture 2:\\ Machine learning basics and supervised learning}
+\institute{GRA4160: Predictive Modelling with Machine Learning}
+\date{January 18th 2023}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+	\frametitle{Plan for today:}
+	\begin{enumerate}
+		\item Machine learning basics
+		\item Linear regression
+		\item Supervised learning with $k$-nearest neighbors
+		\item Exercise: Spam filtering with naive Bayes
+	\end{enumerate}
+}
+
+\frame{
+	\frametitle{Machine learning basics}
+	\begin{itemize}
+		\item Machine learning is a set of methods for teaching computers to learn from data, without being explicitly programmed.
+		\pause
+		\item There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.
+		\pause
+		\item \textbf{Supervised learning} algorithms are trained on labeled data, and are used to make predictions on new, unseen data.
+		\pause
+		\item \textbf{Unsupervised learning} algorithms are trained on unlabeled data, and are used to find patterns or structure in the data.
+		\pause
+		\item \textbf{Reinforcement learning} is a type of machine learning that involves training agents to make decisions in an environment, with the goal of maximizing a reward signal.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Supervised learning}
+	\begin{itemize}
+		\item The goal of supervised learning is to make predictions on new, unseen data based on the patterns learned from the training data.
+		\pause
+		\item The model is given input-output pairs and learns to map inputs to the corresponding outputs.
+		\pause
+		\item Supervised learning algorithms include \textbf{linear regression}, \textbf{$k$-nearest neighbors}, \textbf{decision trees}, and \textbf{neural networks}.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Linear regression}
+	\begin{itemize}
+		\item Used to \textbf{predict} a continuous-valued output.
+		\pause
+		\item Also used extensively for \textbf{inference}, which is the process of using observations to draw conclusions or make judgments about a population or a probability distribution.
+		\pause
+		\item \textbf{Parametric} model, meaning that it has a fixed number of parameters that are learned from the training data.
+		\pause
+		\item The goal of linear regression is to find the parameters that minimize the mean squared error between the predictions and the true values.
+		\pause
+		\item Ordinary least squares (OLS) is a specific algorithm for estimating the parameters of a linear regression model.
+		\pause
+		\item OLS is \textbf{BLUE}, which stands for \textit{best linear unbiased estimator}.
+		The OLS method of estimating the parameters of a linear regression model is the best linear unbiased estimator \textbf{under certain assumptions}.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Supervised learning with $k$-nearest neighbors}
+	\begin{itemize}
+		\item $k$-nearest neighbors (kNN) is an algorithm used for both classification and regression.
+		\pause
+		\item It finds the $k$-number of closest data points in the feature space to a new data point and classifies it based on the majority class of its $k$-nearest neighbors.
+		\pause
+        \item The value of $k$ is a user-specified parameter, and a common choice is k=5 or k=10.
+		\pause
+		\item kNN algorithm is a \textbf{non-parametric} method, means it doesn't make any assumptions on the underlying data distribution.
+		\pause
+		\item One of the main advantage of using kNN is that it's simple to understand and easy to implement, also it's often used as a benchmark for more complex algorithms.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Naive Bayes}
+	\begin{itemize}
+		\item Used for classification tasks.
+		\pause
+		\item It's based on Bayes' theorem, which describes the probability of an event based on prior knowledge of conditions that might be related to the event.
+		\pause
+		\item The Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
+		\pause
+		\item This assumption is called the \textbf{naive} or \textbf{independence} assumption.
+		\pause
+		\item We will use the Naive Bayes classifier to build a spam filter, and the Naive Bayes assumption will be violated since the words used in messages is not independent.
+		\pause
+		\item However, the Naive Bayes classifier is still a good model for spam filtering, and it's often used as a benchmark for more complex algorithms.
+	\end{itemize}
+}
+
+\end{document}
