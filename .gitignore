@@ -176,3 +176,6 @@ cython_debug/
 *.fls 
 *.fdb_latexmk
 out/
+
+# Folders to ignore
+figures_dalle/
