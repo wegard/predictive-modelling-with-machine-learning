@@ -25,79 +25,91 @@
 }
 
 \frame{
-	\frametitle{Machine learning basics}
+	\frametitle{Exploring the Fundamentals of Machine Learning}
 	\begin{itemize}
-		\item Machine learning is a set of methods for teaching computers to learn from data, without being explicitly programmed.
+		\item Machine learning teaches computers to learn from data, much like how a child learns from experience.
 		\pause
-		\item There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.
+		\item Three main types: Supervised, Unsupervised, and Reinforcement Learning.
 		\pause
-		\item \textbf{Supervised learning} algorithms are trained on labeled data, and are used to make predictions on new, unseen data.
+		\item \textbf{Supervised learning}: Trained on labeled data for predictions. Example: Handwritten digit recognition.
 		\pause
-		\item \textbf{Unsupervised learning} algorithms are trained on unlabeled data, and are used to find patterns or structure in the data.
+		\item \textbf{Unsupervised learning}: Finds patterns in unlabeled data. Example: Customer segmentation.
 		\pause
-		\item \textbf{Reinforcement learning} is a type of machine learning that involves training agents to make decisions in an environment, with the goal of maximizing a reward signal.
+		\item \textbf{Reinforcement learning}: Training agents to make decisions towards a goal. Example: Robot navigation.
 	\end{itemize}
 }
 
 \frame{
-	\frametitle{Supervised learning}
+	\frametitle{Understanding Supervised Learning}
 	\begin{itemize}
-		\item The goal of supervised learning is to make predictions on new, unseen data based on the patterns learned from the training data.
+		\item Supervised learning: Like a student learning from a solved exercise, it predicts new outcomes based on learned patterns.
 		\pause
-		\item The model is given input-output pairs and learns to map inputs to the corresponding outputs.
+		\item It involves input-output pair training, like predicting house prices from their size and location.
 		\pause
-		\item Supervised learning algorithms include \textbf{linear regression}, \textbf{$k$-nearest neighbors}, \textbf{decision trees}, and \textbf{neural networks}.
+		\item Key algorithms include:
+		    \begin{itemize}
+		        \item \textbf{Linear regression}: For continuous output prediction.
+		        \item \textbf{$k$-nearest neighbors}: Classifies based on similarity.
+		        \item \textbf{Decision trees}: Maps decisions and their possible consequences.
+		        \item \textbf{Neural networks}: For complex pattern recognition.
+		    \end{itemize}
 	\end{itemize}
 }
 
+
 \frame{
-	\frametitle{Linear regression}
+	\frametitle{Linear Regression: Prediction \& Inference}
 	\begin{itemize}
-		\item Used to \textbf{predict} a continuous-valued output.
+		\item Predicts continuous values, like estimating house prices based on size.
 		\pause
-		\item Also used extensively for \textbf{inference}, which is the process of using observations to draw conclusions or make judgments about a population or a probability distribution.
+		\item Useful for inference: understanding how factors influence outcomes.
 		\pause
-		\item \textbf{Parametric} model, meaning that it has a fixed number of parameters that are learned from the training data.
+		\item A parametric model with fixed parameters representing feature weights and a bias term (intercept).
 		\pause
-		\item The goal of linear regression is to find the parameters that minimize the mean squared error between the predictions and the true values.
+		\item Aims to minimize the mean squared error for the best prediction accuracy.
 		\pause
-		\item Ordinary least squares (OLS) is a specific algorithm for estimating the parameters of a linear regression model.
+		\item Ordinary least squares (OLS): A method to find the best-fit line through data.
 		\pause
-		\item OLS is \textbf{BLUE}, which stands for \textit{best linear unbiased estimator}.
-		The OLS method of estimating the parameters of a linear regression model is the best linear unbiased estimator \textbf{under certain assumptions}.
+		\item OLS is BLUE (best linear unbiased estimator) under conditions like no multicollinearity.
 	\end{itemize}
 }
 
+
 \frame{
-	\frametitle{Supervised learning with $k$-nearest neighbors}
+	\frametitle{Diving into $k$-Nearest Neighbors in Supervised Learning}
 	\begin{itemize}
-		\item $k$-nearest neighbors (kNN) is an algorithm used for both classification and regression.
+		\item kNN: A versatile tool for classification and regression, akin to categorizing based on nearest examples.
 		\pause
-		\item It finds the $k$-number of closest data points in the feature space to a new data point and classifies it based on the majority class of its $k$-nearest neighbors.
+		\item Works by identifying the $k$ nearest data points to a new point and predicting its class or value accordingly.
 		\pause
-        \item The value of $k$ is a user-specified parameter, and a common choice is k=5 or k=10.
+        \item Choice of $k$ (like 5 or 10) influences model accuracy and complexity.
 		\pause
-		\item kNN algorithm is a \textbf{non-parametric} method, means it doesn't make any assumptions on the underlying data distribution.
+		\item A non-parametric method, adaptable to different data distributions. 
 		\pause
-		\item One of the main advantage of using kNN is that it's simple to understand and easy to implement, also it's often used as a benchmark for more complex algorithms.
+		\item Simple and effective, serving as a benchmark for more complex models, but slower on large datasets.
 	\end{itemize}
 }
 
+
 \frame{
-	\frametitle{Naive Bayes}
+	\frametitle{Naive Bayes: A Fundamental Classifier}
+	\textbf{Bayes' Theorem Formula}:
+   \[ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)} \]
 	\begin{itemize}
-		\item Used for classification tasks.
+		\item A classifier used for tasks like identifying spam emails.
 		\pause
-		\item It's based on Bayes' theorem, which describes the probability of an event based on prior knowledge of conditions that might be related to the event.
+		\item Based on Bayes' theorem, which relates the probability of an event with prior knowledge.
 		\pause
-		\item The Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
+		\item Assumes features in a class are independent, known as the \textbf{naive} assumption.
 		\pause
-		\item This assumption is called the \textbf{naive} or \textbf{independence} assumption.
+		\item This independence is often not true (like in spam emails), but Naive Bayes still performs well.
 		\pause
-		\item We will use the Naive Bayes classifier to build a spam filter, and the Naive Bayes assumption will be violated since the words used in messages is not independent.
+		\item We'll explore its application in spam filtering, demonstrating its effectiveness despite simplistic assumptions.
 		\pause
-		\item However, the Naive Bayes classifier is still a good model for spam filtering, and it's often used as a benchmark for more complex algorithms.
+		\item Valued for its simplicity and speed, often used as a benchmark for more complex models.
 	\end{itemize}
+
 }
+
 
 \end{document}
