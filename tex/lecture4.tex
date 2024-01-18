@@ -1,0 +1,145 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{bi}
+
+\title{Lecture 4:\\ Classification analysis}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{February 1nd 2023}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+	\frametitle{Progress on mini project}
+
+	\begin{itemize}
+		\item Presentation: March 30th
+		\pause
+		\bigskip
+		\item[] \underline{\bf Some possible topics}:
+		\smallskip
+		\item \textbf{Image Classification}: Train a model or models to classify images into different categories, such as animals, objects, etc. using a public dataset like: \href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR} or \href{http://yann.lecun.com/exdb/mnist/}{MNIST}.
+		\item \textbf{Sentiment Analysis}: Train a classifier to predict the sentiment (positive, negative, neutral) of a piece of text (e.g., movie reviews, product reviews, etc.) using a public dataset like \href{https://ai.stanford.edu/~amaas/data/sentiment/}{Large Movie Review Dataset} or \href{https://www.yelp.com/dataset}{Yelp} reviews.
+		\item \textbf{Macroeconomic forecasting}: Predict macro variables with ML methods such as random forest or neural nets. One possible dataset is \href{https://research.stlouisfed.org/econ/mccracken/fred-databases/}{FRED-MD}.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Plan for today:}
+	\begin{itemize}
+		\item Logistic regression
+		\item Decision trees
+		\item Exercise: Recognizing handwritten digits
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Logistic regression}
+	\begin{itemize}
+		\item Model for binary classification (e.g. yes/no, success/failure, etc.)
+		\pause
+		\item Assumes a linear relationship between the predictors and the log odds of the outcome:
+		$$\log\left(\frac{p}{1-p}\right)$$
+		\pause
+		%\item Using the log odds instead of the probabilities themselves allows for more stable and well-behaved estimates
+		\item The logarithmic transformation ensures that the predicted probabilities remain within the range of 0 and 1
+		\pause
+		\item Can be extended to multiclass classification (Multinomial logistic regression)
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{The logistic function}
+	\begin{itemize}
+		\item Also known as the sigmoid function
+		\item Used to model the log odds as a function of the predictors
+		\item The logistic function is a function that maps the real numbers to the interval $[0,1]$
+	\end{itemize}
+	\pause
+	$$f(z) = \frac{1}{1 + e^{-z}}$$
+	The logistic function has the property that as x approaches positive infinity, the output approaches 1, and as x approaches negative infinity, the output approaches 0.
+}
+
+\frame{
+	\frametitle{Relation between the log odds, the probability and the sigmoid}
+	The log odds of the outcome are modeled as a linear function of the predictor variables:
+	\[ \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1x_1 +\beta_2x_2 + \cdots + \beta_kx_k = z \]
+	\pause
+	Taking exponents and rearanging gives:
+	\[\frac{p}{1-p} = e^{z} \Rightarrow p = e^z - pe^z \Rightarrow p(1+e^z) = e^z \]
+	\pause
+	Dividing by $1 + e^z$ gives the sigmoid function:
+	\[p = \frac{e^{z}}{1+e^{z}} = \frac{1}{1/e^z + e^z/e^z} = \frac{1}{1+e^{-z}}\]
+}
+
+\frame{
+	\frametitle{Decision trees}
+	\begin{itemize}
+		\item Decision trees are a non-parametric method
+		\pause
+		\item Starts from a single node (the root node) and splits the data into subsets based on certain conditions until it reaches a set of terminal nodes (also known as leaves)
+		\pause
+		\item Each split in the tree is based on a feature and a threshold value
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Training a decision tree}
+	\begin{itemize}
+		\item The tree is constructed recursively (built through repeated sub-division of the data set into smaller subsets)
+		\pause
+		\item At each step of the recursion, the algorithm selects the feature and threshold value that result in the best split of the data, as measured by some impurity metric (e.g., Gini impurity, entropy)
+		\pause
+		\item The final decision tree is constructed by repeated splits and is represented as a graph, where each internal node represents a test on a feature, each branch represents the outcome of the test, and each leaf node represents a prediction.
+		\pause
+		\item The recursion stops when a certain stopping criterion is met, for example, when the number of samples in a node is smaller than a minimum number of samples required, or when the maximum tree depth is reached.
+	\end{itemize}
+}
+\frame{
+	\frametitle{Gini index}
+Criterion for evaluating and finding the best splits in decision trees
+	\begin{itemize}
+		\item The Gini index is a measure of impurity or disorder in a set of data
+		\pause
+		\item Gives the probability of misclassifying a randomly chosen element
+		\pause
+		\item The smaller the Gini index, the more pure the split, meaning that the two sets are made up of more homogeneous classes.
+		\pause
+		\item When building a decision tree, the algorithm will calculate the Gini index for each possible split at each node and select the split with the smallest Gini index, which is considered the best split because it results in the most homogeneous sets.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Entropy}
+Criterion for evaluating and finding the best splits in decision trees
+	\begin{itemize}
+		\item Entropy is a measure of uncertainty
+		\pause
+		\item Criterion for evaluating splits in decision trees
+		\pause
+		\item The greater the entropy, the more mixed the classes in the set, meaning that the set is more disordered
+		\pause
+		\item The goal of splitting the data is to reduce the entropy and increase the homogeneity of the sets, which results in a more accurate and stable decision tree
+	\end{itemize}
+}
+
+%\frame{
+%	\frametitle{Information gain}
+%	\begin{itemize}
+%		\item Information gain is the difference between the entropy of the parent node and the weighted average of the entropy of the child nodes
+%		\item Criterion for evaluating splits in decision trees
+%	\end{itemize}
+%}
+
+\frame{
+	\frametitle{Exercise: Recognizing handwritten digits}
+	\begin{itemize}
+		%\item Use the digits dataset from scikit-learn
+		\item Use different classification methods to classify the number from an image of a handwritten digit
+	\end{itemize}
+}
+\end{document}

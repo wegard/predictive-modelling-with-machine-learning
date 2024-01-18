@@ -1,0 +1,113 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{bi}
+
+\title{Lecture 6:\\ Unsupervised learning}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{February 23rd 2023}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+	\frametitle{Plan for today:}
+	\begin{enumerate}
+		\item Introduction to clustering
+		\item Dimensionality reduction
+		\item Principal component analysis
+		\item K-means clustering
+	\end{enumerate}
+}
+
+\frame{
+	\frametitle{Introduction to clustering}
+	\begin{itemize}
+		\item Clustering is a type of unsupervised learning, where the goal is to group similar objects together based on their features or attributes
+		\pause
+		\item We don't have any predefined labels or categories for the objects
+		\pause
+		\item The goal is to find natural groupings in the data
+		\pause
+		\item Can be used for a variety of applications, such as customer segmentation, image segmentation, anomaly detection, and recommendation systems
+		\pause
+		\item Clustering performance can be evaluated using metrics such as the within-cluster sum of squares (WCSS) and silhouette coefficient
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{}
+	\begin{center}
+	{\Huge Dimeensionality reduction}
+	\end{center}
+}
+
+\frame{
+	\frametitle{Dimeensionality reduction}
+	\begin{itemize}
+		\item We have seen Latent Discriminant Analysis (LDA) a previous lecture, today we will look at Principal Component Analysis (PCA)
+		\pause
+		\item Dimensionality reduction is a type of unsupervised learning, where the goal is to reduce the number of features in a dataset
+		\pause
+		\item The goal is to find a lower-dimensional representation of the data that preserves as much information as possible
+		\pause
+		\item Can be used for a variety of applications, such as data visualization, feature selection, and noise reduction
+		\pause
+		\item Dimensionality reduction performance can be evaluated using metrics such as the explained variance ratio
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{}
+	\begin{center}
+	{\Huge Principal component analysis}
+	\end{center}
+}
+
+\frame{
+	\frametitle{Principal component analysis}
+	\begin{itemize}
+		\item Principal component analysis (PCA) is a dimensionality reduction technique that can be used to reduce the dimensionality of a dataset while preserving as much information as possible
+		\pause
+		\item PCA is a linear transformation that projects the data onto a lower-dimensional subspace
+		\pause
+		\item The principal components are the directions of maximum variance in the data
+		\pause
+		\item The first principal component is the direction of maximum variance, the second principal component is the direction of maximum variance that is orthogonal to the first principal component, and so on
+		\pause
+		\item The explained variance ratio is the ratio of the variance of a principal component to the total variance
+		\pause
+		\item The explained variance ratio can be used to determine the number of principal components to keep
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{}
+	\begin{center}
+	{\Huge K-means clustering}
+	\end{center}
+}
+
+\frame{
+	\frametitle{K-means clustering}
+	\begin{itemize}
+		\item K-means clustering is an iterative clustering algorithm that can be used to find natural groupings in a dataset
+		\pause
+		\item The algorithm starts by randomly assigning each observation to a cluster
+		\pause
+		\item The algorithm then iteratively updates the cluster centers and assigns each observation to the nearest cluster center
+		\pause
+		\item The algorithm stops when the cluster assignments no longer change
+		\pause
+		\item The within-cluster sum of squares (WCSS) is the sum of the squared distances between each observation and its cluster center
+		\pause
+		\item The silhouette coefficient is a measure of how well an observation is clustered
+		\pause
+		\item The silhouette coefficient ranges from -1 to 1, where a value close to 1 indicates that the observation is well clustered
+	\end{itemize}
+}
+
+\end{document}
