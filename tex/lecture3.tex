@@ -23,20 +23,71 @@
 	\end{enumerate}
 }
 
+%\frame{
+%	\frametitle{Linear discriminant analysis}
+%	\begin{itemize}
+%		\item Linear discriminant analysis (LDA) is a classification method
+%		\item LDA finds a linear combination of the features that maximizes the separation between classes
+%		\item Assumptions for LDA:
+%		\begin{enumerate}
+%			\item The classes are normally distributed
+%			\item The classes have the same covariance matrix
+%			\item The classes are linearly separable
+%		\end{enumerate}
+%		\item We will look at how this can be implemented in Scikit-learn
+%	\end{itemize}
+%}
+
 \frame{
-	\frametitle{Linear discriminant analysis}
+	\frametitle{Introduction to Linear Discriminant Analysis}
 	\begin{itemize}
-		\item Linear discriminant analysis (LDA) is a classification method
-		\item LDA finds a linear combination of the features that maximizes the separation between classes
-		\item Assumptions for LDA:
-		\begin{enumerate}
-			\item The classes are normally distributed
-			\item The classes have the same covariance matrix
-			\item The classes are linearly separable
-		\end{enumerate}
-		\item We will look at how this can be implemented in Scikit-learn
+		\item Linear Discriminant Analysis (LDA) is a classification and dimensionality reduction method.
+		\item Primarily used for pattern classification and machine learning applications.
+		\item LDA finds a linear combination of features that maximizes the separation between multiple classes.
+		\item Key Applications:
+		\begin{itemize}
+			\item Face recognition
+			\item Medical diagnosis
+			\item Market research
+		\end{itemize}
 	\end{itemize}
 }
+
+\frame{
+	\frametitle{Mathematical Foundation and Assumptions of LDA}
+	\begin{itemize}
+		\item Objective of LDA: Maximize the ratio of between-class variance to the within-class variance.
+		\item Assumptions for LDA:
+		\begin{enumerate}
+			\item Classes follow a Gaussian (normal) distribution.
+			\item Classes have identical covariance matrices.
+			\item Features are statistically independent.
+		\end{enumerate}
+		\item Mathematically, LDA seeks to find a projection \( \mathbf{w} \) that maximizes:
+		\[ \mathbf{w} = \arg \max_{\mathbf{w}} \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}} \]
+		where \( \mathbf{S}_B \) is the between-class scatter matrix, and \( \mathbf{S}_W \) is the within-class scatter matrix.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Implementing LDA in Scikit-learn}
+	\begin{itemize}
+		\item Scikit-learn provides a straightforward way to implement LDA.
+		\item Basic steps in Scikit-learn:
+		\begin{enumerate}
+			\item Import the LDA module: \\ \texttt{from sklearn.discriminant\_analysis import LinearDiscriminantAnalysis}
+			\item Fit the model: \\ \texttt{lda = LinearDiscriminantAnalysis().fit(X, y)}
+			\item Predict class labels: \\ \texttt{predictions = lda.predict(X\_test)}
+		\end{enumerate}
+		\item Example Use Case:
+		\begin{itemize}
+			\item Suppose we have a dataset with two classes and we use LDA for classification.
+			\item After training, LDA will provide a linear decision boundary between the classes.
+		\end{itemize}
+	\end{itemize}
+}
+
+
 
 \frame{
 	\frametitle{Regularised regression analysis}
@@ -102,15 +153,15 @@
 	\[J^{\text{elastic net}}(\mathbf{\beta}) = \frac{1}{2n}\sum_i\left(y_i - \beta_0 - \sum_j\beta_jx_{ij}\right)^2 + \lambda_{e} \left( (1-\alpha)\sum_j \beta_j^2 + \alpha \sum_j|\beta_j|\right)\]
 }
 
-\frame{
-	\frametitle{Exercise: Predicting house prices}
-
-	\begin{enumerate}
-		\item Do some data cleaning and preprosessing
-   		\item Train a model for predicting the house price using a linear, ridge and lasso model.
-		\item Identify the most important features for the model
-		\item Experiment with how changing the inputs affect the predicted price.
-	\end{enumerate}
-}
+%\frame{
+%	\frametitle{Exercise: Predicting house prices}
+%
+%	\begin{enumerate}
+%		\item Do some data cleaning and preprosessing
+%  		\item Train a model for predicting the house price using a linear, ridge and lasso model.
+%		\item Identify the most important features for the model
+%		\item Experiment with how changing the inputs affect the predicted price.
+%	\end{enumerate}
+%}
 
 \end{document}
