@@ -157,6 +157,27 @@
 	\end{itemize}
 }
 
+\frame{
+	\frametitle{Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC)}
+
+	\begin{itemize}
+		\item \textbf{Akaike Information Criterion (AIC)}:
+		      \begin{itemize}
+			      \item Focuses on the trade-off between the goodness of fit and model complexity.
+			      \item Lower AIC values indicate a better model.
+			      \item Calculated as: $AIC = 2k - 2ln(L)$, where $k$ is the number of parameters, and $L$ is the likelihood of the model.
+		      \end{itemize}
+		      \pause
+		\item \textbf{Bayesian Information Criterion (BIC)}:
+		      \begin{itemize}
+			      \item Similar to AIC but includes a stronger penalty for models with more parameters.
+			      \item Favors simpler models more than AIC.
+			      \item Calculated as: $BIC = ln(n)k - 2ln(L)$, where $n$ is the sample size.
+		      \end{itemize}
+		      \pause
+		\item Both AIC and BIC are used for model selection, but they have different approaches and interpretations.
+	\end{itemize}
+}
 
 \frame{
 	\frametitle{}
@@ -193,11 +214,10 @@
 
 \frame{
 	\frametitle{The Bias-Variance Trade-off}
-
 	\begin{itemize}
 		\item A fundamental concept in machine learning that relates to the performance of a model on new data.
 		      \pause
-		\item Bias refers to the error due to overly simplistic assumptions in the learning algorithm, leading to systematic deviation from the true values (underfitting).
+		\item Bias refers to the error due to overly simplistic assumptions in the learning algorithm, leading to systematic deviation from the true values (underfitting)
 		      \pause
 		\item Variance refers to the error due to too much complexity in the learning algorithm, causing sensitivity to fluctuations in the training data (overfitting).
 		      \pause
@@ -210,7 +230,7 @@
 }
 
 \frame{
-	\frametitle{High bias and high variance}
+	\frametitle{High bias and high-variance}
 	\begin{itemize}
 		\item High variance refers to a model that overfits the training data
 		\item High variance can be addressed by simplifying the model or by adding regularization techniques
