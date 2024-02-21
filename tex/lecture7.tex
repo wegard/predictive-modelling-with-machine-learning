@@ -1,0 +1,147 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{bi}
+
+\title{Lecture 7:\\ Ensemble methods}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{February 22nd 2023}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+	\frametitle{Plan for today:}
+	\begin{itemize}
+		\item Introduction to ensemble methods
+		\item Bagging
+		\item Boosting
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Ensemble methods}
+	\begin{itemize}
+		\item A family of techniques that involve training multiple models and combining their predictions to form a more accurate and robust model
+		\pause
+		\item Can be used with a variety of models, such as decision trees, neural networks, and support vector machines
+		\pause
+		\item The main idea is that by combining the predictions of multiple models, the ensemble can reduce the variance of the model and improve its generalization performance
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Types of ensample methods}
+	\begin{itemize}
+		\item Bagging (Random Forests and Extra Trees)
+		\pause
+		\item Boosting (Gradient boosting, AdaBoost, and XGBoost)
+		\pause
+		\item Bayesian model averaging
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Bagging}
+	\begin{itemize}
+		\item Bagging is short for for Bootstrap AGGregatING
+		\pause
+		\item The idea is to train multiple instances of a base model on different subsets of the training data, and then combining their predictions to form a final prediction
+		\pause
+		\item The subsets of data are created using bootstrap sampling, which means that each subset is a random sample of the original training data with replacement
+		\pause
+		\item Can be used with a variety of base models, such as decision trees, neural networks, and support vector machines
+		\pause
+		\item The main idea behind Bagging is that by training multiple models on different subsets of the data, the ensemble can reduce the variance of the model and improve its generalization performance.
+	\end{itemize}
+}
+
+\begin{frame}{Bootstrap in Machine Learning}
+\begin{itemize}
+\item Bootstrap is a resampling technique used in machine learning to estimate the sampling distribution of a statistic or to train multiple models on a limited dataset
+\pause
+\item The basic idea behind bootstrap is to repeatedly sample with replacement from the original dataset to create new, synthetic datasets of the same size
+\pause
+\item By training a model on each of these synthetic datasets and aggregating their results, we can estimate the performance of the model on the original dataset and obtain confidence intervals for the model's parameters or predictions.
+\pause
+\item Bootstrap can be especially useful in situations where the dataset is small or when it is difficult to obtain additional data for training.
+\end{itemize}
+\end{frame}
+
+\frame{
+	\frametitle{How does bagging work?}
+	\begin{itemize}
+		\item Create multiple bootstrap samples of the training data
+		\pause
+		\item Train a base model on each bootstrap sample
+		\pause
+		\item Use each trained model to make predictions on the testing data
+		\pause
+		\item Combine the predictions from all the models to form a final prediction
+		\pause
+		\item The final prediction can be obtained using various methods, such as majority voting or weighted averaging
+	\end{itemize}
+}
+
+\section{Boosting}
+
+\frame{
+	\frametitle{Boosting}
+	\begin{itemize}
+		\item A technique that trains multiple instances of a base model sequentially, with each subsequent model focusing on the samples that the previous models got wrong
+		\pause
+		\item Assign weights to each training example based on its previous classification error
+		\pause
+		\item Misclassified examples are assigned higher weights, and correctly classified examples are assigned lower weights
+		\pause
+		\item Can be used with a variety of base models, such as decision trees, neural networks, and support vector machines
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{How does boosting work?}
+	\begin{enumerate}
+		\item Initialize the weights of each training example to be equal
+		\pause
+		\item Train a base model on the training data using the current weights
+		\pause
+		\item Evaluate the performance of the model on the training data
+		\pause
+		\item Increase the weights of the misclassified examples and decrease the weights of the correctly classified examples
+		\pause
+		\item Repeat steps 2--4 until a stopping criterion is met, such as a maximum number of iterations or a minimum improvement in performance
+		\pause
+		\item The final prediction is obtained by combining the predictions of all the models, with each model's prediction weighted according to its performance on the training data
+	\end{enumerate}
+}
+
+\frame{
+	\frametitle{AdaBoost and XGBoost}
+	\begin{itemize}
+		\item AdaBoost stands for Adaptive Boosting
+		\pause
+		\item XGBoost stands for eXtreme Gradient Boosting
+		\pause
+		\item AdaBoost and XGBoost is a boosting algorithm that uses decision trees as the base model
+		\pause
+		\item Used in a variety of applications, such as face detection and speech recognition
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{XGBoost has several other important features:}
+	\begin{enumerate}
+		\item Regularization:  includes L1 and L2 regularization terms in the objective function to prevent overfitting
+		\pause
+		\item Tree pruning: prunes the trees during the construction process to avoid overfitting and improve generalization
+		\pause
+		\item Missing values handling: has a built-in mechanism to handle missing values in the input data
+		\pause
+		\item Cross-validation: includes a built-in mechanism for performing cross-validation to tune the model hyperparameters
+	\end{enumerate}
+}
+
+\end{document}
