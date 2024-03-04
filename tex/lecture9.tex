@@ -5,9 +5,8 @@
 \usetheme{bi}
 
 \title{Lecture 9:\\ Neural networks I}
-\institute{GRA4160: Advanced Regression and Classification Analysis,\\
-Ensemble Methods and Neural Networks}
-\date{March 16th 2023}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{March 7th 2024}
 \author{Vegard H\o ghaug Larsen}
 
 \begin{document}
@@ -29,11 +28,11 @@ Ensemble Methods and Neural Networks}
 	\frametitle{Introduction to neural networks}
 	\begin{itemize}
 		\item A neural network is a computational system that is inspired by the structure and function of the human brain
-		\pause
-		\item It consists of a large number of interconnected processing units, called neurons, that work together to solve complex problems
-		\pause
+		      \pause
+		\item It consists of many interconnected processing units, called neurons, that work together to solve complex problems
+		      \pause
 		\item Each neuron receives input from other neurons, processes that input, and then produces an output that is sent to other neurons
-		\pause
+		      \pause
 		\item By combining and processing information in this way, a neural network can learn to recognize patterns and make predictions
 	\end{itemize}
 }
@@ -43,20 +42,20 @@ Ensemble Methods and Neural Networks}
 
 	\begin{itemize}
 		\item A single layer neural network is a model that takes a set of $p$ input variables $X=(X_1,X_2,...,X_p)$
-		\pause
+		      \pause
 		\item The NN is a nonlinear function $f(X)$ that maps the input variables to an output variable $Y$
-		\pause
+		      \pause
 		\item The weights $w_1,w_2,...,w_p$ are the parameters of the model, controlling the strength of the relationship between the input variables and the output variable
-		\pause
+		      \pause
 		\item Given a nonlinear activation function $g(X)$, the model can be written as a sum of $K$ activation functions
-		\end{itemize}
+	\end{itemize}
 	\[ Y = f(X) = \beta_0 + \sum_{k=1}^K\beta_k g\left(w_{k0} + \sum_j^pw_{kj}X_j\right) \]
 }
 
 \frame{
-	\frametitle{Neural network with a single hidden layer}
-	\includegraphics[scale=0.19]{figures/single_layer_NN.png}\\
-	{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
+\frametitle{Neural network with a single hidden layer}
+\includegraphics[scale=0.19]{figures/single_layer_NN.png}\\
+{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
 }
 
 \frame{
@@ -64,10 +63,10 @@ Ensemble Methods and Neural Networks}
 	The network is built up in two steps:
 	\begin{enumerate}
 		\item Specify the number of hidden units $K$ and the activation function $g(X)$ and we can calculate $K$ activations in the hidden layer as
-		\[A_k = h_k(X) = g\left(w_{k0} + \sum_j^pw_{kj}X_j\right) \]
-		\pause
+		      \[A_k = h_k(X) = g\left(w_{k0} + \sum_j^pw_{kj}X_j\right) \]
+		      \pause
 		\item The $K$ activations feed into the output layer, which is a linear function of the activations
-		\[ f(X) = \beta_0 + \sum_{k=1}^K\beta_k A_k \]
+		      \[ f(X) = \beta_0 + \sum_{k=1}^K\beta_k A_k \]
 	\end{enumerate}
 }
 
@@ -76,20 +75,20 @@ Ensemble Methods and Neural Networks}
 	Activation functions are used to introduce non-linearity and enable the network to learn complex patterns in the input data. Here are some common activation functions used in neural networks:
 	\begin{enumerate}
 		\item The sigmoid function (we also used this for logistic regression)
-		\[ g(z) = \frac{1}{1+e^{-z}} \]
-		\pause
+		      \[ g(z) = \frac{1}{1+e^{-z}} \]
+		      \pause
 		\item Rectified Linear Unit (ReLU)
-		\[ g(z) = \max(0, z) \]
-		\pause
+		      \[ g(z) = \max(0, z) \]
+		      \pause
 		\item Softmax
-		\[ g(z_i) = \frac{\exp(z_i)}{\sum(\exp(z_j))} \]
+		      \[ g(z_i) = \frac{\exp(z_i)}{\sum(\exp(z_j))} \]
 	\end{enumerate}
 }
 
 \frame{
-	\frametitle{Sigmoid vs ReLU}
-	\includegraphics[scale=0.35]{figures/sigmoid_vs_relu.png}\\
-	{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
+\frametitle{Sigmoid vs ReLU}
+\includegraphics[scale=0.35]{figures/sigmoid_vs_relu.png}\\
+{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
 }
 
 %\frame{
@@ -131,7 +130,7 @@ Ensemble Methods and Neural Networks}
 
 	\[ \min_{w_k,\beta} \frac{1}{2}\sum_{i=1}^n \left( y_i - f(x_i) \right)^2 \]
 
-where
+	where
 
 	\[ f(X) = \beta_0 + \sum_{k=1}^K\beta_k g\left(w_{k0} + \sum_j^p w_{kj}X_j\right) \]
 
@@ -144,34 +143,34 @@ where
 	\frametitle{Gradient descent}
 	We can use gradient descent to find the optimal parameters. Let´s put all the parameters in one vector $\theta$ and define the cost function as
 
-		\[ L(\theta) = \frac{1}{2}\sum_{i=1}^n \left( y_i - f_\theta(x_i) \right)^2 \]
+	\[ L(\theta) = \frac{1}{2}\sum_{i=1}^n \left( y_i - f_\theta(x_i) \right)^2 \]
 
 	\pause
 	Then, to find the optimal parameters, we can use gradient descent to minimize the cost function $L(\theta)$ by the following iterative update rule:
 	\begin{enumerate}
 		\item Let $\theta^t$ be a vector of all the parameters in the system at iteration $t$. Start with an initial guess $\theta^0$
-		\pause
+		      \pause
 		\item Update the parameters according to the following rule: $\theta^{t+1} = \theta^t + \delta$, where $\delta$ is a vector that reflects a small change in the parameters such that
-		\[ L(\theta^{t+1})<L(\theta^{t}) \]
+		      \[ L(\theta^{t+1})<L(\theta^{t}) \]
 		\item Repeat until convergence
 	\end{enumerate}
 }
 
 \frame{
-	\frametitle{How do we know how to update the parameters (what is $\delta$)?}
+\frametitle{How do we know how to update the parameters (what is $\delta$)?}
 
-	We need to calculate the gradient of the cost function $L(\theta)$ with respect to the parameters $\theta$:
+We need to calculate the gradient of the cost function $L(\theta)$ with respect to the parameters $\theta$:
 
-	\[ \nabla L(\theta^m) = \left.\frac{\partial L(\theta)}{\partial \theta}\right|_{\theta=\theta^m} = \left.\frac{\partial}{\partial \theta} \frac{1}{2}\sum_{i=1}^n \left( y_i - f_\theta(x_i) \right)^2\right|_{\theta=\theta^m} \]
+\[ \nabla L(\theta^m) = \left.\frac{\partial L(\theta)}{\partial \theta}\right|_{\theta=\theta^m} = \left.\frac{\partial}{\partial \theta} \frac{1}{2}\sum_{i=1}^n \left( y_i - f_\theta(x_i) \right)^2\right|_{\theta=\theta^m} \]
 
-	\pause
-	$\nabla L(\theta^m)$ gives us the directions to move $\theta$ so as to decrease the objective $L(\theta)$\\
-	\pause
-	\smallskip
-	Given a learning rate $\eta$, we can use the gradient to update the parameters as follows:
-	\[ \theta^{t+1} = \theta^t - \eta \nabla L(\theta^t) \]
-	\pause
-	The gradient packs all the partial derivatives into a single vector: $\nabla L = \left[ \frac{\partial L}{\partial \beta_k}, \frac{\partial L}{\partial w_{kj}} \right]^T$
+\pause
+$\nabla L(\theta^m)$ gives us the directions to move $\theta$ so as to decrease the objective $L(\theta)$\\
+\pause
+\smallskip
+Given a learning rate $\eta$, we can use the gradient to update the parameters as follows:
+\[ \theta^{t+1} = \theta^t - \eta \nabla L(\theta^t) \]
+\pause
+The gradient packs all the partial derivatives into a single vector: $\nabla L = \left[ \frac{\partial L}{\partial \beta_k}, \frac{\partial L}{\partial w_{kj}} \right]^T$
 }
 
 \frame{
@@ -184,18 +183,18 @@ where
 	\[ \frac{\partial L_i(\theta)}{\partial \beta_k} = \frac{\partial L_i(\theta)}{\partial f_\theta(x_i)} \cdot \frac{\partial f_\theta(x_i)}{\partial \beta_k} = - (y_i - f_\theta(x_i))\cdot g(z_{ik})\]
 	\[ \frac{\partial Li(\theta)}{\partial w_{kj}} = \frac{\partial L_i(\theta)}{\partial f_\theta(x_i)} \cdot \frac{\partial f_\theta(x_i)}{\partial g(z_{ik})} \cdot \frac{\partial g(z_{ik})}{\partial z_{ik}} \cdot \frac{\partial z_{ik}}{\partial w_{kj}}  = - (y_i - f_\theta(x_i))\cdot\beta_k\cdot g'(z_{ik})x_{ij} \]
 	\pause
-	 We assigns a fraction of the residual, $(y_i - f_\theta(x_i))$, to each of the parameters via the chain rule. This is called backpropagation.
+	We assigns a fraction of the residual, $(y_i - f_\theta(x_i))$, to each of the parameters via the chain rule. This is called backpropagation.
 }
 
 \frame{
 	\frametitle{Stochastic gradient descent (SGD)}
 	\begin{itemize}
 		\item SGD is a method for minimizing a cost function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient
-		\pause
+		      \pause
 		\item In contrast to batch gradient descent, which computes the gradient of the cost function over the entire dataset, SGD computes the gradient on a single training example at a time
-		\pause
+		      \pause
 		\item This makes SGD much faster than batch gradient descent, but it also means that SGD is much noisier
-		\pause
+		      \pause
 		\item The noise can be reduced by averaging the gradients over several training examples
 	\end{itemize}
 }
