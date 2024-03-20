@@ -5,9 +5,8 @@
 \usetheme{bi}
 
 \title{Lecture 10:\\ Neural networks II}
-\institute{GRA4160: Advanced Regression and Classification Analysis,\\
-Ensemble Methods and Neural Networks}
-\date{March 23rd 2023}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{March 21rd 2023}
 \author{Vegard H\o ghaug Larsen}
 
 \begin{document}
@@ -59,111 +58,186 @@ Ensemble Methods and Neural Networks}
 	{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
 }
 
-
 \frame{
-	\frametitle{Optimizers}
-	\begin{enumerate}
-		\item \textbf{Gradient descent}: The simplest algorithm that updates the weights by moving in the direction of the steepest decrease in the loss function, using the full dataset for each update
-		\pause
-		\item \textbf{Stochastic gradient descent}: A variant of Gradient Descent that updates the weights using a small random subset (mini-batch) of the training data which gives faster convergence
-		%\item Mini-batch gradient descent
-		\item \textbf{Momentum}: Adding momentum term to the weight updates, improving convergence by reducing oscillations and accelerating progress in directions with persistent gradients
-		\pause
-		%\item Nesterov momentum
-		\item \textbf{Adagrad}: Adapts the learning rate for each weight based on the sum of squared gradients, allowing for different learning rates for different features
-		\pause
-		\item \textbf{RMSprop}: An improvement over AdaGrad that uses an exponential moving average of squared gradients instead of the cumulative sum, preventing the learning rate from becoming too small
-		\pause
-		\item \textbf{Adaptive Moment Estimation (Adam)}: A popular and efficient optimizer that combines ideas from AdaGrad and RMSProp.
-	\end{enumerate}
+  \frametitle{Optimizers}
+  \begin{itemize}
+    \item \textbf{Gradient Descent}: Updates weights in the direction opposite the gradient, using the entire dataset, which can be computationally intensive for large datasets.
+    \pause
+    \item \textbf{Stochastic Gradient Descent (SGD)}: Updates weights using a single or small number of samples, leading to faster but noisier convergence.
+    \pause
+    \item \textbf{Momentum}: Accelerates SGD in the relevant directions and reduces oscillations, improving efficiency in navigating error surfaces.
+    \pause
+    \item \textbf{Adagrad}: Adapts learning rate for each weight based on past gradients; useful for sparse data but suffers from a continuous decreasing learning rate.
+    \pause
+    \item \textbf{RMSprop}: Modifies Adagrad by using a moving average of squared gradients, preventing the excessively diminishing learning rates.
+    %\pause
+    %\item \textbf{Adaptive Moment Estimation (Adam)}: Combines elements from AdaGrad and RMSProp, using adaptive learning rates for each parameter and keeping track of past gradients.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Weight initialization}
-
-	Weight initialization is the process of assigning initial values to the connection weights in a neural network before training begins
+  \frametitle{Adam Optimizer: Overview}
+  \begin{itemize}
+    \item \textbf{Introduction}: Adam (Adaptive Moment Estimation) is an optimization algorithm that combines the advantages of two other extensions of stochastic gradient descent, namely AdaGrad and RMSprop.
+    \pause
+    \item \textbf{Key Concepts}:
+      \begin{itemize}
+        \item \textit{Adaptive Learning Rates}: Adjusts learning rates based on how frequently a parameter is updated, beneficial for sparse data.
+        \item \textit{Moving Averages}: Utilizes the exponential moving averages of both the gradients (first moment) and squared gradients (second moment).
+      \end{itemize}
+    \pause
+    \item \textbf{Mechanism}:
+      \begin{enumerate}
+        \item Computes the gradients of the loss function with respect to the parameters.
+        \item Calculates the exponential moving averages of the gradients and their squares.
+        \item Adjusts these averages to correct for their initial bias towards zero.
+        \item Updates parameters using these biased-corrected averages, with individual adaptive learning rates.
+      \end{enumerate}
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Importance of weight initialization}
-	\begin{itemize}
-		\item \textbf{Speed of convergence:} Proper weight initialization can help the network converge faster by starting the optimization process in a more favorable region of the weight space
-		\pause
-		\item \textbf{Avoiding symmetry breaking:} Problem that occurs when all neurons in a layer learn the same function
-		\pause
-		\item \textbf{Avoiding vanishing gradients:} Problem that occurs when the gradients of the loss function with respect to the weights become very small
-		\pause
-		\item \textbf{Avoiding exploding gradients:} Problem that occurs when the gradients of the loss function with respect to the weights become very large
-		\pause
-		\item \textbf{Escaping poor local minima:} Random weight initialization helps the network explore different regions of the weight space, reducing the likelihood of getting stuck in poor local minima
-	\end{itemize}
+  \frametitle{Adam Optimizer: Continued}
+  \begin{itemize}
+    \item \textbf{Benefits}:
+      \begin{itemize}
+        \item \textit{Efficiency}: Requires less memory and is computationally efficient.
+        \item \textit{Effective for Large Datasets and Parameters}: Works well with large datasets and high-dimensional parameter spaces.
+        \item \textit{Applicability}: Suitable for non-stationary objectives and problems with noisy and/or sparse gradients.
+      \end{itemize}
+    \pause
+    \item \textbf{Hyperparameters}:
+      \begin{itemize}
+        \item Learning Rate: Typically requires less tuning.
+        \item Beta Values: Default values (0.9 for the first moment and 0.999 for the second moment) work well in most cases.
+        \item Epsilon: A small constant (like \( 10^{-8} \)) to prevent division by zero.
+      \end{itemize}
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Common weight initialization methods}
-	\begin{itemize}
-		\item \textbf{Zero initialization}: All weights are initialized to zero. This is a bad idea, because all neurons in a layer will learn the same function
-		\pause
-		\item \textbf{Random initialization}:  Assigning small random values to the weights is a simple and widely used technique. It can be done using various distributions, such as uniform or Gaussian
-		\pause
-		\item \textbf{Xavier initialization}: Weights are initialized randomly from a normal distribution with mean 0 and variance $\frac{1}{n_{in}}$, where $n_{in}$ is the number of input units to the layer
-		\pause
-		\item \textbf{He initialization}: Weights are initialized randomly from a normal distribution with mean 0 and variance $\frac{2}{n_{in}}$, where $n_{in}$ is the number of input units to the layer
-	\end{itemize}
+  \frametitle{Weight Initialization: An Overview}
+  \begin{itemize}
+    \item \textbf{Definition}: Weight initialization is the process of setting the initial values of the weights in a neural network before the training process starts.
+    \item \textbf{Significance}: The initial weights significantly impact the network's ability to learn efficiently and effectively.
+    \item \textbf{Goal}: To start training with weights that neither too small nor too large, avoiding common problems like slow convergence or gradient-related issues.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Dropout}
-	\begin{itemize}
-		\item \textbf{Dropout}: A regularization technique that randomly drops out (sets to zero) a fraction of the neurons in a layer during training. This forces the network to learn redundant representations, improving generalization
-		\pause
-		\item \textbf{Dropout rate}: The fraction of neurons that are dropped out during training. A dropout rate of 0.5 means that half of the neurons in a layer are dropped out
-		\item Typically, dropout rates range from 0.1 to 0.5, with higher values leading to stronger regularization effects.
-		%\pause
-		%\item \textbf{Inference time}: During inference, the weights of the neurons that were dropped out during training are scaled up by a factor of $(1 - dropout\_rate)$ to compensate for the missing neurons
-	\end{itemize}
+  \frametitle{Why Weight Initialization Matters}
+  \begin{itemize}
+    \item \textbf{Convergence Speed}: Proper initialization leads to a faster convergence by beginning in an advantageous region of the weight space.
+    \pause
+    \item \textbf{Symmetry Breaking}: Prevents neurons in the same layer from learning identical functions, enhancing the network's ability to learn diverse features.
+    \pause
+    \item \textbf{Vanishing/Exploding Gradients}: Helps avoid gradients that are too small (vanishing) or too large (exploding), which can hinder learning.
+    \pause
+    \item \textbf{Local Minima Avoidance}: Randomized initial weights promote exploration of the weight space, reducing the risk of getting trapped in suboptimal local minima.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Advantages of dropout}
-	\begin{enumerate}
-		\item \textbf{Regularization:} Acts as a regularizer by preventing the co-adaptation of neurons and encouraging the network to learn more robust and generalized features. This reduces the model's complexity and helps prevent overfitting.
-		\pause
-		\item \textbf{Implicit model averaging:} Can be seen as an ensemble method that trains multiple ``thinned´ networks with shared weights. These networks are combined, leading to an implicit model averaging that usually improves generalization.
-		\pause
-		\item \textbf{Speeding up training:} Can speed up training by reducing the number of neurons in a layer, reducing the number of parameters to be learned.
-	\end{enumerate}
+  \frametitle{Methods of Weight Initialization}
+  \begin{itemize}
+    \item \textbf{Zero Initialization}: Initializes all weights to zero, leading to symmetry issues and ineffective learning.
+    \pause
+    \item \textbf{Random Initialization}: Small random weights using various distributions (uniform or Gaussian) to break symmetry and begin learning.
+    \pause
+    \item \textbf{Xavier Initialization}: Weights are drawn from a distribution with mean 0 and variance \(\frac{1}{n_{in}}\), ideal for networks with sigmoid or tanh activation functions.
+    \pause
+    \item \textbf{He Initialization}: Similar to Xavier but with variance \(\frac{2}{n_{in}}\), more suitable for networks with ReLU activation functions.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Introduction to Convolutional Neural Networks (CNNs)}
-	CNNs are a type of neural network architecture specifically designed for processing grid-like data, such as images, where spatial relationships between inputs are important.
-	\pause
-	Key components of CNNs:
-	\begin{itemize}
-		\item \textbf{Convolutional layers:} Apply filters to the input, capturing local patterns within the data
-		\item \textbf{Pooling layers:} Reduce spatial dimensions, increasing computational efficiency and promoting translational invariance
-		\item  \textbf{Translational invariance:} Refers to the ability of the model to recognize and process patterns or features in the input data, regardless of their position within the image
-		\item \textbf{Fully connected layers:} Combine features extracted by the convolutional and pooling layers to make predictions
-	\end{itemize}
-     \pause
-CNNs have achieved state-of-the-art performance in various computer vision tasks, such as image classification, object detection, and semantic segmentation.
+  \frametitle{Dropout: A Regularization Technique}
+  \begin{itemize}
+    \item \textbf{Concept of Dropout}: Introduces randomness into the training process by temporarily removing a subset of neurons (and their connections) in a layer during each training step. This prevents neurons from co-adapting too much.
+    \pause
+    \item \textbf{Dropout Rate}: Specifies the proportion of neurons to drop out. Common rates range from 0.1 to 0.5, with higher rates imposing stronger regularization effects.
+    \pause
+    \item \textbf{Impact on Training}: Forces the network to learn more robust and redundant representations, enhancing its ability to generalize well to unseen data.
+    \pause
+    \item \textbf{Application during Inference}: At inference time, dropout is not applied. Instead, the weights are adjusted to account for the dropout applied during training, maintaining a consistent output scale.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Convolutional layers}
-	\begin{itemize}
-		\item Apply a set of learnable filters (kernels) to the input
-		\pause
-		\item Each filter is a small matrix of weights that is convolved with the input to produce a feature map
-		\pause
-		\item Each filter slides (convolves) over the input, computing a dot product between the filter's weights and the input region (receptive field) it is covering
-		\pause
-		\item The result is a feature map that encodes local patterns and spatial relationships captured by the filter
-		\pause
-		\item Filters can learn to detect features such as edges, corners, and textures
-	\end{itemize}
+  \frametitle{Benefits of Implementing Dropout}
+  \begin{enumerate}
+    \item \textbf{Enhanced Regularization}: Acts as a powerful regularizer by disrupting the co-adaptation among neurons, encouraging the network to develop more generalized features and reducing overfitting.
+    \pause
+    \item \textbf{Implicit Ensemble Effect}: Simulates training a variety of "thinned" networks with shared weights. The combination of these networks during testing can be viewed as an ensemble method, leading to improved performance and robustness.
+    \pause
+    \item \textbf{Efficient Training}: By reducing the effective number of neurons during training, Dropout can potentially speed up computations, as there are fewer activations and gradients to propagate.
+    \pause
+    \item \textbf{Versatility}: Effective across a wide range of neural network architectures and applications, from fully connected layers to convolutional networks.
+  \end{enumerate}
 }
+
+\frame{
+  \frametitle{Introduction to Convolutional Neural Networks (CNNs)}
+  \begin{itemize}
+    \item \textbf{Purpose}: CNNs are specialized neural networks for processing data with a grid-like topology, such as images, where capturing spatial hierarchies and relationships is crucial.
+    \pause
+    \item \textbf{Key Characteristics}:
+      \begin{itemize}
+        \item Optimized for 2D data, particularly effective in handling visual inputs.
+        \item Utilize local connectivity and weight sharing to reduce the complexity and increase efficiency.
+        \item Exhibit translational invariance, making them robust to the location of features in the input.
+      \end{itemize}
+    \pause
+    \item \textbf{Applications}: Excel in various computer vision tasks, including image and video recognition, image classification, medical image analysis, and many more.
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Core Components of Convolutional Neural Networks}
+  \begin{itemize}
+    \item \textbf{Convolutional Layers I}:
+      \begin{itemize}
+        \item Apply numerous small, learnable filters to capture local patterns such as edges, corners, and textures.
+        \item Each filter detects features at different locations, creating a feature map.
+      \end{itemize}
+    \pause
+    \item \textbf{Pooling Layers}:
+      \begin{itemize}
+        \item Reduce the spatial dimensions (width and height) of the input volume for the subsequent layers.
+        \item Enhance feature detection robustness and reduce computational load.
+      \end{itemize}
+    \pause
+    \item \textbf{Fully Connected Layers}:
+      \begin{itemize}
+        \item After feature extraction and down-sampling, these layers perform high-level reasoning.
+        \item Often used at the end of CNNs to classify input into categories based on the extracted features.
+      \end{itemize}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Convolutional Layers II}
+  \begin{itemize}
+    \item \textbf{Filter Application}:
+      \begin{itemize}
+        \item Filters are small matrices that slide over the input, applying a convolution operation.
+        \item The convolution emphasizes the presence of specific features at different spatial locations.
+      \end{itemize}
+    \pause
+    \item \textbf{Feature Maps}:
+      \begin{itemize}
+        \item Each filter produces a feature map, representing the response of the filter at every spatial position.
+        \item Multiple filters create a stack of feature maps, forming the output volume.
+      \end{itemize}
+    \pause
+    \item \textbf{Learning Features}:
+      \begin{itemize}
+        \item Filters are learned during training, enabling the network to identify and respond to various features in the input.
+        \item Early layers typically learn basic features (e.g., edges), while deeper layers learn more complex patterns.
+      \end{itemize}
+  \end{itemize}
+}
+
 
 \frame{
 	\frametitle{2D-convolutional layes}
@@ -174,18 +248,39 @@ CNNs have achieved state-of-the-art performance in various computer vision tasks
 }
 
 \frame{
-	\frametitle{Pooling layers}
-	\begin{itemize}
-		\item A pooling layer provides a way to condense a large image into a smaller summary image
-		\pause
-		\item Reduce the spatial dimensions of the feature maps, typically using operations such as max-pooling or average pooling
-		\pause
-		\item Max-pooling takes the maximum value within a pooling window, while average pooling takes the average value
-		\pause
-		\item Pooling promotes translational invariance and reduces computational complexity by decreasing the number of parameters
-		\pause
-		\item Pooling layers are often interleaved with convolutional layers in a CNN architecture
-	\end{itemize}
+  \frametitle{Pooling Layers: Enhancing Efficiency and Robustness in CNNs}
+  \begin{itemize}
+    \item \textbf{Function of Pooling Layers}:
+      \begin{itemize}
+        \item Provide a form of down-sampling, reducing the spatial dimensions (height and width) of the input feature maps.
+        \item This process condenses the input into a more manageable form, retaining important features while reducing size.
+      \end{itemize}
+    \pause
+    \item \textbf{Common Pooling Operations}:
+      \begin{itemize}
+        \item \textit{Max Pooling}: Selects the maximum value from each patch of the feature map covered by the pooling window.
+        \item \textit{Average Pooling}: Computes the average of values in each patch, providing a smoothed feature map.
+      \end{itemize}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Pooling Layers: Continued}
+  \begin{itemize}
+
+    \item \textbf{Benefits of Pooling}:
+      \begin{itemize}
+        \item Enhances the network's translational invariance, making it less sensitive to the exact location of features in the input.
+        \item Reduces the computational burden and memory usage by decreasing the number of parameters and computations in the network.
+        \item Helps to prevent overfitting by providing an abstracted form of the representation.
+      \end{itemize}
+    \pause
+    \item \textbf{Integration in CNNs}:
+      \begin{itemize}
+        \item Typically alternated with convolutional layers to progressively reduce the spatial size of the representation and increase the depth of the network.
+        \item This structure allows CNNs to efficiently and effectively learn from high-dimensional inputs like images.
+      \end{itemize}
+  \end{itemize}
 }
 
 \frame{
