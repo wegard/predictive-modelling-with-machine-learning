@@ -65,11 +65,11 @@
     \pause
     \item \textbf{Stochastic Gradient Descent (SGD)}: Updates weights using a single or small number of samples, leading to faster but noisier convergence.
     \pause
-    \item \textbf{Momentum}: Accelerates SGD in the relevant directions and reduces oscillations, improving efficiency in navigating error surfaces.
+    \item \textbf{SGD extension: Momentum}: Accelerates SGD in the relevant directions and reduces oscillations.
     \pause
-    \item \textbf{Adagrad}: Adapts learning rate for each weight based on past gradients; useful for sparse data but suffers from a continuous decreasing learning rate.
+    \item \textbf{SGD extension: Adagrad}: Adapts learning rate for each weight based on past gradients; useful for sparse data but suffers from a continuous decreasing learning rate.
     \pause
-    \item \textbf{RMSprop}: Modifies Adagrad by using a moving average of squared gradients, preventing the excessively diminishing learning rates.
+    \item \textbf{SGD extension: RMSprop}: Modifies Adagrad by using a moving average of squared gradients, preventing the excessively diminishing learning rates.
     %\pause
     %\item \textbf{Adaptive Moment Estimation (Adam)}: Combines elements from AdaGrad and RMSProp, using adaptive learning rates for each parameter and keeping track of past gradients.
   \end{itemize}
@@ -89,7 +89,7 @@
     \item \textbf{Mechanism}:
       \begin{enumerate}
         \item Computes the gradients of the loss function with respect to the parameters.
-        \item Calculates the exponential moving averages of the gradients and their squares.
+        \item Calculates the exponential moving averages of the gradients and their squares. Squaring emphasizes larger gradients and diminishes the effect of smaller ones.
         \item Adjusts these averages to correct for their initial bias towards zero.
         \item Updates parameters using these biased-corrected averages, with individual adaptive learning rates.
       \end{enumerate}
