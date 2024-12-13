@@ -1,0 +1,100 @@
+% beamerthemeexample.sty
+\ProvidesPackage{beamerthemeexample}[2024/12/08 Custom Simple Theme]
+
+% Use standard packages and fonts compatible with pdfLaTeX
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{tikz}
+\RequirePackage{etoolbox}
+
+% Use the presentation mode
+\mode<presentation>{}
+
+% Set margins
+\setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+
+% Define a color palette
+% You can adjust these colors as needed
+\definecolor{PrimaryColor}{HTML}{00467f}   % Dark Blue
+\definecolor{SecondaryColor}{HTML}{18b1ff} % Light Blue Accent
+\definecolor{DarkGrey}{HTML}{555555}
+\definecolor{LightGrey}{HTML}{DDDDDD}
+\definecolor{White}{HTML}{FFFFFF}
+
+% Set beamer colors
+% Basic text and structure colors
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg=PrimaryColor}
+\setbeamercolor{alerted text}{fg=PrimaryColor}
+
+% Titles and subtitles
+\setbeamercolor{title}{fg=PrimaryColor}
+\setbeamercolor{subtitle}{fg=DarkGrey}
+\setbeamercolor{author}{fg=DarkGrey}
+\setbeamercolor{institute}{fg=DarkGrey}
+\setbeamercolor{date}{fg=DarkGrey}
+
+% Frame title
+\setbeamercolor{frametitle}{fg=White,bg=PrimaryColor}
+
+% Head and foot lines
+\setbeamercolor{title in head/foot}{fg=White,bg=PrimaryColor}
+\setbeamercolor{page number in head/foot}{fg=White,bg=SecondaryColor}
+
+% Set beamer fonts (use standard fonts)
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\mdseries}
+\setbeamerfont{author}{size=\normalsize,series=\mdseries}
+\setbeamerfont{institute}{size=\footnotesize,series=\mdseries}
+\setbeamerfont{date}{size=\footnotesize,series=\mdseries}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{page number in head/foot}{size=\footnotesize}
+
+% Title page template
+\setbeamertemplate{title page}
+{%
+  \vbox{}
+  \vfill
+  \begin{center}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+    \vspace{0.5em}
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+    \vspace{1em}
+    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+    \vspace{0.3em}
+    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+    \vspace{0.3em}
+    {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+  \end{center}
+  \vfill
+}
+
+% Frame title template
+\setbeamertemplate{frametitle}
+{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1ex]{frametitle}%
+    \hspace{0.5cm}\insertframetitle%
+  \end{beamercolorbox}%
+}
+
+% No navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Footline template
+\setbeamertemplate{footline}
+{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.7\paperwidth,ht=2.25ex,dp=1ex,leftskip=0.2cm]{title in head/foot}%
+      \usebeamerfont{title in head/foot}%
+      \ifx\insertauthor\@empty\else\insertauthor: \fi\inserttitle%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,rightskip=0.3cm]{page number in head/foot}%
+      \usebeamerfont{page number in head/foot}\insertframenumber/\inserttotalframenumber%
+    \end{beamercolorbox}%
+  }%
+}
+
+% End of theme
+\mode<all>{}
