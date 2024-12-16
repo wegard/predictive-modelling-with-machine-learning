@@ -4,7 +4,7 @@
 
 \usetheme{example}
 
-\title{Lecture 1: \\ Introduction and data preprocessing}
+\title{Lecture 1: \\ Introduction and working with data}
 \institute{GRA 4160: Predictive Modelling with Machine Learning}
 \date{January 9th 2025}
 \author{Vegard H\o ghaug Larsen}
@@ -34,6 +34,7 @@ The text book for this course is:\\
 		(\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
 	\end{enumerate}
 
+\bigskip
 For a more gentle introduction to many of the same subjects, I recommend the following book:\\
 	\begin{enumerate}
 		\item[] \textit{An introduction to statistical learning} by \it{Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani}
@@ -42,124 +43,108 @@ For a more gentle introduction to many of the same subjects, I recommend the fol
 }
 
 \frame{
-	\frametitle{Prerequisites/What I expect that you know}
+	\frametitle{Prerequisites / What I Expect You to Know}
 
 	\begin{itemize}
-		\item Linear algebra and multivariate calculus
-		\item Probability and statistics
-		\item Programming in Python (NumPy, Pandas, matplotlib)
-		\item Object oriented programming
+		\item \textbf{Mathematics:} Basic linear algebra and multivariate calculus
+		\item \textbf{Statistics:} Fundamental probability and statistical concepts
+		\item \textbf{Python Programming:} Experience with NumPy, Pandas, and Matplotlib
+		\item \textbf{Object-Oriented Programming:} Ability to write and understand OOP structures in Python
 	\end{itemize}
 }
 
+
+\frame{
+	\frametitle{About this Course}
+
+	\begin{itemize}
+		\item Focused on \textbf{predictive modeling} using traditional (pre-deep learning) machine learning methods.
+		\item Covers fundamental algorithms such as linear and logistic regression, decision trees, and ensemble methods.
+		\item Emphasis on \textbf{hands-on practice}: you will write code from scratch to implement and understand key algorithms.
+		\item Provides practical insights into common workflows: data preprocessing, model training, hyperparameter tuning, and model evaluation.
+		\item Prepares you to critically evaluate and improve models for real-world predictive tasks.
+	\end{itemize}
+}
+
+
 \frame{
 \frametitle{Mini Project}
+
 \begin{itemize}
-	\item You will work on a mini project in groups of 2-4 students.
-	\item The mini project will be a small-scale project where you will apply the methods you've learned in the course to a real-world problem.
-	\item All groups can schedule two meetings with me to discuss the project and receive feedback, either in person or via Zoom, during the semester.
-	\item Present the project to the rest of the class.
-	\item Optional but recommended: Create a GitHub repository for the project where you can upload the code and a short report/documentation of the project.
-	\item The project will be graded (letter grade) and will account for 30\% of the final grade.
-	\item You may also be asked some questions related to the project on the final exam.
+	\item \textbf{Group Work:} Form groups of 2--4 students. I will add a excel sheet on itslearning that you should use to form groups within next week. 
+	\item \textbf{Objective:} Apply the learned methods to a real-world data problem on a smaller scale.
+	\item \textbf{Feedback Sessions:} Each group can schedule up to two meetings (in-person or via Zoom) for guidance and feedback.
+	\item \textbf{Presentation:} Present your work to the class at the end of the semester.
+	\item \textbf{Documentation:} (Optional but recommended) Use a GitHub repository to share code and a short project report.
+	\item \textbf{Evaluation:} The project is graded (letter grade) and accounts for 30\% of the final grade.
+	\item \textbf{Exam Integration:} Be prepared to answer related questions during the final exam.
 \end{itemize}
 }
 
+
 \frame{
 \frametitle{Course Structure}
+
 \begin{itemize}
-\item I will strive to make the lectures as interactive as possible, with traditional lectures kept to a minimum.
-\item Often, I will begin with a few slides to introduce a topic, but the bulk of the lectures will be dedicated to working through examples and exercises.
-\item I will typically provide two notebooks with course materials and one notebook containing exercises that we will tackle during the lectures.
-\item These notebooks will be available on itslearning before the class, and I expect you to have reviewed them beforehand.
-\item Following or during the lecture, I will provide solutions to the exercises.
+	\item \textbf{Interactive Format:} Lectures will be as interactive as possible, minimizing traditional lecture-style teaching.
+	\item \textbf{Topic Introductions:} I will often start with a few slides to introduce a concept, then focus on live coding, examples, and exercises.
+	\item \textbf{Course Materials:} Expect one to two notebooks with background materials and one exercise notebook per session.
+	\item \textbf{Pre-class Preparation:} All notebooks will be available on Itslearning before each class, and you are expected to review them in advance.
+	\item \textbf{Project Guidance:} We will also devote time in some lectures to discuss the mini project and offer guidance on your approach.
 \end{itemize}
 }
+
 
 \frame{
 	\frametitle{Using Generative AI as a Learning Tool}
 
 	\begin{itemize}
-		\item Generative AI, a powerful technology, is available for your use during this course.
-		\item Our goal is to use this tool as a means of learning and exploration.
-		\item It should be used to enhance your understanding, creativity, and problem-solving skills.
-		\item Emphasize using generative AI for experimentation, not just content generation.
-		\item Explore its capabilities to gain insights, generate ideas, and aid in your learning journey.
-		\item Think of it as a tool to augment your skills, not replace them.
-		\item I encourage responsible and ethical use of generative AI throughout the course.
-		\item You should have access to GPT-UiO, that satisfy GDPR requirements.
-		\item I also recommend GitHub Copilot, but it is not available for free.
+		\item Generative AI is a powerful resource for exploration, idea generation, and problem-solving.
+		\item Treat it as a learning partner rather than a replacement for your own reasoning skills.
+		\item Use it to enhance your understanding, spark creativity, and experiment with new approaches.
+		\item Focus on leveraging it as a supportive tool: ask questions, seek clarifications, and discover alternative solutions.
+		\item You can access \textbf{GPT-UiO}, a GDPR-compliant platform provided by UiO, for free.
+		\item \textbf{GitHub Copilot} is also recommended. You should be able to get an educational license for free.
+		\item Always apply critical thinking, ethical considerations, and proper attribution when using these tools.
 	\end{itemize}
 }
 
+
 \frame{
-	\frametitle{You?}
+	\frametitle{About You}
 	\begin{itemize}
-		\item What is your name background?
+		\item Please introduce yourself: What is your name and your academic/professional background?
 		\pause
-		\item Do you have any specific career goals in mind?
+		\item Do you have any specific career goals related to data science, analytics, or machine learning?
 		\pause
-		\item What do you hope to learn from this course?
+		\item What are your main learning objectives or expectations for this course?
 		\pause
-		\item Do you have any specific questions about the course structure or content?
+		\item Are there any questions or concerns you have about the course structure, topics, or logistics?
 	\end{itemize}
 }
 
-	\frame{
-		\frametitle{Plan for today}
-
-	\underline{\bf Introduction and data preprocessing}
-
-		\begin{itemize}
-			\item Data preprocessing is a very important part of any data science project.
-			\item We will have to use some type of preprocessing in almost every project we do.
-			\item In this lecture we will go through some of the most common preprocessing techniques and how to implement them in Python.
-		\end{itemize}
-
-		\bigskip
-		\pause
-
-	Material:\\
-         \begin{itemize}
-             \item Notebooks: \texttt{01\_Intro\_to\_GRA4160.ipynb}, \texttt{02\_Data\_preprocessing.ipynb}
-             \item Exercise: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
-         \end{itemize}
-	}
 
 \frame{
-	\frametitle{Scikit-learn}
-
-	\url{https://scikit-learn.org/stable/}\\
-}
-
-\frame{
-	\frametitle{Keras}
-
-	\url{https://keras.io/}\\
-}
-
-\frame{
-\frametitle{Conda Virtual Environments}
-
+	\frametitle{Plan for Today}
+	
+	\underline{\bf Working with Data in Jupyter Notebooks:}
+	
 	\begin{itemize}
-		\item Conda is a package manager that allows the creation of virtual environments.
-		\item A virtual environment is a self-contained directory tree that includes a Python installation for a specific Python version, along with various additional packages.
-		\item Virtual environments are employed to isolate different projects from one another.
-		\item This is beneficial because distinct projects may necessitate different versions of the same package.
+		\item Understand why \textbf{Jupyter notebooks} have become a standard tool for data exploration and ML prototyping.
+		\item Recognize that \textbf{data preprocessing} (cleaning, transforming, encoding, and scaling) is essential for high-quality predictive modeling.
+		\item Learn how to systematically apply preprocessing techniques in Python, ensuring reproducibility and consistency across projects.
+		\item Gain hands-on experience implementing common techniques (handling missing values, encoding categories, scaling features) to prepare data for modeling.
 	\end{itemize}
 	
+	\bigskip
 	\pause
-	My Setup: Environment Named \texttt{GRA4160}\\
+
+	\underline{\bf Material:}
 	\begin{itemize}
-		\item Python 3.10
-		\item Jupyter
-		\item Scikit-learn
-		\item Pandas
-		\item Matplotlib and Seaborn
+		\item Lecture Notebook: \texttt{01\_Working\_with\_data\_in\_jupyter\_notebooks.ipynb}
+		\item Exercise Notebook: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
 	\end{itemize}
-	
-	I have not installed Keras and Tensorflow in my environment.
-	I will create a new environment for neural networks later.
 }
+
 
 \end{document}
