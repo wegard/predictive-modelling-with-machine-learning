@@ -26,20 +26,34 @@
 }
 
 \frame{
-	\frametitle{Syllabus}
+    \frametitle{Syllabus}
 
-The text book for this course is:\\
-	\begin{enumerate}
-		\item[] \textit{The elements of statistical learning: data mining, inference, and prediction} by \it{Trevor J. Hastie; Robert J. Tibshirani; Jerome Friedman}
-		(\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
-	\end{enumerate}
 
-\bigskip
-For a more gentle introduction to many of the same subjects, I recommend the following book:\\
-	\begin{enumerate}
-		\item[] \textit{An introduction to statistical learning} by \it{Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani}
-		(\href{https://www.statlearning.com/}{Link})
-	\end{enumerate}
+    \begin{minipage}{0.65\textwidth}
+        The textbook for this course is:\\
+        \begin{enumerate}
+            \item[] \textit{The Elements of Statistical Learning: Data Mining, Inference, and Prediction} by \textit{Trevor J. Hastie; Robert J. Tibshirani; Jerome Friedman}
+            (\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
+        \end{enumerate}
+    \end{minipage}
+	\hfill
+	\begin{minipage}{0.3\textwidth}
+        \includegraphics[width=0.5\textwidth]{figures/ESL.jpg} % Replace with the path to the image of the first book
+    \end{minipage}
+
+    \bigskip
+
+    \begin{minipage}{0.3\textwidth}
+        \includegraphics[width=0.5\textwidth]{figures/ISL.jpg} % Replace with the path to the image of the second book
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.65\textwidth}
+        For a more gentle introduction to many of the same subjects, I recommend the following book:\\
+        \begin{enumerate}
+            \item[] \textit{An Introduction to Statistical Learning} by \textit{Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani}
+            (\href{https://www.statlearning.com/}{Link})
+        \end{enumerate}
+    \end{minipage}
 }
 
 \frame{
@@ -109,6 +123,28 @@ For a more gentle introduction to many of the same subjects, I recommend the fol
 	\end{itemize}
 }
 
+\frame{
+    \frametitle{Use an Integrated Development Environment (IDE)}
+    \textbf{Why use an IDE?}
+    \begin{itemize}
+        \item Simplifies coding by integrating essential tools in one interface.
+        \item Enhances productivity with features like syntax highlighting, debugging, and extensions.
+    \end{itemize}
+
+    \vspace{1em}
+    \textbf{Why Visual Studio Code (VSCode)?}
+    \begin{itemize}
+        \item \textbf{Lightweight yet powerful:} Supports many programming languages and frameworks.
+        \item \textbf{Extensions:} Customize your environment with thousands of extensions (e.g., Python, Jupyter).
+        \item \textbf{Version Control:} Integrated Git support makes it easy to collaborate and track changes.
+        \item \textbf{Built-in terminal:} Run commands and scripts directly within the editor.
+        \item \textbf{Cross-platform:} Works seamlessly on Windows, macOS, and Linux.
+    \end{itemize}
+
+    \vspace{1em}
+    \textbf{Ideal for students:} VSCode is free, beginner-friendly, and widely used in the industry. As a student you might also be eligible for a free GitHub Copilot account.
+}
+
 
 \frame{
 	\frametitle{About You}
@@ -146,5 +182,118 @@ For a more gentle introduction to many of the same subjects, I recommend the fol
 	\end{itemize}
 }
 
+\frame{
+    \frametitle{Machine Learning Workflow}
+    \begin{itemize}
+        \item \textbf{Define the problem and collect data:} Clarify your predictive task and gather relevant data.
+        \item \textbf{Data preprocessing:} Clean, transform, and encode data to ensure quality and consistency.
+        \item \textbf{Model selection:} Choose appropriate algorithms (e.g., linear regression, decision trees, ensembles).
+        \item \textbf{Training and tuning:} Fit models and tune hyperparameters using appropriate metrics.
+        \item \textbf{Evaluation and deployment:} Evaluate performance on unseen data and integrate the model into real-world applications.
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Traditional ML vs. Deep Learning}
+    \begin{itemize}
+        \item \textbf{Feature Engineering:}
+        \begin{itemize}
+            \item \textit{Traditional ML:} Often requires manual feature engineering (domain knowledge, handcrafted features).
+            \item \textit{Deep Learning:} Learns representations directly from raw data (images, text, etc.).
+        \end{itemize}
+        \item \textbf{Data Requirements:}
+        \begin{itemize}
+            \item \textit{Traditional ML:} Performs well with smaller datasets; structured data often sufficient.
+            \item \textit{Deep Learning:} Typically needs large datasets and significant computational resources.
+        \end{itemize}
+        \item \textbf{Model Complexity:}
+        \begin{itemize}
+            \item \textit{Traditional ML:} Simpler models like SVM, decision trees, linear models.
+            \item \textit{Deep Learning:} Neural networks with multiple layers (CNNs, RNNs, Transformers).
+        \end{itemize}
+        \item \textbf{Interpretability:}
+        \begin{itemize}
+            \item \textit{Traditional ML:} Models like linear/logistic regression can be straightforward to interpret.
+            \item \textit{Deep Learning:} Deep networks can be more opaque, requiring specialized interpretation methods.
+        \end{itemize}
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Overfitting vs. Underfitting}
+    \begin{itemize}
+        \item \textbf{Overfitting:}
+        \begin{itemize}
+            \item Model fits noise in the training data, failing to generalize.
+            \item Symptoms: Very low training error, high validation/test error.
+            \item Remedies: More data, regularization, dropout (in NN), simpler model.
+        \end{itemize}
+        \item \textbf{Underfitting:}
+        \begin{itemize}
+            \item Model is too simple to capture the underlying trend.
+            \item Symptoms: High training error, high validation/test error.
+            \item Remedies: More complex model, adding features, reducing regularization.
+        \end{itemize}
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Train, Validation, and Test Splits}
+    \begin{itemize}
+        \item \textbf{Training Set:}
+        \begin{itemize}
+            \item Used to fit the parameters of your model.
+        \end{itemize}
+        \item \textbf{Validation Set:}
+        \begin{itemize}
+            \item Used for hyperparameter tuning and model selection.
+            \item Prevents overfitting to the training set.
+        \end{itemize}
+        \item \textbf{Test Set:}
+        \begin{itemize}
+            \item Used only for the final evaluation.
+            \item Mimics "unseen data" in the real world.
+        \end{itemize}
+        \item \textbf{Key Point:}
+        \begin{itemize}
+            \item Proper splitting strategies (e.g., random splits, stratification, cross-validation) are crucial for reliable performance estimates.
+        \end{itemize}
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Interpreting Model Results}
+    \begin{itemize}
+        \item \textbf{Performance Metrics:} Use appropriate metrics (MAE, RMSE, F1-score, AUC) depending on the problem type.
+        \item \textbf{Visual Diagnostics:} Confusion matrices, ROC curves, residual plots provide deeper insights.
+        \item \textbf{Explainability Tools:} Techniques like SHAP help interpret complex models.
+        \item \textbf{Domain Knowledge:} Model results are more meaningful if interpreted in the context of the application area.
+        \item \textbf{Communication:} Clearly communicate strengths, weaknesses, and uncertainties to stakeholders.
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Why Genuine Learning Matters in an AI-Powered World}
+    \textbf{Unlimited Resources, Home Exam:} You can use all available tools, including Generative AI models. \\
+    \bigskip
+
+    \textbf{But why understand the material?}
+    \begin{itemize}
+        \item \textbf{Long-Term Skill Building:} Real expertise isn't just about getting the right answer today—it’s about being able to solve unseen problems tomorrow.
+        \item \textbf{Critical Thinking:} Understanding how a solution is derived helps you detect AI mistakes and evaluate outcomes thoughtfully.
+        \item \textbf{Career Readiness:} Employers value people who can interpret and adapt AI-generated results, not just copy and paste them.
+        \item \textbf{Exam Rigor:} We will ask you to \emph{explain and justify} steps, ensuring you can interpret AI-produced solutions. 
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{My expectations:}
+    
+    \begin{itemize}
+        \item Engage actively with the course materials, exercises, and discussions.
+        \item Be ready to \textit{talk through your solutions} and justify each step logically.
+        \item Ultimately, \textbf{your genuine knowledge} is what matters most.
+    \end{itemize}
+}
 
 \end{document}

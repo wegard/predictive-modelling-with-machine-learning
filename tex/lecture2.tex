@@ -56,59 +56,104 @@
 	\end{itemize}
 }
 
+\begin{frame}
+    \frametitle{Typical Steps in a Supervised Learning Project}
+    \begin{enumerate}
+        \item \textbf{Define the problem} and the performance metric (e.g., accuracy, MSE).
+        \item \textbf{Collect and preprocess data} (cleaning, handling missing values).
+        \item \textbf{Split the data} into training, validation, and test sets.
+        \item \textbf{Select and train a model} (e.g., linear regression, kNN).
+        \item \textbf{Hyperparameter tuning} (e.g., choosing $k$ for kNN) via cross-validation.
+        \item \textbf{Evaluate} on the test set to estimate out-of-sample performance.
+        \item \textbf{Deploy and monitor} the model (performance decay, model retraining).
+    \end{enumerate}
+\end{frame}
 
-\frame{
-	\frametitle{Linear Regression: Prediction \& Inference}
-	\begin{itemize}
-		\item Predicts continuous values, like estimating house prices based on size.
+\begin{frame}
+    \frametitle{Bias-Variance Trade-off}
+    \begin{itemize}
+        \item A core concept in ML: \textbf{Bias} is how much your predictions systematically deviate from the true values.
+        \item \textbf{Variance} is how sensitive your model is to fluctuations in the training set.
+        \item \textbf{High bias} models:
+            \begin{itemize}
+                \item Underfit the data (oversimplified).
+                \item Have consistent but inaccurate predictions.
+            \end{itemize}
+        \item \textbf{High variance} models:
+            \begin{itemize}
+                \item Overfit the data (too complex).
+                \item Perform well on training data but poorly on new data.
+            \end{itemize}
+        \item Goal: \textbf{Find a balance} that minimizes overall error.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Linear Regression: Prediction \& Inference}
+    \begin{itemize}
+        \item Predicts continuous values (e.g., estimating house prices based on size and location).
+        \item Useful for inference: helps understand how different features influence outcomes.
+        \item A \textbf{parametric} model with fixed parameters (feature weights and intercept).
+        \item Minimizes the \textbf{mean squared error (MSE)} to achieve the best fit.
+        \item Ordinary least squares (OLS) finds the best-fit line; 
+              under the \textbf{Gauss--Markov assumptions} (e.g., linearity, no perfect multicollinearity, homoscedastic errors), 
+              OLS is the \textbf{best linear unbiased estimator (BLUE)}.
+        \item Be mindful that the linear form might not always capture real-world complexity, 
+              so model diagnostics are crucial.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Diving into $k$-Nearest Neighbors}
+    \begin{itemize}
+        \item \textbf{k-Nearest Neighbors (kNN)}: Used for both classification (label prediction) and regression (value prediction).
+        \item \textbf{Core idea}: Identify the $k$ closest data points (neighbors) to a new observation and base the prediction on them.
+        \item \textbf{Choice of $k$} impacts performance:
+              \begin{itemize}
+                  \item Too small: Overfitting (high variance).
+                  \item Too large: Underfitting (high bias).
+              \end{itemize}
+        \item \textbf{Distance metric} (e.g., Euclidean) also matters for determining neighbors.
+        \item Often \textbf{non-parametric}: no assumption of underlying data distribution.
+        \item Tends to be computationally expensive for large datasets but serves as a good baseline model.
+        \item Typical practice: Choose $k$ via \textbf{cross-validation}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parametric vs. Non-Parametric Models}
+    \begin{itemize}
+        \item \textbf{Parametric models} (e.g., linear regression):
+            \begin{itemize}
+                \item Assume a specific form for the relationship between features and output.
+                \item Have a fixed number of parameters to learn.
+                \item Fast to train and interpret but can be \textbf{misleading if the assumed form is incorrect}.
+            \end{itemize}
 		\pause
-		\item Useful for inference: understanding how factors influence outcomes.
-		\pause
-		\item A parametric model with fixed parameters representing feature weights and a bias term (intercept).
-		\pause
-		\item Aims to minimize the mean squared error for the best prediction accuracy.
-		\pause
-		\item Ordinary least squares (OLS): A method to find the best-fit line through data.
-		\pause
-		\item OLS is BLUE (best linear unbiased estimator) under conditions like no multicollinearity.
-	\end{itemize}
-}
+        \item \textbf{Non-parametric models} (e.g., kNN):
+            \begin{itemize}
+                \item Make fewer assumptions about data distribution.
+                \item Number of parameters can grow with the dataset.
+                \item Flexible but often more computationally expensive and can overfit without careful tuning.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 
-\frame{
-	\frametitle{Diving into $k$-Nearest Neighbors in Supervised Learning}
-	\begin{itemize}
-		\item kNN: A versatile tool for classification and regression, akin to categorizing based on nearest examples.
-		\pause
-		\item Works by identifying the $k$ nearest data points to a new point and predicting its class or value accordingly.
-		\pause
-        \item Choice of $k$ (like 5 or 10) influences model accuracy and complexity.
-		\pause
-		\item A non-parametric method, adaptable to different data distributions. 
-		\pause
-		\item Simple and effective, serving as a benchmark for more complex models, but slower on large datasets.
-	\end{itemize}
-}
-
-
-\frame{
-	\frametitle{Naive Bayes: A Fundamental Classifier}
-	\textbf{Bayes' Theorem Formula}:
-   \[ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)} \]
-	\begin{itemize}
-		\item A classifier used for tasks like identifying spam emails.
-		\pause
-		\item Based on Bayes' theorem, which relates the probability of an event with prior knowledge.
-		\pause
-		\item Assumes features in a class are independent, known as the \textbf{naive} assumption.
-		\pause
-		\item This independence is often not true (like in spam emails), but Naive Bayes still performs well.
-		\pause
-		\item We'll explore its application in spam filtering, demonstrating its effectiveness despite simplistic assumptions.
-		\pause
-		\item Valued for its simplicity and speed, often used as a benchmark for more complex models.
-	\end{itemize}
-}
+\begin{frame}
+    \frametitle{Naive Bayes: A Fundamental Classifier}
+    \textbf{Bayes' Theorem}:
+    \[
+        P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+    \]
+    \begin{itemize}
+        \item Naive Bayes is widely used for \textbf{spam detection} and text classification.
+        \item Relies on the \textbf{naive} assumption that features are conditionally independent given the class.
+        \item Despite this strong assumption (often untrue in real data), it performs surprisingly well.
+        \item Extremely \textbf{fast} and easy to implement, making it a good first model in many classification tasks.
+        \item We will explore its spam-filtering application, highlighting the simplicity and speed of this approach.
+    \end{itemize}
+\end{frame}
 
 
 \end{document}
