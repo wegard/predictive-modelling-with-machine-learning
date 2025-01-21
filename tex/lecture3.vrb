@@ -1,0 +1,26 @@
+\frametitle{Implementation and Practical Tips}
+    \begin{itemize}
+        \item \textbf{Scikit-learn Implementations:}
+            \begin{itemize}
+                \item \texttt{Ridge()} for ridge regression.
+                \item \texttt{Lasso()} for lasso regression.
+                \item \texttt{ElasticNet()} for elastic net.
+            \end{itemize}
+        \item \textbf{Example (Ridge):}
+\begin{verbatim}
+from sklearn.linear_model import Ridge
+ridge_reg = Ridge(alpha=1.0)
+ridge_reg.fit(X_train, y_train)
+y_pred = ridge_reg.predict(X_test)
+\end{verbatim}
+        \item \textbf{Hyperparameter Tuning:}
+            \begin{itemize}
+                \item Use \texttt{GridSearchCV} or \texttt{RandomizedSearchCV} to find the best \(\alpha\).
+                \item For ElasticNet, tune both \(\alpha\) (mixing ratio) and \(\lambda\).
+            \end{itemize}
+        \item \textbf{Common Pitfalls:}
+            \begin{itemize}
+                \item Forgetting to scale data can bias penalty terms.
+                \item Over-penalizing: too high \(\lambda\) can underfit.
+            \end{itemize}
+    \end{itemize}
