@@ -100,12 +100,14 @@
     \begin{itemize}
         \item \textbf{Definition:} LDA is both a \emph{classification} and \emph{dimensionality reduction} technique.
         \item \textbf{Core idea:} Project data onto a lower-dimensional space (often 1D) that maximizes class separability.
+        \pause
         \item \textbf{Typical Uses:}
         \begin{itemize}
             \item Face recognition
             \item Medical diagnosis
             \item Market research
         \end{itemize}
+        \pause
         \item \textbf{Why LDA?} 
         \begin{itemize}
             \item Simple, interpretable linear boundaries.
@@ -121,6 +123,7 @@
         \item \textbf{Two or more classes:} LDA can handle multi-class classification by finding multiple discriminant components.
         \item \textbf{Data separability:} Works well when classes are well-separated and covariance is similar across classes.
         \item \textbf{Dimensionality reduction:} When you need a lower-dimensional representation for further analysis or visualization.
+        \pause
         \item \textbf{Comparison to Other Methods:}
         \begin{itemize}
             \item \textbf{Logistic Regression:} Also linear, but does not reduce dimensionality.
@@ -256,8 +259,6 @@ predictions = lda.predict(X_test)
         \item \textbf{Key Takeaway:} LDA is a powerful, interpretable linear approach for classification and dimension reduction, especially under roughly Gaussian assumptions with shared covariance.
     \end{itemize}
 }
-
-
 
 \begin{frame}
     \frametitle{Regularized Regression: Overview}
