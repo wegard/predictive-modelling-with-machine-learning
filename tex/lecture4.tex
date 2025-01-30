@@ -2,129 +2,245 @@
 % !TEX spellcheck = en-US
 \documentclass[aspectratio=169]{beamer}
 
+% Choose your theme
 \usetheme{example}
 
-\title{Lecture 4:\\ Classification analysis}
-\institute{GRA4160: Predictive modelling with machine learning}
-\date{February 30th 2023}
+%------------------------------------------------------------------------------
+% Title and author info
+%------------------------------------------------------------------------------
+\title{Lecture 4:\\ Classification Analysis}
+\institute{GRA4160: Predictive Modelling with Machine Learning}
+\date{February 29th 2025}
 \author{Vegard H\o ghaug Larsen}
 
+%------------------------------------------------------------------------------
 \begin{document}
-
+%------------------------------------------------------------------------------
 \maketitle
 
-\frame{
-	\frametitle{Plan for today:}
-	\begin{itemize}
-		\item Logistic regression
-		\item Decision trees
-		\item Exercise: Recognizing handwritten digits
-	\end{itemize}
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Plan for today}
+    \begin{itemize}
+        \item \textbf{Logistic Regression}
+        \item \textbf{Decision Trees}
+        \item Model Evaluation Metrics
+        \item Practical Considerations \& Regularization
+        %\item Exercise: Recognizing Handwritten Digits
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Logistic regression}
-	\begin{itemize}
-		\item Model for binary classification (e.g. yes/no, success/failure, etc.)
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Logistic Regression}
+    \begin{itemize}
+        \item Logistic regression is a model for \textbf{binary classification} (e.g.\ yes/no, success/failure).
+        \pause
+        \item It assumes a linear relationship between the predictors and the \emph{log-odds} of the outcome.
+        \[
+            \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1x_1 +\beta_2x_2 + \cdots + \beta_kx_k
+        \]
 		\pause
-		\item Assumes a linear relationship between the predictors and the log odds of the outcome:
-		$$\log\left(\frac{p}{1-p}\right)$$
-		\pause
-		%\item Using the log odds instead of the probabilities themselves allows for more stable and well-behaved estimates
-		\item The logarithmic transformation ensures that the predicted probabilities remain within the range of 0 and 1
-		\pause
-		\item Can be extended to multiclass classification (Multinomial logistic regression)
-	\end{itemize}
-}
+        \item The logarithmic (log-odds) transformation ensures that predicted probabilities remain in the range $(0,1)$.
+        \pause
+        \item Logistic regression can be extended to multiclass classification:
+        \begin{itemize}
+            \item One-vs-Rest (OvR) strategy
+            \item Softmax/Multinomial logistic regression
+        \end{itemize}
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{The logistic function}
-	\begin{itemize}
-		\item Also known as the sigmoid function
-		\item Used to model the log odds as a function of the predictors
-		\item The logistic function is a function that maps the real numbers to the interval $[0,1]$
-	\end{itemize}
-	\pause
-	$$f(z) = \frac{1}{1 + e^{-z}}$$
-	The logistic function has the property that as x approaches positive infinity, the output approaches 1, and as x approaches negative infinity, the output approaches 0.
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Maximum Likelihood Estimation}
+    \begin{itemize}
+        \item Logistic regression parameters are typically estimated by maximizing the \textbf{likelihood function}:
+        \[
+            L(\boldsymbol{\beta}) = \prod_{i=1}^n p_i^{y_i} \, (1 - p_i)^{1-y_i}
+        \]
+        or equivalently by \textbf{minimizing} the negative log-likelihood (also known as \emph{cross-entropy loss}).
+        \item This is usually done through iterative optimization algorithms like \emph{gradient descent} or \emph{Newton's method}.
+        \item Interpretation of coefficients: $\beta_j$ describes the change in the \emph{log-odds} for a unit change in $x_j$.
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Relation between the log odds, the probability and the sigmoid}
-	The log odds of the outcome are modeled as a linear function of the predictor variables:
-	\[ \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1x_1 +\beta_2x_2 + \cdots + \beta_kx_k = z \]
-	\pause
-	Taking exponents and rearanging gives:
-	\[\frac{p}{1-p} = e^{z} \Rightarrow p = e^z - pe^z \Rightarrow p(1+e^z) = e^z \]
-	\pause
-	Dividing by $1 + e^z$ gives the sigmoid function:
-	\[p = \frac{e^{z}}{1+e^{z}} = \frac{1}{1/e^z + e^z/e^z} = \frac{1}{1+e^{-z}}\]
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{The Logistic (Sigmoid) Function}
+    \begin{itemize}
+        \item The logistic function (sigmoid) maps real numbers to $(0,1)$:
+        \[
+            f(z) = \frac{1}{1 + e^{-z}}
+        \]
+        \item For $z \rightarrow \infty$, $f(z) \rightarrow 1$, and for $z \rightarrow -\infty$, $f(z) \rightarrow 0$.
+        \item Thus, the model links a linear function in the inputs ($z$) to a probability.
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Decision trees}
-	\begin{itemize}
-		\item Decision trees are a non-parametric method
-		\pause
-		\item Starts from a single node (the root node) and splits the data into subsets based on certain conditions until it reaches a set of terminal nodes (also known as leaves)
-		\pause
-		\item Each split in the tree is based on a feature and a threshold value
-	\end{itemize}
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Why Not Linear Regression?}
+    \begin{itemize}
+        \item Linear regression can predict probabilities less than 0 or greater than 1, which is inconsistent with probability theory.
+        \item The assumptions (e.g.\ normally distributed errors) are not valid for classification.
+        \item Logistic regression addresses these issues with the log-odds transformation.
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Training a decision tree}
-	\begin{itemize}
-		\item The tree is constructed recursively (built through repeated sub-division of the data set into smaller subsets)
-		\pause
-		\item At each step of the recursion, the algorithm selects the feature and threshold value that result in the best split of the data, as measured by some impurity metric (e.g., Gini impurity, entropy)
-		\pause
-		\item The final decision tree is constructed by repeated splits and is represented as a graph, where each internal node represents a test on a feature, each branch represents the outcome of the test, and each leaf node represents a prediction.
-		\pause
-		\item The recursion stops when a certain stopping criterion is met, for example, when the number of samples in a node is smaller than a minimum number of samples required, or when the maximum tree depth is reached.
-	\end{itemize}
-}
-\frame{
-	\frametitle{Gini index}
-Criterion for evaluating and finding the best splits in decision trees
-	\begin{itemize}
-		\item The Gini index is a measure of impurity or disorder in a set of data
-		\pause
-		\item Gives the probability of misclassifying a randomly chosen element
-		\pause
-		\item The smaller the Gini index, the more pure the split, meaning that the two sets are made up of more homogeneous classes.
-		\pause
-		\item When building a decision tree, the algorithm will calculate the Gini index for each possible split at each node and select the split with the smallest Gini index, which is considered the best split because it results in the most homogeneous sets.
-	\end{itemize}
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Regularization in Logistic Regression}
+    \begin{itemize}
+        \item Prevents overfitting by penalizing large coefficient values.
+        \item Common penalties:
+        \begin{itemize}
+            \item L2 (Ridge): \(\lambda \sum_j \beta_j^2\)
+            \item L1 (Lasso): \(\lambda \sum_j |\beta_j|\)
+        \end{itemize}
+        \item Balances model complexity (bias) with model flexibility (variance).
+        \item Important hyperparameter: the regularization strength \(\lambda\) (or \(C = 1/\lambda\) in some software).
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Entropy}
-Criterion for evaluating and finding the best splits in decision trees
-	\begin{itemize}
-		\item Entropy is a measure of uncertainty
-		\pause
-		\item Criterion for evaluating splits in decision trees
-		\pause
-		\item The greater the entropy, the more mixed the classes in the set, meaning that the set is more disordered
-		\pause
-		\item The goal of splitting the data is to reduce the entropy and increase the homogeneity of the sets, which results in a more accurate and stable decision tree
-	\end{itemize}
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Decision Trees}
+    \begin{itemize}
+        \item A non-parametric, tree-based method.
+        \item Begins from a root node and partitions the data into subsets (branches) based on feature-based splitting rules.
+        \item Each leaf node (terminal node) represents a prediction (class label).
+    \end{itemize}
+\end{frame}
 
-%\frame{
-%	\frametitle{Information gain}
-%	\begin{itemize}
-%		\item Information gain is the difference between the entropy of the parent node and the weighted average of the entropy of the child nodes
-%		\item Criterion for evaluating splits in decision trees
-%	\end{itemize}
-%}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Training a Decision Tree}
+    \begin{itemize}
+        \item Constructed recursively by splitting the data into subsets.
+        \item At each node, choose the feature and threshold that produce the \emph{best} split:
+        \begin{itemize}
+            \item Best according to a purity metric such as \textbf{Gini} or \textbf{Entropy}.
+        \end{itemize}
+        \item Stopping criteria:
+        \begin{itemize}
+            \item Maximum depth of the tree
+            \item Minimum number of samples required to split
+            \item Minimum impurity decrease, etc.
+        \end{itemize}
+        \item A fully grown tree can overfit. Pruning or limiting tree depth often helps generalize better.
+    \end{itemize}
+\end{frame}
 
-\frame{
-	\frametitle{Exercise: Recognizing handwritten digits}
-	\begin{itemize}
-		%\item Use the digits dataset from scikit-learn
-		\item Use different classification methods to classify the number from an image of a handwritten digit
-	\end{itemize}
-}
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Gini Impurity}
+    \begin{itemize}
+        \item Gini index (impurity) at node:
+        \[
+            G = \sum_{i=1}^{C} p_i(1 - p_i) = 1 - \sum_{i=1}^C p_i^2
+        \]
+        where \(p_i\) is the proportion of class \(i\).
+        \item Measures the chance of misclassifying a random observation from the node.
+        \item Smaller Gini means higher purity.
+        \item Often used by the CART (Classification and Regression Tree) algorithm.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Entropy}
+    \begin{itemize}
+        \item Entropy at node:
+        \[
+            H = -\sum_{i=1}^C p_i \log_2(p_i)
+        \]
+        \item Also measures uncertainty/disorder.
+        \item The goal is to minimize entropy to create "purer" splits.
+        \item In practice, Gini and Entropy often yield similar results.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Overfitting in Decision Trees}
+    \begin{itemize}
+        \item Deep trees can memorize noise in the training data.
+        \item Pruning:
+        \begin{itemize}
+            \item Post-pruning or pre-pruning to reduce depth.
+            \item Set constraints like \textit{max depth}, \textit{min samples per leaf}, or \textit{min impurity decrease}.
+        \end{itemize}
+        \item Ensemble methods (e.g. Random Forest, Gradient Boosting) further reduce overfitting by combining multiple trees.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Model Evaluation Metrics}
+    \begin{itemize}
+        \item \textbf{Accuracy}:
+        \[
+            \frac{\text{Number of correct predictions}}{\text{Total number of predictions}}
+        \]
+        \item \textbf{Precision} and \textbf{Recall}:
+        \[
+            \text{Precision} = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FP}}, \quad
+            \text{Recall} = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}
+        \]
+        \item \textbf{F1-score}: harmonic mean of precision and recall.
+        \item \textbf{Confusion Matrix}: shows the counts of true positives, false positives, false negatives, and true negatives.
+        \item \textbf{ROC/AUC}: ability to rank predictions correctly across various thresholds.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{Practical Considerations}
+    \begin{itemize}
+        \item \textbf{Feature Engineering}:
+        \begin{itemize}
+            \item Scaling, encoding categorical variables, etc.
+            \item Especially relevant for logistic regression (e.g.\ standardization).
+        \end{itemize}
+        \item \textbf{Cross-Validation}:
+        \begin{itemize}
+            \item Helps tune hyperparameters (e.g.\ regularization strength, tree depth).
+            \item Reduces risk of overfitting to a single train/test split.
+        \end{itemize}
+        \item \textbf{Class Imbalance}:
+        \begin{itemize}
+            \item Techniques like oversampling minority class, undersampling majority class, or using class-weighted loss.
+        \end{itemize}
+        \item \textbf{Interpretability}:
+        \begin{itemize}
+            \item Decision trees are quite interpretable (splits are easy to visualize).
+            \item Logistic regression coefficients are straightforward to interpret in terms of log-odds.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------
+% \begin{frame}
+%     \frametitle{Exercise: Recognizing Handwritten Digits}
+%     \begin{itemize}
+%         \item Use any available dataset (e.g., \texttt{sklearn.datasets.load\_digits}) which contains 8x8 pixel images of handwritten digits.
+%         \item Tasks:
+%         \begin{enumerate}
+%             \item Load and inspect the dataset (distribution of classes, feature shapes).
+%             \item Train a \textbf{Logistic Regression} model and a \textbf{Decision Tree} model.
+%             \item Compare performance using metrics:
+%             \begin{itemize}
+%                 \item Confusion matrix
+%                 \item Accuracy
+%                 \item F1-score
+%                 \item (Optional) ROC/AUC for each digit vs. rest
+%             \end{itemize}
+%             \item Investigate overfitting (e.g., adjust tree depth or regularization).
+%             \item Report results and discuss.
+%         \end{enumerate}
+%     \end{itemize}
+% \end{frame}
+
+%-------------------------------------------------------------------------------
 \end{document}
