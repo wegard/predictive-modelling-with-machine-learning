@@ -4,9 +4,9 @@
 
 \usetheme{example}
 
-\title{Lecture 5:\\ Model selection, evaluation and assessment}
-\institute{GRA4160: Predictive modelling with machine learning}
-\date{February 8th 2023}
+\title{Lecture 5:\\ Model Selection, Evaluation, and Assessment}
+\institute{GRA4160: Predictive Modelling with Machine Learning}
+\date{February 8th, 2023}
 \author{Vegard H\o ghaug Larsen}
 
 \begin{document}
@@ -14,249 +14,234 @@
 \maketitle
 
 \frame{
-	\frametitle{Plan for today:}
-	\begin{enumerate}
-		\item Recap from last week
-		\item Model selection, evaluation and assessment
-		\item Information criteria
-		\item Cross-validation
-		\item Bias-variance trade-off
-	\end{enumerate}
+  \frametitle{Plan for Today}
+  \begin{enumerate}
+    \item Recap from Last Week
+    \item Model Selection, Evaluation, and Assessment
+    \item Information Criteria
+    \item Cross-Validation
+    \item Bias-Variance Trade-off
+  \end{enumerate}
 }
 
 \frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{Model selection}
-	\end{center}
+  \frametitle{What is Model Selection?}
+  \begin{itemize}
+    \item Model selection is the process of choosing the best model from a set of candidate models.
+    \item A common (but potentially risky) approach is to compare performance on a held-out \textbf{validation} set and select the model with the best score.
+    \item \textbf{Pitfall:} Overusing a single validation set can lead to overfitting to that set.
+    \item \textbf{Alternatives:}
+      \begin{itemize}
+        \item \textbf{Cross-validation} - averages performance over multiple folds.
+        \item \textbf{Information criteria} - such as AIC or BIC, which balance model fit and complexity.
+      \end{itemize}
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Model Selection}
-	\begin{itemize}
-		\item Model selection is the process of choosing the best model from a set of candidate models
-		      \pause
-		\item The simplest approach is to compare the performance of different models on a held-out test set, and choose the model with the best performance
-		    \pause
-		\item This approach can lead to overfitting, where the model that performs best on the validation set is not the best model for the problem in general
-		      \pause
-		\item \textbf{Cross-validation} is a more robust approach where we select the model that performs best on the validation set in each fold of the data
-		      \pause
-		\item Another alternative is to use \textbf{inforation criteria} where we e.g., can calculate the AIC or BIC value for each candidate model, and choose the model with the lowest value
-	\end{itemize}
+  \frametitle{What is Model Evaluation?}
+  \begin{itemize}
+    \item Model evaluation measures how well a model performs on new, unseen data.
+    \item Approaches include:
+      \begin{itemize}
+        \item Splitting data into training and testing sets.
+        \item Using cross-validation techniques.
+      \end{itemize}
+    \item The aim is to estimate real-world performance.
+    \item Common evaluation metrics include accuracy, precision, recall, ROC curves, and AUC.
+    \item Visual tools like confusion matrices and decision boundary plots can help diagnose performance.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{Model Evaluation}
-	\end{center}
+  \frametitle{Common Metrics for Model Evaluation}
+  \begin{itemize}
+    \item \textbf{Accuracy:} Fraction of all predictions that are correct.
+    \item \textbf{Precision:} Fraction of positive predictions that are correct (important when false positives are costly).
+    \item \textbf{Recall (Sensitivity):} Ability to capture all positive instances (crucial when false negatives matter).
+    \item \textbf{ROC Curve:} Plots the true positive rate versus the false positive rate at different thresholds.
+    \item \textbf{AUC:} The area under the ROC curve, providing an overall performance measure.
+  \end{itemize}
+  %\vspace{0.5em}
+  %\small{(For more details, see Exercise 5 in the exercise notebook.)}
 }
 
 \frame{
-	\frametitle{Model Evaluation}
-	\begin{itemize}
-		\item Model evaluation is the process of evaluating the performance of a model on new unseen data
-		      \pause
-		\item This is typically done by dividing the data into training and testing sets, or by using cross-validation techniques
-		      \pause
-		\item The goal of model evaluation is to determine how well the model is likely to perform in practice
-		      \pause
-		\item Common metrics used for model evaluation include accuracy, precision, recall, ROC curve, and AUC
-		      \pause
-		\item Visualizations such as confusion matrices and decision boundaries can also be useful for evaluating the performance of a model
-	\end{itemize}
+  \frametitle{Understanding the Confusion Matrix}
+  \begin{itemize}
+    \item A confusion matrix summarizes a classification model’s performance.
+    \item It is composed of:
+      \begin{itemize}
+        \item \textbf{True Positives (TP):} Correctly predicted positive instances.
+        \item \textbf{True Negatives (TN):} Correctly predicted negative instances.
+        \item \textbf{False Positives (FP):} Incorrectly predicted positives (Type I error).
+        \item \textbf{False Negatives (FN):} Incorrectly predicted negatives (Type II error).
+      \end{itemize}
+    \item From these, we can compute:
+      \begin{itemize}
+        \item Precision = TP / (TP + FP)
+        \item Recall = TP / (TP + FN)
+        \item Accuracy = (TP + TN) / (TP + TN + FP + FN)
+      \end{itemize}
+    \item This matrix offers a fuller picture than accuracy alone.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Metrics used for model evaluation}
-	\begin{itemize}
-		\item \textbf{Accuracy} is the fraction of predictions that are correct, including both true positives and true negatives.
-		      \pause
-		\item \textbf{Precision} is the fraction of positive predictions that are correct. Precision is particularly important in scenarios where false positives are more costly
-		      \pause
-		\item \textbf{Recall} measures the ability of a model to correctly identify all positive instances in a dataset. Recall is crucial when false negatives are more critical
-		      \pause
-		\item \textbf{ROC} curve is a plot of the true positive rate against the false positive rate. It shows the performance of a classification model at all classification thresholds
-		      \pause
-		\item \textbf{AUC} is the area under the ROC curve. Provides an aggregate measure of performance across all possible classification thresholds
-	\end{itemize}
-	More details: See exercise 5 in the exercise notebook
+  \frametitle{What is Model Assessment?}
+  \begin{itemize}
+    \item Model assessment goes beyond simple evaluation—it examines multiple facets of a trained model.
+    \item Key aspects include:
+      \begin{itemize}
+        \item \textbf{Predictive Performance:} How well does the model generalize to new data?
+        \item \textbf{Complexity:} How many parameters or how intricate is the model?
+        \item \textbf{Interpretability:} How easy is it to understand the model’s decisions?
+        \item \textbf{Computational Efficiency:} What are the resource requirements for training and prediction?
+        \item \textbf{Scalability:} Can the model handle larger datasets or increased complexity?
+      \end{itemize}
+    \item Techniques like sensitivity analyses or stress tests can help ensure robustness.
+    \item Cross-validation is central to assessing model generalizability.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Understanding the Confusion Matrix}
-	\begin{itemize}
-		\item A \textbf{Confusion Matrix} is a table used to describe the performance of a classification model.
-		      \pause
-		\item It contains four components:
-		      \begin{itemize}
-			      \item \textbf{True Positives (TP)}: Correctly predicted positive instances
-			      \item \textbf{True Negatives (TN)}: Correctly predicted negative instances
-			      \item \textbf{False Positives (FP)}: Incorrectly predicted positive instances (Type I error)
-			      \item \textbf{False Negatives (FN)}: Incorrectly predicted negative instances (Type II error)
-		      \end{itemize}
-		      \pause
-		\item The matrix helps in calculating various performance metrics:
-		      \begin{itemize}
-			      \item Precision = TP / (TP + FP)
-			      \item Recall = TP / (TP + FN)
-			      \item Accuracy = (TP + TN) / (TP + TN + FP + FN)
-		      \end{itemize}
-		      \pause
-		\item It provides a holistic view of the model's performance, beyond just accuracy.
-	\end{itemize}
-}
-
-
-\frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{Model Assessment}
-	\end{center}
+  \frametitle{Introduction to Information Criteria}
+  \begin{itemize}
+    \item Information criteria are statistical tools that help balance model fit with model complexity.
+    \item The goal is to select a model that explains the data well without being overly complex.
+    \item Two commonly used criteria are:
+      \begin{itemize}
+        \item \textbf{Akaike Information Criterion (AIC)}
+        \item \textbf{Bayesian Information Criterion (BIC)}
+      \end{itemize}
+    \item They rely on the concept of likelihood and penalize the number of parameters.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Model Assessment}
-	\begin{itemize}
-		\item Model assessment is a broad concept that covers the evaluation of multiple aspects of a trained model.
-		      \pause
-		\item It involves evaluating the model's performance on new data and assessing factors like:
-		      \begin{itemize}
-			      \item \textbf{Complexity}: How intricate is the model? (e.g., number of parameters)
-			      \item \textbf{Interpretability}: How easily can we understand the model’s decisions?
-			      \item \textbf{Computational Efficiency}: How much computational resources does it require?
-			      \item \textbf{Scalability}: Can it handle increasing data or complexity?
-		      \end{itemize}
-		      \pause
-		\item Includes conducting sensitivity analyses or stress tests to determine the model's performance under varying conditions or scenarios, ensuring robustness and reliability.
-		      \pause
-		\item Emphasizes the importance of techniques like cross-validation to ensure generalizability to new data.
-	\end{itemize}
+  \frametitle{Akaike and Bayesian Information Criteria}
+  \begin{itemize}
+    \item \textbf{Akaike Information Criterion (AIC):}
+      \begin{itemize}
+        \item Balances goodness of fit and complexity.
+        \item A lower AIC indicates a better model.
+        \item Calculated as: 
+          \[
+          AIC = 2k - 2\ln(L)
+          \]
+          where \( k \) is the number of parameters and \( L \) is the model likelihood.
+      \end{itemize}
+    \pause
+    \item \textbf{Bayesian Information Criterion (BIC):}
+      \begin{itemize}
+        \item Similar in form to AIC, but applies a larger penalty for complexity.
+        \item Tends to favor simpler models.
+        \item Calculated as:
+          \[
+          BIC = \ln(n)k - 2\ln(L)
+          \]
+          where \( n \) is the sample size.
+      \end{itemize}
+    \pause
+    \item \textbf{Note:} Both AIC and BIC are relative measures—use them to compare models on the same dataset.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{Information criteria}
-	\end{center}
+  \frametitle{\(k\)-Fold Cross-Validation}
+  \begin{itemize}
+    \item The dataset is divided into \( k \) equal (or nearly equal) parts (folds).
+    \item In each of \( k \) iterations:
+      \begin{itemize}
+        \item One fold is held out as the test set.
+        \item The remaining \( k-1 \) folds form the training set.
+      \end{itemize}
+    \item Performance is averaged across all folds, reducing bias and variance in the estimate.
+    \item Particularly useful when data is limited.
+    \item Common choices for \( k \) are 5 or 10, though the best value depends on the dataset size and computational resources.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Introduction to Information Criteria}
-
-	\begin{itemize}
-		\item Information Criteria are statistical tools used to compare and select models.
-		      \pause
-		\item They help in balancing model fit (how well a model describes the data) against model complexity (number of parameters).
-		      \pause
-		\item The goal is to find a model that adequately explains the data but is not overly complex.
-		      \pause
-		\item Commonly used Information Criteria include Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC).
-		      \pause
-		\item These criteria are based on principles from information theory and statistical likelihood.
-	\end{itemize}
+  \frametitle{Additional Cross-Validation Techniques}
+  \begin{itemize}
+    \item \textbf{Stratified \(k\)-fold:} Ensures each fold maintains the same class distribution as the full dataset (especially useful for imbalanced classes).
+    \item \textbf{Leave-One-Out Cross-Validation (LOOCV):} Uses all but one observation for training; although nearly unbiased, it can be computationally expensive.
+    \item \textbf{Repeated Cross-Validation:} Repeats the \( k \)-fold process multiple times with different splits to obtain more robust performance estimates.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{Akaike Information Criterion and Bayesian Information Criterion}
-
-	\begin{itemize}
-		\item \textbf{Akaike Information Criterion (AIC)}:
-		      \begin{itemize}
-			      \item Focuses on the trade-off between the goodness of fit and model complexity.
-			      \item Lower AIC values indicate a better model.
-			      \item Calculated as: $AIC = 2k - 2ln(L)$, where $k$ is the number of parameters, and $L$ is the likelihood of the model.
-		      \end{itemize}
-		      \pause
-		\item \textbf{Bayesian Information Criterion (BIC)}:
-		      \begin{itemize}
-			      \item Similar to AIC but includes a stronger penalty for models with more parameters.
-			      \item Favors simpler models more than AIC.
-			      \item Calculated as: $BIC = ln(n)k - 2ln(L)$, where $n$ is the sample size.
-		      \end{itemize}
-		      \pause
-		\item Both AIC and BIC are used for model selection, but they have different approaches and interpretations.
-	\end{itemize}
+  \frametitle{The Bias-Variance Trade-off}
+  \begin{itemize}
+    \item A key concept in understanding model performance on unseen data.
+    \item \textbf{Bias:}
+      \begin{itemize}
+        \item Error from overly simplistic assumptions.
+        \item Leads to underfitting (missing important patterns).
+      \end{itemize}
+    \pause
+    \item \textbf{Variance:}
+      \begin{itemize}
+        \item Error from sensitivity to small fluctuations in the training data.
+        \item Leads to overfitting (capturing noise as if it were signal).
+      \end{itemize}
+    \pause
+    \item The goal is to balance bias and variance to achieve a model that generalizes well.
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{Cross validation}
-	\end{center}
+  \frametitle{Managing Bias and Variance}
+  \begin{itemize}
+    \item \textbf{High Bias (Underfitting):}
+      \begin{itemize}
+        \item Remedies include increasing model complexity (more features or a more flexible algorithm) or reducing regularization.
+      \end{itemize}
+    \pause
+    \item \textbf{High Variance (Overfitting):}
+      \begin{itemize}
+        \item Remedies include simplifying the model, increasing regularization, or gathering more training data.
+      \end{itemize}
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{$k$-fold cross-validation}
-	\begin{itemize}
-		\item The original dataset is randomly partitioned into $k$ equal-sized subsets, or folds.
-		      \pause
-		\item In each iteration, one fold is used as the test set and the remaining $k-1$ folds are used as the training set.
-		      \pause
-		\item This process is repeated $k$ times, with each of the $k$ folds used exactly once as the test set.
-		      \pause
-		\item Provides a more reliable estimate of the model's performance by using all the data for both training and testing, reducing both bias and variance.
-		      \pause
-		\item Particularly useful when the amount of data available is limited.
-	\end{itemize}
-
-	\pause
-
-	Common values of $k$ are 5 or 10. The choice of $k$ depends on the dataset size and computational resources. Larger $k$ values yield more reliable performance estimates but increase computational cost and may have higher variance in test performance.
+  \frametitle{Visualizing the Bias-Variance Trade-off}
+  \begin{center}
+    \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_1.png}
+    \vspace{0.5em}
+    
+    \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_2.png}
+    
+    \small{(Left: Example of high bias/underfitting. Right: Example of high variance/overfitting.)}
+  \end{center}
 }
 
 \frame{
-	\frametitle{}
-	\begin{center}
-		\Huge{The Bias-Variance trade-off}
-	\end{center}
+  \frametitle{Summary and Key Takeaways}
+  \begin{itemize}
+    \item \textbf{Model Selection:} Use techniques such as cross-validation and information criteria (AIC/BIC) to balance model fit and complexity.
+    \item \textbf{Model Evaluation:} Assess performance using metrics (accuracy, precision, recall, AUC) and diagnostic tools (confusion matrix).
+    \item \textbf{Model Assessment:} Consider broader factors like interpretability, computational efficiency, and scalability.
+    \item \textbf{Cross-Validation:} Essential for obtaining robust performance estimates, especially when data is scarce.
+    \item \textbf{Bias-Variance Trade-off:} Strive for a balance to avoid underfitting (high bias) and overfitting (high variance).
+  \end{itemize}
 }
 
 \frame{
-	\frametitle{The Bias-Variance Trade-off}
-	\begin{itemize}
-		\item A fundamental concept in machine learning that relates to the performance of a model on new data.
-		      \pause
-		\item Bias refers to the error due to overly simplistic assumptions in the learning algorithm, leading to systematic deviation from the true values (underfitting)
-		      \pause
-		\item Variance refers to the error due to too much complexity in the learning algorithm, causing sensitivity to fluctuations in the training data (overfitting).
-		      \pause
-		\item High bias can result in a model that misses relevant relations between features and target outputs (underfitting).
-		      \pause
-		\item High variance can cause the model to model the random noise in the training data, rather than the intended outputs (overfitting).
-		      \pause
-		\item The goal is to achieve a balance between bias and variance, leading to a model that generalizes well to new data. This often involves model tuning and selection of appropriate algorithms.
-	\end{itemize}
-}
-
-\frame{
-	\frametitle{High bias and high-variance}
-	\begin{itemize}
-		\item High variance refers to a model that overfits the training data
-		\item High variance can be addressed by simplifying the model or by adding regularization techniques
-		      \pause
-		\item High bias refers to a model that underfits the training data
-		\item High bias can be addressed by using a more complex model, increasing the number of features, or reducing regularization
-	\end{itemize}
-}
-
-\frame{
-	\frametitle{Example of high bias}
-	\includegraphics[scale=0.5]{figures/bias_variance_tradeoff_1.png}
-}
-
-\frame{
-	\frametitle{Example of high variance}
-	\includegraphics[scale=0.5]{figures/bias_variance_tradeoff_2.png}
+  \frametitle{Questions?}
+  \begin{center}
+    \Large{Any questions or points for discussion?}
+  \end{center}
 }
 
 %\frame{
-%	\frametitle{Exercise: Model selection, assessment and evaluation}
+%	\frametitle{Exercise: Model Selection, Assessment and Evaluation}
 %	\begin{itemize}
-%		\item Use cross-validation to evaluate the performance of a $k$-nearest neighbors (KNN) model trained on the iris dataset. Vary the number of neighbors and compare the resulting cross-validation scores. Which value of $k$ gives the best performance?
+%		\item Use cross-validation to evaluate the performance of a \(k\)-nearest neighbors (KNN) model trained on the iris dataset. Vary the number of neighbors and compare the resulting cross-validation scores. Which value of \(k\) gives the best performance?
 %		\item Train different models on the iris dataset and compare their performance using accuracy and a confusion matrix. Which model performs best?
-%		\item Perform $k$-fold cross-validation on the iris data and compare the performance of several models such as KNN, decision trees, and logistic regression. Which model performs best?
+%		\item Perform \(k\)-fold cross-validation on the iris data and compare the performance of several models such as KNN, decision trees, and logistic regression. Which model performs best?
 %		\item Train a decision tree on the iris dataset. Use \texttt{GridSearchCV} to find the best hyperparameters for \texttt{max\_depth}, \texttt{min\_samples\_leaf}, and \texttt{min\_samples\_split}. What is the model accuracy with optimized hyperparameters?
 %	\end{itemize}
 %}
