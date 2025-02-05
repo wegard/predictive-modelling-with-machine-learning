@@ -24,6 +24,41 @@
   \end{enumerate}
 }
 
+\begin{frame}
+\frametitle{Recap: Logistic Regression}
+\begin{itemize}
+    \item \textbf{Purpose:} Binary classification (generalized to multi-class).
+    \item \textbf{Log-odds Model:} 
+    \[
+      \log\Bigl(\frac{p}{1-p}\Bigr) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.
+    \]
+    \item \textbf{Sigmoid Function:} Maps any real value to \([0,1]\) for valid probabilities:
+    \[
+      p = \frac{1}{1 + e^{-z}}.
+    \]
+    \item \textbf{Estimation:} 
+      \begin{itemize}
+        \item Fit via maximum likelihood (minimize negative log-likelihood).
+        \item Interpret coefficients in terms of odds ratios (\(e^\beta\)).
+      \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Recap: Decision Trees}
+\begin{itemize}
+    \item \textbf{Decision Trees}
+    \begin{itemize}
+        \item Non-parametric, recursively splits data to purify classes.
+        \item Splits chosen by impurity measures (Gini, Entropy).
+        \item Advantages: Interpretability, no feature scaling needed.
+        \item Drawbacks: Prone to overfitting if not pruned.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
 \frame{
   \frametitle{What is Model Selection?}
   \begin{itemize}
@@ -235,15 +270,5 @@
     \Large{Any questions or points for discussion?}
   \end{center}
 }
-
-%\frame{
-%	\frametitle{Exercise: Model Selection, Assessment and Evaluation}
-%	\begin{itemize}
-%		\item Use cross-validation to evaluate the performance of a \(k\)-nearest neighbors (KNN) model trained on the iris dataset. Vary the number of neighbors and compare the resulting cross-validation scores. Which value of \(k\) gives the best performance?
-%		\item Train different models on the iris dataset and compare their performance using accuracy and a confusion matrix. Which model performs best?
-%		\item Perform \(k\)-fold cross-validation on the iris data and compare the performance of several models such as KNN, decision trees, and logistic regression. Which model performs best?
-%		\item Train a decision tree on the iris dataset. Use \texttt{GridSearchCV} to find the best hyperparameters for \texttt{max\_depth}, \texttt{min\_samples\_leaf}, and \texttt{min\_samples\_split}. What is the model accuracy with optimized hyperparameters?
-%	\end{itemize}
-%}
 
 \end{document}
