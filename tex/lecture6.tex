@@ -21,7 +21,7 @@
     \item Dimensionality Reduction
     \item Principal Component Analysis (PCA)
     \item K-Means Clustering
-    \item Combining PCA and K-Means
+    %\item Combining PCA and K-Means
     %\item Extensions and Limitations
     %\item Conclusion
 \end{itemize}
@@ -111,7 +111,7 @@
     \item Can think of it as a decomposition of the data where we keep the most important information.
     \item Orthogonal components: Each captures remaining variance.
     \item Unsupervised: Ignores class labels.
-    \item Key Idea: Optimal lower-dimensional representation (maximum variance).
+    %\item Key Idea: Optimal lower-dimensional representation (maximum variance).
 \end{itemize}
 \end{frame}
 
@@ -297,11 +297,11 @@
 \begin{frame}
     \frametitle{Limitations of PCA}
     \begin{itemize}
-    \item  Linearity: PCA is limited in capturing non-linear data.
-    \item Feature Scaling: Standarization is crucial for unbiased results.
-    \item Interpretability: Can be difficult with a large number of features
-    \item Information Loss: Must use explained variance to determine acceptable amount of loss.
-    \item Outliers: Can signifiantly alter results.
+    \item \textbf{Linearity:} PCA is limited in capturing non-linear data.
+    \item \textbf{Feature Scaling:} Standardization is crucial for unbiased results.
+    \item \textbf{Interpretability:} Can be difficult with many features
+    \item \textbf{Information Loss:} Must use explained variance to determine acceptable amount of loss.
+    \item \textbf{Outliers:} Can significantly alter results.
     \end{itemize}
     \end{frame}
     
@@ -460,11 +460,11 @@
                     \item Outliers can significantly distort centroid positions and degrade clustering quality.
                     \item Consider pre-processing steps like outlier detection or robust clustering methods.
                 \end{itemize}
-            \item \textbf{Cluster Shape Assumption:}
-                \begin{itemize}
-                    \item K-Means assumes clusters are convex and roughly spherical.
-                    \item If clusters are elongated or of irregular shape, alternative clustering methods (e.g., DBSCAN or Gaussian Mixture Models) may be more appropriate.
-                \end{itemize}
+            %\item \textbf{Cluster Shape Assumption:}
+            %    \begin{itemize}
+            %        \item K-Means assumes clusters are convex and roughly spherical.
+            %        \item If clusters are elongated or of irregular shape, alternative clustering methods (e.g., DBSCAN or Gaussian Mixture Models) may be more appropriate.
+            %    \end{itemize}
         \end{itemize}
         \end{frame}
         
