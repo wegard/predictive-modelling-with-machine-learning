@@ -3,6 +3,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\newcommand{\high}[1]{{\color{red}#1}}
 
 \usetheme{example}
 
@@ -22,6 +23,11 @@
         \item \textbf{Key Concepts:} Gradient descent variants, computational graphs, the chain rule, backpropagation algorithm  
         \item \textbf{Approach:} Start from first principles, then live-code a simple automatic differentiation engine 
         \item \textbf{Goal:} Build intuition on how gradients are computed and used to train models
+    \end{itemize}
+    Two examples:
+    \begin{itemize}
+        \item ADALINE for binary classification
+        \item Logistic regression
     \end{itemize}
 }
 
@@ -229,6 +235,288 @@
     Iterate for many epochs - the loss typically decreases and the model improves. Backpropagation ensures each weight is nudged in the direction that most reduces the error.
     Outcome: The network's weights gradually converge to values that produce low loss (i.e., the network learns from the data).
 }
+
+\begin{frame}
+    \frametitle{ADALINE: ADAptive LInear NEurons}
+    \begin{center}
+        {\LARGE ADALINE for binary classification}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Supervised learning for binary classification: Linear decision boundary}
+	\begin{center}    
+		\includegraphics[width=0.4\textwidth]{figures/02_02.png}
+	\end{center}
+	\begin{itemize}
+		\item Binary classification task with two classes: 0 and 1
+		\item We can construct a linear decision boundary
+		\item We use a threshold function for discriminating among the  two classes
+		\item The decision function takes as input a linear combination of the features, that is $\mathbf{z = w^{\top}x + b}$ (net input)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ADALINE: ADAptive LInear NEurons}
+%	KEY DIFFERENCE: the weights are updated based on a linear activation function rather than a unit step function like in the perceptron: \high{$\sigma(z) = z$ (identity function)}.
+	\begin{center}    
+		\includegraphics[width=0.75\textwidth]{figures/02_09_new.png}
+	\end{center}
+%	NOTICE THAT: while the linear activation function is used for learning the weights, we still use a threshold function to make the final prediction (similarly to the perceptron).
+\end{frame}
+
+\begin{frame}{Step 1. Updating the weights}
+ADALINE rule
+		\begin{enumerate}
+			\item We initialize the weights and bias;
+			\item We compute the NET INPUT: $z^{(i)} = \mathbf{w}^{\top}x^{(i)} + b$;
+			%\item We apply a \high{activation function}: $\sigma(z^{(i)}) = z^{(i)}$;
+			\item We compute the error in the training step BY $y^{(i)}- z^{(i)}$, where now $y^{(i)}\in \{0, 1\}$ but $z^{(i)}$ takes values in all $\mathbb{R}$;
+		\end{enumerate}	
+	
+	\vfill
+	
+	Since we want to minimize the difference $y^{(i)}-z^{(i)}$:
+	\begin{itemize}
+		\item For those $x^{(i)}$ corresponding to $y^{(i)} = 1$, the weights $\mathbf{w}$ and $b$ needs to \emph{push $z^{(i)}$ as closed as possible to $1$};
+		\item  For those $x^{(i)}$ corresponding to $y^{(i)} = 0$, the weights $\mathbf{w}$ and $b$ needs to \emph{push $z^{(i)}$ as closed as possible to $0$}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 2. We use a threshold function to make the final prediction}
+	\begin{itemize}
+		\item At the end of the training, we get $z^{(i)}$ which will not be $0$ or $1$ as we need!! (we need to identify a class);
+		\item The  $\high{z^{(i)}}$ will take some values close to $0$ or $1$;
+		\item We need then to "transform" them by applying a threshold function;
+%		\item Does the threshold function $\sigma^{\high{t}}$ previously defined work here?
+		\uncover<2->{
+			\vfill\item A possible threshold function:
+			$\hat{y}^{(i)}  = 
+			\begin{cases}
+				1 & \mbox{ if } z^{(i)} \ge 0.5\\
+				0 & \mbox{ if } z^{(i)} < 0.5
+			\end{cases}$;
+			\vfill\item REMEMBER THAT THE THRESHOLD FUNCTION IS ONLY USED TO MAKE THE FINAL PREDICTION!
+		}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{The optimization algorithm via gradient descent} 
+	\begin{center}    
+		\includegraphics[width=0.4\textwidth]{figures/02_10.png}
+	\end{center}
+	\begin{itemize}
+		\item We use again the  \textbf{mean squared error (MSE)} loss function:
+		\begin{equation*}
+			%L(\{y^{(i)}\}_{i=1}^n, \{\hat{y}^{(i)}\}_{i=1}^n)
+			L(\mathbf{w}, b) =  \frac{1}{2n}\sum_{i=1}^{n}\left(y^{(i)}-z^{(i)}\right)^2
+		\end{equation*}
+		where now the residuals are computed between the observations and the net inputs
+		\item We take a step in the opposite direction of the gradient
+		\item The step size is determined by the learning rate and by the slope of the gradient
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{The rule}
+	\begin{itemize}
+		\item By gradient descent, we update the model parameters by taking a step in the opposite direction of the gradient of the loss function:
+		\begin{align*}
+			&\mathbf{w} = \mathbf{w} + \Delta \mathbf{w} &\mbox{with }\Delta \mathbf{w}  = -\eta \nabla_{w}L(\mathbf{w}, b) \\
+			&b = b + \Delta b &\mbox{with }\Delta b = -\eta \nabla_{b}L(\mathbf{w}, b)
+		\end{align*}
+		\item $\nabla_{w}L(\mathbf{w}, b)$ is the vector whose components are the partial derivatives of the loss function with respect to each weight $w_j$:
+		\begin{equation*}
+			\nabla_{w}L(\mathbf{w}, b) = \begin{pmatrix}
+				\frac{\partial L}{\partial w_1} & \frac{\partial L}{\partial w_2}  & \cdots & \frac{\partial L}{\partial w_m} \end{pmatrix}^\top \mbox{ with }
+			\frac{\partial L}{\partial w_j} = -\frac{1}{n} \sum_{i=1}^{n}\left(y^{(i)}-z^{(i)}\right) x_j^{(i)};
+		\end{equation*}
+		\item $\nabla_{b}L(\mathbf{w}, b)$ corresponds to the partial derivative of the loss function with respect to the bias $b$:
+		\begin{equation*}
+			\nabla_{b}L(\mathbf{w}, b) =  \frac{\partial L}{\partial b} = -\frac{1}{n} \sum_{i=1}^{n}\left(y^{(i)}-z^{(i)}\right).
+		\end{equation*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Logistic Regression }
+    \begin{center}
+        {\LARGE Logistic Regression }
+    \end{center}
+\end{frame}
+
+\begin{frame}{The logistic regression algorithm}
+	\begin{center}    
+		\includegraphics[width=0.8\textwidth]{figures/03_03.png}
+	\end{center}
+\vfill 
+What is this similar to? What is/are the difference(s)?
+\end{frame}
+
+\begin{frame}{The sigmoid function}
+We define the \textbf{logistic sigmoid function}, or simply \textbf{sigmoid function} by:
+	\begin{equation*}
+		\sigma(z) := \frac{1}{1+e^{-z}}
+	\end{equation*}
+where $z =  \mathbf{w}^\top \mathbf{x} + b$ is the net input.
+
+\vfill 
+
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+			\begin{center}    
+			\includegraphics[width=\textwidth]{figures/03_02.png}
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+	Notice that:
+	\begin{itemize}
+		\item For $z$ approaching $+\infty$, $\sigma(z)$ approaches $1$;
+		\item For $z$ approaching $-\infty$, $\sigma(z)$ approaches $0$;
+		\item Hence $\sigma: \mathbb{R} \to [0, 1]$ with intercept $\sigma(0) = 0.5$.
+	\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% \begin{frame}{Why the sigmoid function?}
+% %	Before explaining the idea behind the logistic regression, we need the followings:
+% %	\begin{itemize}
+% Let $p\in [0, 1]$ the probability of a "positive event" (here "positive" does not mean "good", but refers to the event that we want to predict).
+% %		\item We define the \textbf{odds} in favor of a particular event as $\frac{p}{1-p}$;
+% %		\item We further define the \textbf{logit function}, which is simply the logarithm of the odds:
+% %		\begin{equation*}
+% %			\mathrm{logit}(p) = \log \frac{p}{1-p},
+% %		\end{equation*}
+% %		where $\log$ denotes the natural logarithm. Notice that: $\mathrm{logit}: [0, 1]\to \mathbb{R}$.
+% %	\end{itemize}
+	
+% 	\vfill 
+	
+% 	\begin{block}{Example}
+% 		\emph{\small We consider $p$ as the probability that a patient has a certain disease given certain symptoms. Then we think of the positive event as class label $y=1$ and the symptoms as feature $\mathbf{x}$, and \high{$p:= p(y=1|\mathbf{x})$} is the probability that a particular example belongs to the class $1$ given $\mathbf{x}$.}
+% 	\end{block}
+
+% 	\vfill 
+	
+% 	\textbf{The output of the sigmoid function is interpreted as the probability of a particular example belonging to class $1$}:
+% 	\begin{equation*}
+% 		\high{\sigma(z) = p(y=1|\mathbf{x}; \mathbf{w}, b)}
+% 	\end{equation*}
+% 	given its features $\mathbf{x}$ and parameterized by the weights and bias,  $\mathbf{w}$ and  $b$. 
+	
+% 		\begin{block}{Example}
+% 			\emph{\small 
+% 		If $\sigma(z) = 0.8$ for a particular flower example, it means that the chance that this example is an Iris-versicolor flower is $80\%$.Therefore, the probability that this flower is an Iris-setosa flower can be calculated as $p(y=0|\mathbf{x}; \mathbf{w}, b) = 1- p(y=1|\mathbf{x}; \mathbf{w}, b) = 0.2$, or $20\%$.}
+% 	\end{block}
+
+% \end{frame}
+
+
+\begin{frame}{The (same) threshold function (as Adaline)}
+The predicted probability can then simply be converted into a binary outcome via a threshold function:
+\begin{equation*}
+\hat{y}=	\begin{cases}
+		1 & \mbox{if } \sigma(z) \ge 0.5\\
+		0 & \mbox{if } \sigma(z) < 0.5
+	\end{cases}
+\end{equation*}
+
+\begin{block}{Remark}
+	\textbf{There are many applications where we are interested in} both the predicted class labels and in \textbf{the estimation of the class-membership probability} (the output of the sigmoid function prior to applying the threshold function). 
+\end{block}
+Examples:
+\begin{itemize}
+	\item Weather forecasting: we are interested not only to predict whether it will rain on a particular day, but also to report the chance of rain. 
+	\item Medicine: logistic regression can be used to predict the chance that a patient has a particular disease given certain symptoms.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What about the learning process?}
+	\begin{itemize}
+		\item We need to define an objective function that we seek to minimize;
+		\item The idea is that we want to \textbf{maximize the likelihood}, namely the probability of classifying the dataset correctly, given some parameters $\mathbf{w}$ and  $b$;
+		\item This is equivalent to minimize the \textbf{CROSS-ENTROPY loss function}:
+		\begin{equation*}
+			\high{L(\mathbf{w}, b) := \sum_{i=1}^{n} \left[  -y^{(i)}\log\left(\sigma(z^{(i)})\right) - (1-y^{(i)})\log\left(1-\sigma(z^{(i)})\right)\right]}.
+		\end{equation*}
+	\end{itemize}
+
+Example: $n=1$
+	\begin{equation*}
+		L(\mathbf{w}, b) = -y^{(1)}\log\left(\sigma(z^{(1)})\right) - (1-y^{(1)})\log\left(1-\sigma(z^{(1)})\right)
+	\end{equation*}
+We notice that:
+\begin{equation*}
+	L(\mathbf{w}, b)  = \begin{cases}
+		-\log\left(\sigma(z^{(1)})\right) & \mbox{if } y^{(1)} = 1\\
+		-\log\left(1-\sigma(z^{(1)})\right)& \mbox{if } y^{(1)} = 0
+	\end{cases}.
+\end{equation*}
+	
+\end{frame}
+
+
+\begin{frame}{The cross-entropy function explained}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{equation*}
+			L(\mathbf{w}, b)  = \begin{cases}
+				-\log\left(\sigma(z^{(1)})\right) & \mbox{if } y^{(1)} = 1\\
+				-\log\left(1-\sigma(z^{(1)})\right)& \mbox{if } y^{(1)} = 0
+			\end{cases}
+		\end{equation*}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+			\begin{center}    
+		\includegraphics[width=\textwidth]{figures/03_04.png}
+	\end{center}
+\end{column}
+\end{columns}
+\begin{itemize}
+	\item Blue continuous  line: the loss approaches 0 if we correctly predict that an example belongs to class 1
+	\item Orange dashed line: the loss also approaches 0 if we correctly predict $y = 0$
+	\item If the prediction is wrong, the loss goes toward infinity
+	\item \textbf{We penalize wrong predictions with an increasingly larger loss!}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{The algorithm}
+The logistic regression algorithm can be obtained starting from the Adaline implementation:
+\begin{enumerate}
+	\item By substituting the MSE loss function with the cross-entropy loss function
+	\item By changing the linear activation function with the sigmoid function
+\end{enumerate}
+
+\vfill 
+
+\begin{itemize}
+	\item What about the gradient for the optimization step?
+	\uncover<2->{\item  Using calculus, we can show (optional exercise at home) that \textbf{the parameter updates via gradient descent are equal to the ones for Adaline}, namely the gradient step is unchanged!}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The gradient step (unchanged)}
+	\begin{itemize}
+		\item By \textbf{gradient descent}, we update the model parameters by taking a step in the opposite direction of the gradient of the loss function:
+		\begin{align*}
+			&\mathbf{w} = \mathbf{w} + \Delta \mathbf{w} &\mbox{with }\Delta \mathbf{w}  = -\eta \nabla_{w}L(\mathbf{w}, b) \\
+			&b = b + \Delta b &\mbox{with }\Delta b = -\eta \nabla_{b}L(\mathbf{w}, b)
+		\end{align*}
+		\item $\nabla_{w}L(\mathbf{w}, b)$ is the vector whose components are the partial derivatives of the loss function with respect to each weight $w_j$:
+		\begin{equation*}
+			\nabla_{w}L(\mathbf{w}, b) = \begin{pmatrix}
+				\frac{\partial L}{\partial w_1} & \frac{\partial L}{\partial w_2}  & \cdots & \frac{\partial L}{\partial w_m} \end{pmatrix}^\top \mbox{ with }
+			\high{\frac{\partial L}{\partial w_j} = -\frac{1}{n} \sum_{i=1}^{n}\left(y^{(i)}-\sigma(z^{(i)})\right) x_j^{(i)}};
+		\end{equation*}
+		\item $\nabla_{b}L(\mathbf{w}, b)$ corresponds to the partial derivative of the loss function with respect to the bias $b$:
+		\begin{equation*}
+			\nabla_{b}L(\mathbf{w}, b)=   \high{\frac{\partial L}{\partial b} =-\frac{1}{n} \sum_{i=1}^{n}\left(y^{(i)}-\sigma(z^{(i)})\right)}.
+		\end{equation*}
+	\end{itemize}
+\end{frame}
+
+
 
 \frame{
     \frametitle{Coding Demo: Building an Automatic Differentiation Engine}
