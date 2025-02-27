@@ -1,0 +1,47 @@
+digraph {
+	graph [nodesep=0.1 rankdir=LR ranksep=0.4]
+	4395791600 [label="data: 2.5000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395791600*" [label="*" fontsize=10 height=0.1 width=0.1]
+	"4395791600*" -> 4395791600 [minlen=1]
+	4395790592 [label="data: 0.5000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	4395793376 [label="data: 5.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395793376+" [label="+" fontsize=10 height=0.1 width=0.1]
+	"4395793376+" -> 4395793376 [minlen=1]
+	4395792896 [label="data: 4.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395792896**2" [label="**2" fontsize=10 height=0.1 width=0.1]
+	"4395792896**2" -> 4395792896 [minlen=1]
+	4395792752 [label="data: -2.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395792752+" [label="+" fontsize=10 height=0.1 width=0.1]
+	"4395792752+" -> 4395792752 [minlen=1]
+	4395791504 [label="data: 3.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	4395794096 [label="data: -5.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	4395792320 [label="data: 1.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395792320**2" [label="**2" fontsize=10 height=0.1 width=0.1]
+	"4395792320**2" -> 4395792320 [minlen=1]
+	4395794000 [label="data: 1.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	"4395794000+" [label="+" fontsize=10 height=0.1 width=0.1]
+	"4395794000+" -> 4395794000 [minlen=1]
+	4395793808 [label="data: 2.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	4395791984 [label="data: -1.0000
+grad: 0.0000" fillcolor=white fontsize=10 height=0.1 shape=box style=filled width=0.1]
+	4395790592 -> "4395791600*" [minlen=1]
+	4395793376 -> "4395791600*" [minlen=1]
+	4395792896 -> "4395793376+" [minlen=1]
+	4395792752 -> "4395792896**2" [minlen=1]
+	4395791504 -> "4395792752+" [minlen=1]
+	4395794096 -> "4395792752+" [minlen=1]
+	4395792320 -> "4395793376+" [minlen=1]
+	4395794000 -> "4395792320**2" [minlen=1]
+	4395793808 -> "4395794000+" [minlen=1]
+	4395791984 -> "4395794000+" [minlen=1]
+}
