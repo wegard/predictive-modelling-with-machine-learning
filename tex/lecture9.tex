@@ -2,11 +2,11 @@
 % !TEX spellcheck = en-US
 \documentclass[aspectratio=169]{beamer}
 
-\usetheme{bi}
+\usetheme{example}
 
-\title{Lecture 9:\\ Neural networks I}
+\title{Lecture 9:\\ Neural networks}
 \institute{GRA4160: Predictive modelling with machine learning}
-\date{March 7th 2024}
+\date{March 5th 2025}
 \author{Vegard H\o ghaug Larsen}
 
 \begin{document}
@@ -19,8 +19,8 @@
 		\item Introduction to neural networks
 		\item Single layer (feed forward) neural networks
 		\item Fitting a Neural Network
-		\item Backpropagation
-		\item Stochastic gradient descent
+		%\item Backpropagation
+		%\item Stochastic gradient descent
 	\end{itemize}
 }
 
@@ -91,38 +91,6 @@
 {\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
 }
 
-%\frame{
-%	\frametitle{Multi-layer neural networks}
-%	\begin{itemize}
-%		\item A multi-layer neural network is a neural network with more than one hidden layer
-%		\pause
-%		\item Modern neural networks typically have more than one hidden layer
-%		\pause
-%		\item The hidden layers are used to learn more complex patterns in the data
-%		\pause
-%		\item The number of hidden layers and the number of hidden units in each layer are hyperparameters that can be tuned
-%	\end{itemize}
-%}
-
-%\frame{
-%	\frametitle{NN with two hidden layers and multiple outputs}
-%	\includegraphics[scale=0.19]{figures/multilayer_NN.png}\\
-%	{\footnotesize Source: An Introduction to Statistical Learning with Applications in R, James, Witten, Hastie and Tibshirani, 2013}
-%}
-
-%\frame{
-%	\frametitle{The perceptron}
-%	\begin{itemize}
-%		\item ...
-%	\end{itemize}
-%}
-
-%\frame{
-%	\frametitle{The multilayer perceptron}
-%	\begin{itemize}
-%		\item ...
-%	\end{itemize}
-%}
 
 \frame{
 	\frametitle{Fitting a Neural Network}
@@ -199,4 +167,22 @@ The gradient packs all the partial derivatives into a single vector: $\nabla L =
 	\end{itemize}
 }
 
+\frame{
+	\frametitle{L2 regularization}
+	\begin{itemize}
+		\item L2 regularization is a type of regularization that adds a penalty term to the cost function to prevent the network from overfitting to the training data
+		\item The penalty term is a function of the sum of the squares of the weights in the network
+		\item The penalty term is added to the cost function to prevent the network from overfitting to the training data
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Dropout}
+	\begin{itemize}
+		\item Dropout is a regularization technique for neural networks that randomly drops out (sets to zero) some of the neurons in the network during training
+		\item This helps prevent the network from overfitting to the training data
+		\item Dropout can be seen as an ensemble of all the networks that can be formed by dropping out different neurons
+		\item Dropout is a type of regularization that helps prevent the network from overfitting to the training data	
+	\end{itemize}
+}
 \end{document}
