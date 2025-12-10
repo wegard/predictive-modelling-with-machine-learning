@@ -1,0 +1,112 @@
+%
+% BI Beamer Theme
+% (c) 2021--2022, Jan Kudlicka <jan@kudlicka.eu>
+% This is work in progress, if you want to use the template, please contact me by email.
+%
+\PassOptionsToPackage{no-math}{fontspec}
+\ProvidesPackage{beamerthemebi}[2021/03/14]
+\usepackage{tikz}
+\usepackage{fontspec}
+
+\mode<presentation>
+
+\setlength{\parskip}{0.5em}
+\setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+
+% Primary palette
+\definecolor{DarkestBlue}{HTML}{001b32}
+\definecolor{DarkBlue}{HTML}{00467f}
+\definecolor{MediumBlue}{HTML}{006bb4}
+\definecolor{AccentBlue}{HTML}{18b1ff}
+\definecolor{LightBlue}{HTML}{d0e8f9}
+\definecolor{White}{HTML}{ffffff}
+
+% Secondary palette
+\definecolor{Gold}{HTML}{c6a76a}
+\definecolor{AccentYellow}{HTML}{f7eab2}
+\definecolor{LightBrown}{HTML}{9b9083}
+\definecolor{LightGrey}{HTML}{c6c0b8}
+\definecolor{Lighter}{HTML}{f0ebe3}
+\definecolor{AlmostWhite}{HTML}{f7f8f8}
+
+\setbeamercolor{normal text}{fg=black!75}
+\setbeamercolor{structure}{fg=MediumBlue}
+\setbeamercolor{title}{fg=DarkBlue}
+\setbeamercolor{subtitle}{fg=DarkestBlue}
+\setbeamercolor{author}{fg=black!50}
+\setbeamercolor{institute}{parent=author}
+\setbeamercolor{frametitle}{fg=White,bg=DarkBlue}
+\setbeamercolor{title in head/foot}{fg=AlmostWhite,bg=DarkestBlue}
+\setbeamercolor{page number in head/foot}{fg=AlmostWhite,bg=MediumBlue}
+\setbeamercolor{alerted text}{fg=MediumBlue}
+
+\setsansfont[ItalicFont=Fira Sans Condensed Light Italic, BoldFont=Fira Sans Condensed, BoldItalicFont=Fira Sans Condensed Italic]{Fira Sans Condensed Light}
+\setmonofont[FakeStretch=0.85,BoldFont={Fira Mono Medium}]{Fira Mono}
+
+\setbeamerfont{title}{size=\fontsize{20}{22}}
+\setbeamerfont{subtitle}{size=\fontsize{12}{14}}
+\setbeamerfont{date}{size=\fontsize{8}{12}}
+\setbeamerfont{author}{size=\fontsize{10}{12}}
+\setbeamerfont{institute}{size=\fontsize{10}{12}}
+
+\setbeamertemplate{title page}%
+{%
+\thispagestyle{empty}%
+\begin{tikzpicture}[remember picture, overlay]%
+\node[anchor=north west, inner sep=0] at (current page.north west) {\includegraphics[width=\paperwidth, height=\paperheight]{beamerthemebi/title_page_background.jpg}};%
+\node[anchor=north west, inner sep=0, xshift=0.5cm, yshift=-0.5cm] at (current page.north west) {\includegraphics[height=1.5cm]{beamerthemebi/logo.png}};%
+\end{tikzpicture}
+\begin{minipage}[b][\textheight]{\textwidth}%
+\vspace*{3.5cm}%
+\ifx\inserttitle\@empty%
+\else%
+{\usebeamerfont{title}\usebeamercolor[fg]{title}\bf\inserttitle\par}%
+\vspace*{1mm}%
+\fi%
+\ifx\insertsubtitle\@empty%
+\else%
+{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+\vspace*{5mm}%
+\fi%
+\ifx\insertauthor\@empty%
+\else%
+{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
+\vspace*{1mm}%
+\fi%
+\ifx\insertinstitute\@empty%
+\else%
+{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}%
+\vspace*{1mm}%
+\fi%
+\vfill%
+\ifx\insertdate\@empty%
+\else%
+{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}%
+\fi%
+\vspace*{5mm}%
+\end{minipage}%
+}
+
+\setbeamertemplate{frametitle}%
+{%
+\nointerlineskip%
+\begin{beamercolorbox}[wd=\paperwidth,leftskip=0.3cm,rightskip=0.3cm,ht=2.5ex,dp=1ex]{frametitle}
+\usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+\hfill\includegraphics[height=0.35cm]{beamerthemebi/logo_white.pdf}%
+\end{beamercolorbox}
+}
+
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}
+{
+\hbox{%
+\begin{beamercolorbox}[wd=.7\paperwidth,ht=2.25ex,dp=1ex,leftskip=0.2cm]{title in head/foot}%
+\usebeamerfont{title in head/foot}
+\ifx\insertauthor\@empty\else\insertauthor : \fi\inserttitle
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=0.3cm]{page number in head/foot}%
+\usebeamerfont{page number in head/foot}\insertframenumber
+\end{beamercolorbox}}%
+}
+
+\mode<all>

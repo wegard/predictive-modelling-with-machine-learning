@@ -1,0 +1,174 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{example}
+
+\title{Lecture 10:\\ Traditional ML vs Deep Learning}
+\institute{GRA4160: Predictive modelling with machine learning}
+\date{March 11th, 2026}
+\author{Vegard Høghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\frame{
+\frametitle{Plan for today:}
+\begin{itemize}
+	\item Traditional ML vs Deep Learning - Overview
+	\item Practical applications and model comparisons
+	\item Tools used in practice
+	\item Emerging trends in machine learning
+	\item Recap of exercise from last week and some more PyTorch
+	%\item Visualization resources
+\end{itemize}}
+
+\frame{
+\frametitle{Traditional ML vs Deep Learning}
+\textbf{Traditional ML Models:}
+\begin{itemize}
+	\item Algorithms: $k$-NN, decision trees, logistic regression, SVMs
+	\item Manual feature selection required
+	\item Interpretable, good for structured data, smaller datasets
+	\item Example: Decision trees as a flowchart
+\end{itemize}
+\textbf{Deep Learning:}
+\begin{itemize}
+	\item Multi-layer neural networks
+	\item Automatic feature learning from data
+	\item Excellent with large datasets, images, text, audio
+	\item High accuracy, high computational cost, low interpretability
+	\item Often "black-box" models
+\end{itemize}
+}
+
+\frame{
+\frametitle{When to Choose Which?}
+\begin{itemize}
+	\item \textbf{Traditional ML}:
+	\begin{itemize}
+		\item Limited data
+		\item Interpretability critical (e.g., credit decisions)
+	\end{itemize}
+	\item \textbf{Deep Learning}:
+	\begin{itemize}
+		\item Large datasets available
+		\item Complex, perceptual tasks (vision, NLP)
+		\item Computational resources available
+	\end{itemize}
+	\item Practice: Start simple (Logistic, Random Forest) then move to DL if needed
+\end{itemize}}
+
+\frame{
+\frametitle{k-NN vs Neural Networks (Recommenders)}
+\textbf{k-NN:}
+\begin{itemize}
+	\item Simple, memory-based, no explicit training
+	\item Good for small-scale recommendations
+	\item Slow at scale, limited to direct similarity
+\end{itemize}
+\textbf{Neural Networks:}
+\begin{itemize}
+	\item Learns embeddings for user-item interactions
+	\item Scalable, handles diverse data, highly accurate
+	\item Used by Netflix, YouTube
+\end{itemize}}
+
+\frame{
+\frametitle{Logistic Regression vs DL (Text Classification)}
+\textbf{Logistic Regression:}
+\begin{itemize}
+	\item Baseline, simple linear model, interpretable
+	\item Effective with engineered features (e.g. TF-IDF)
+	\item Limited nuance in complex texts
+\end{itemize}
+\textbf{Deep Learning (CNNs, LSTMs, Transformers):}
+\begin{itemize}
+	\item Surpassed traditional methods on NLP tasks
+	\item Learns word/context embeddings
+	\item More data-intensive, computationally demanding
+\end{itemize}}
+
+\frame{
+\frametitle{Decision Trees vs Neural Networks (Medical)}
+\textbf{Decision Trees/Ensembles:}
+\begin{itemize}
+	\item Highly interpretable, suitable for small datasets
+	\item Used for simple diagnostic rules
+	\item Easy to validate by clinicians
+\end{itemize}
+\textbf{Deep Learning:}
+\begin{itemize}
+	\item Human-level accuracy (X-rays, pathology slides)
+	\item Harder to interpret, "black-box"
+	\item Explainability (XAI) essential in practice
+\end{itemize}}
+
+\frame{
+\frametitle{Random Forests vs CNNs (Images)}
+\textbf{Random Forests:}
+\begin{itemize}
+	\item Requires extensive feature engineering
+	\item Limited scalability and accuracy
+\end{itemize}
+\textbf{CNNs:}
+\begin{itemize}
+	\item Revolutionized image recognition
+	\item Learn hierarchical features directly from pixels
+	\item State-of-the-art accuracy, computationally demanding
+\end{itemize}}
+
+\frame{
+\frametitle{Ensemble Methods vs DL (Finance)}
+\textbf{Ensemble Methods:}
+\begin{itemize}
+	\item Good with structured/tabular financial data
+	\item Robust with smaller datasets
+	\item Interpretable, less tuning required
+\end{itemize}
+\textbf{Deep Learning:}
+\begin{itemize}
+	\item Powerful with large historical datasets
+	\item Captures subtle, complex interactions
+	\item Harder to interpret, extensive tuning required
+\end{itemize}}
+
+\frame{
+\frametitle{Tools in Practice}
+\textbf{Scikit-learn:}
+\begin{itemize}
+	\item Traditional ML, quick prototyping, easy to use
+	\item CPU-based, integrates with pandas, numpy
+\end{itemize}
+\textbf{TensorFlow/PyTorch:}
+\begin{itemize}
+	\item Deep learning frameworks, GPU acceleration
+	\item TensorFlow: Production deployments
+	\item PyTorch: Research, dynamic graphs, HuggingFace integration
+\end{itemize}}
+
+\frame{
+\frametitle{Emerging Trends in ML}
+\begin{itemize}
+	\item \textbf{Hybrid Models}: Combining DL features with interpretable ML
+	\item \textbf{Transfer/Self-supervised Learning}: Leveraging large, pre-trained models
+	\item \textbf{Foundation Models}: GPT, Stable Diffusion, general-purpose models
+	\item \textbf{AutoML/No-Code ML}: Automated model building, increased accessibility
+\end{itemize}}
+
+% \frame{
+% \frametitle{Visualization Resources}
+% \textbf{Interactive:}
+% \begin{itemize}
+% 	\item TensorFlow Playground: \url{https://playground.tensorflow.org}
+% 	\item Decision trees, SHAP value visualizations
+% \end{itemize}
+% \textbf{Static:}
+% \begin{itemize}
+% 	\item Feature Engineering vs Feature Learning (Arivis blog)
+% 	\item "Deep Learning" (Goodfellow et al.) visualizations
+% 	\item Distill.pub interactive articles
+% \end{itemize}}
+
+\end{document}

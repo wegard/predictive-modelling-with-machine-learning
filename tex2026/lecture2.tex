@@ -1,0 +1,184 @@
+% !TEX TS-program = XeLaTeX
+% !TEX spellcheck = en-US
+\documentclass[aspectratio=169]{beamer}
+%\documentclass[handout, aspectratio=169]{beamer} % for handouts
+
+\usetheme{example}
+\usepackage{tikz}
+\title{Lecture 2:\\ Machine learning basics and supervised learning}
+\institute{GRA4160: Predictive Modelling with Machine Learning}
+\date{January 14th 2026}
+\author{Vegard H\o ghaug Larsen}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Plan for today:}
+            \begin{enumerate}
+                \item Machine learning basics
+                \item Linear regression
+                \item Supervised learning with $k$-nearest neighbors
+                \item Exercise: Spam filtering with naive Bayes
+            \end{enumerate}
+\end{frame}
+
+\frame{
+	\frametitle{Exploring the Fundamentals of Machine Learning}
+	\begin{itemize}
+		\item Machine learning teaches computers to learn from data, much like how a child learns from experience.
+		\pause
+		\item Three main types: Supervised, Unsupervised, and Reinforcement Learning.
+		\pause
+		\item \textbf{Supervised learning}: Trained on labeled data for predictions. Example: Handwritten digit recognition.
+		\pause
+		\item \textbf{Unsupervised learning}: Finds patterns in unlabeled data. Example: Customer segmentation.
+		\pause
+		\item \textbf{Reinforcement learning}: Training agents to make decisions towards a goal. Example: Robot navigation.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Understanding Supervised Learning}
+	\begin{itemize}
+		\item Supervised learning: Like a student learning from a solved exercise, it predicts new outcomes based on learned patterns.
+		\pause
+		\item It involves input-output pair training, like predicting house prices from their size and location.
+		\pause
+		\item Key algorithms include:
+		    \begin{itemize}
+		        \item \textbf{Linear regression}: For continuous output prediction.
+		        \item \textbf{$k$-nearest neighbors}: Classifies based on similarity.
+		        \item \textbf{Decision trees}: Maps decisions and their possible consequences.
+		        \item \textbf{Neural networks}: For complex pattern recognition.
+		    \end{itemize}
+	\end{itemize}
+}
+
+%\begin{frame}
+%    \frametitle{Typical Steps in a Supervised Learning Project}
+%    \begin{enumerate}
+%        \item \textbf{Define the problem} and the performance metric (e.g., accuracy, MSE).
+%        \item \textbf{Collect and preprocess data} (cleaning, handling missing values).
+%        \item \textbf{Split the data} into training, validation, and test sets.
+%        \item \textbf{Select and train a model} (e.g., linear regression, kNN).
+%        \item \textbf{Hyperparameter tuning} (e.g., choosing $k$ for kNN) via cross-validation.
+%        \item \textbf{Evaluate} on the test set to estimate out-of-sample performance.
+%        \item \textbf{Deploy and monitor} the model (performance decay, model retraining).
+%    \end{enumerate}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{Bias-Variance Trade-off}
+    \begin{itemize}
+        \item A core concept in ML: \textbf{Bias} is how much your predictions systematically deviate from the true values.
+        \item \textbf{Variance} is how sensitive your model is to fluctuations in the training set.
+        \item \textbf{High bias} models:
+            \begin{itemize}
+                \item Underfit the data (oversimplified).
+                \item Have consistent but inaccurate predictions.
+            \end{itemize}
+        \item \textbf{High variance} models:
+            \begin{itemize}
+                \item Overfit the data (too complex).
+                \item Perform well on training data but poorly on new data.
+            \end{itemize}
+        \item Goal: \textbf{Find a balance} that minimizes overall error.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Three supervised learning algorithms}
+    We will look closer at three supervised learning algorithms:
+    \begin{itemize}
+        \item Linear regression
+        \item $k$-nearest neighbors
+        \item Naive Bayes (exercise)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Linear Regression: Prediction \& Inference}
+    \begin{itemize}
+        \item Predicts continuous values (e.g., estimating house prices based on size and location).
+        \pause
+        \item Useful for inference: helps understand how different features influence outcomes.
+        \pause
+        \item A \textbf{parametric} model with fixed parameters (feature weights and intercept).
+        \pause
+        \item Minimizes the \textbf{mean squared error (MSE)} to achieve the best fit.
+        \pause
+        \item Ordinary least squares (OLS) finds the best-fit line; 
+              under the \textbf{Gauss--Markov assumptions} (e.g., linearity, no perfect multicollinearity, homoscedastic errors), 
+              OLS is the \textbf{best linear unbiased estimator (BLUE)}.
+        \pause
+        \item Be mindful that the linear form might not always capture real-world complexity, 
+              so model diagnostics are crucial.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Diving into $k$-Nearest Neighbors}
+    \begin{itemize}
+        \item \textbf{k-Nearest Neighbors (kNN)}: Used for both classification (label prediction) and regression (value prediction).
+        \pause
+        \item \textbf{Core idea}: Identify the $k$ closest data points (neighbors) to a new observation and base the prediction on them.
+        \pause
+        \item \textbf{Choice of $k$} impacts performance:
+              \begin{itemize}
+                  \item Too small: Overfitting (high variance).
+                  \item Too large: Underfitting (high bias).
+              \end{itemize}
+        \pause
+        \item \textbf{Distance metric} (e.g., Euclidean) also matters for determining neighbors.
+        \pause
+        \item Often \textbf{non-parametric}: no assumption of underlying data distribution.
+        \pause
+        \item Tends to be computationally expensive for large datasets but serves as a good baseline model.
+        \pause
+        \item Typical practice: Choose $k$ via \textbf{cross-validation}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parametric vs. Non-Parametric Models}
+    \begin{itemize}
+        \item \textbf{Parametric models} (e.g., linear regression):
+            \begin{itemize}
+                \item Assume a specific form for the relationship between features and output.
+                \item Have a fixed number of parameters to learn.
+                \item Fast to train and interpret but can be \textbf{misleading if the assumed form is incorrect}.
+            \end{itemize}
+		\pause
+        \item \textbf{Non-parametric models} (e.g., kNN):
+            \begin{itemize}
+                \item Make fewer assumptions about data distribution.
+                \item Number of parameters can grow with the dataset.
+                \item Flexible but often more computationally expensive and can overfit without careful tuning.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Naive Bayes: A Fundamental Classifier}
+    \textbf{Bayes' Theorem}:
+    \[
+        P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+    \]
+    \begin{itemize}
+        \item Naive Bayes is widely used for \textbf{spam detection} and text classification.
+        \pause
+        \item Relies on the \textbf{naive} assumption that features are conditionally independent given the class.
+        \pause
+        \item Despite this strong assumption (often untrue in real data), it performs surprisingly well.
+        \pause
+        \item Extremely \textbf{fast} and easy to implement, making it a good first model in many classification tasks.
+        \pause
+        \item We will explore its spam-filtering application, highlighting the simplicity and speed of this approach.
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
