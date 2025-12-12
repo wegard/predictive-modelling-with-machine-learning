@@ -2,323 +2,370 @@
 % !TEX spellcheck = en-US
 \documentclass[aspectratio=169]{beamer}
 
-\usetheme{example}
+% --- Themes and Colors ---
+\usetheme{example} % Changed to a standard theme (replace with 'example' if you have a custom file)
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{} % Remove navigation buttons at bottom
 
-\title{Lecture 1: \\ Introduction and working with data}
+% --- Packages ---
+\usepackage{booktabs} % For professional looking tables
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+% --- Global Formatting Tweaks ---
+% Add breathing room between bullet points
+\setbeamertemplate{itemize/enumerate body begin}{\setlength{\itemsep}{0.8em}}
+\setbeamertemplate{itemize/enumerate subbody begin}{\setlength{\itemsep}{0.5em}}
+
+% --- Title Information ---
+\title{Lecture 1: \\ Introduction and Working with Data}
 \institute{GRA 4160: Predictive Modelling with Machine Learning}
 \date{January 7th 2026}
 \author{Vegard H\o ghaug Larsen}
 
 \begin{document}
 
-\maketitle
+% -----------------------------------------------------------------------------
+% Title Slide
+% -----------------------------------------------------------------------------
+\begin{frame}
+    \titlepage
+\end{frame}
 
-\frame{
-	\frametitle{About me:}
-	Vegard H\o ghaug Larsen (Department of Data Science and Analytics)\\
-	Background: PhD in Economics followed by six years in Norges Bank
-	$\;$\\
-	Email: vegard.h.larsen@bi.no\\
-	%$\;$\\
-	%Office hours: Wednesday 13:00-15:00 (or by appointment)\\
-	$\;$\\
-	Office: B3Y-075
-}
+% -----------------------------------------------------------------------------
+% About Me
+% -----------------------------------------------------------------------------
+\begin{frame}{About me}
+    \begin{columns}
+        \begin{column}{0.9\textwidth}
+            \textbf{Vegard H\o ghaug Larsen} \\
+            \small (Department of Data Science and Analytics)
+            
+            \vspace{1em}
+            
+            \textbf{Background:} \\
+            PhD in Economics followed by six years in Norges Bank.
+            
+            \vspace{1em}
+            
+            \textbf{Contact:} \\
+            Email: \href{mailto:vegard.h.larsen@bi.no}{vegard.h.larsen@bi.no} \\
+            Office: B3Y-075
+        \end{column}
+    \end{columns}
+\end{frame}
 
-\frame{
-    \frametitle{Syllabus}
+% -----------------------------------------------------------------------------
+% Syllabus
+% -----------------------------------------------------------------------------
+\begin{frame}{Syllabus}
+    \begin{columns}[T] % T aligns columns at the top
+        \begin{column}{0.65\textwidth}
+            \textbf{Primary Textbook:} \\
+            \textit{The Elements of Statistical Learning} \\
+            \small by Hastie, Tibshirani, \& Friedman \\
+            (\href{https://hastie.su.domains/Papers/ESLII.pdf}{\color{blue}\underline{Free PDF Link}})
+            
+            \vspace{1.5cm} % Vertical gap between books
+            
+            \textbf{Gentle Introduction:} \\
+            \textit{An Introduction to Statistical Learning} \\
+            \small by James, Witten, Hastie, \& Tibshirani \\
+            (\href{https://www.statlearning.com/}{\color{blue}\underline{Free PDF Link}})
+        \end{column}
+        
+        \begin{column}{0.3\textwidth}
+            % Ensure these image paths are correct on your machine
+            % Using 'draft' option prevents crash if images are missing
+            \includegraphics[width=0.5\textwidth, keepaspectratio]{figures/ESL.jpg}
+            \vspace{0.5cm}
+            \includegraphics[width=0.5\textwidth, keepaspectratio]{figures/ISL.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
 
+% -----------------------------------------------------------------------------
+% Prerequisites
+% -----------------------------------------------------------------------------
+\begin{frame}{Prerequisites / What I Expect You to Know}
+    \begin{block}{Foundations}
+        \begin{itemize}
+            \item \textbf{Mathematics:} Basic linear algebra and multivariate calculus.
+            \item \textbf{Statistics:} Fundamental probability and statistical concepts.
+        \end{itemize}
+    \end{block}
+    
+    \pause
+    
+    \begin{block}{Technical Skills}
+        \begin{itemize}
+            \item \textbf{Python Programming:} Experience with NumPy, Pandas, and Matplotlib.
+            \item \textbf{OOP:} Ability to write and understand Object-Oriented structures.
+        \end{itemize}
+    \end{block}
+\end{frame}
 
-    \begin{minipage}{0.65\textwidth}
-        The textbook for this course is:\\
+% -----------------------------------------------------------------------------
+% About this Course
+% -----------------------------------------------------------------------------
+\begin{frame}{About this Course}
+    \begin{itemize}
+        \item Focused on \textbf{predictive modeling} using traditional (pre-deep learning) methods.
+        \pause
+        \item \textbf{Core Algorithms:} Linear/logistic regression, decision trees, and ensemble methods.
+        \pause
+        \item \textbf{Hands-on Practice:} Writing code from scratch to understand mechanics.
+        \pause
+        \item \textbf{Real Workflows:} Preprocessing, training, tuning, and evaluation.
+        \pause
+        \item \textbf{Goal:} Critical evaluation and improvement of models for real-world tasks.
+    \end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Mini Project
+% -----------------------------------------------------------------------------
+\begin{frame}{Mini Project}
+    \begin{columns}[t]
+        \begin{column}{0.55\textwidth}
+            \textbf{Logistics}
+            \begin{itemize}
+                \item \textbf{Group Work:} 2--4 students (Form groups by next week).
+                \item \textbf{Objective:} Apply methods to a real-world problem.
+                \item \textbf{Feedback:} Up to 2 scheduled sessions per group.
+                \item \textbf{GitHub:} Recommended for sharing code/report.
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.42\textwidth}
+            \begin{alertblock}{Evaluation}
+                \begin{itemize}
+                    \item \textbf{Weight:} 30\% of final grade.
+                    \item \textbf{Presentation:} End of semester (External grader).
+                    \item \textbf{Exam:} Project topics are relevant for the final exam.
+                \end{itemize}
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Course Structure
+% -----------------------------------------------------------------------------
+\begin{frame}{Course Structure}
+    \begin{itemize}
+        \item \textbf{Interactive Format:} Minimal lecture-style; focus on live coding.
+        \pause
+        \item \textbf{Typical Session:} 
         \begin{enumerate}
-            \item[] \textit{The Elements of Statistical Learning: Data Mining, Inference, and Prediction} by \textit{Trevor J. Hastie; Robert J. Tibshirani; Jerome Friedman}
-            (\href{https://hastie.su.domains/Papers/ESLII.pdf}{Link})
+            \item Brief concept intro (slides)
+            \item Live coding \& examples
+            \item Exercises
         \end{enumerate}
-    \end{minipage}
-	\hfill
-	\begin{minipage}{0.3\textwidth}
-        \includegraphics[width=0.5\textwidth]{figures/ESL.jpg} % Replace with the path to the image of the first book
-    \end{minipage}
-
-    \bigskip
-
-    \begin{minipage}{0.3\textwidth}
-        \includegraphics[width=0.5\textwidth]{figures/ISL.jpg} % Replace with the path to the image of the second book
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.65\textwidth}
-        For a more gentle introduction to many of the same subjects, I recommend the following book:\\
-        \begin{enumerate}
-            \item[] \textit{An Introduction to Statistical Learning} by \textit{Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani}
-            (\href{https://www.statlearning.com/}{Link})
-        \end{enumerate}
-    \end{minipage}
-}
-
-\frame{
-	\frametitle{Prerequisites / What I Expect You to Know}
-
-	\begin{itemize}
-		\item \textbf{Mathematics:} Basic linear algebra and multivariate calculus
-		\pause
-		\item \textbf{Statistics:} Fundamental probability and statistical concepts
-		\pause
-		\item \textbf{Python Programming:} Experience with NumPy, Pandas, and Matplotlib
-		\pause
-		\item \textbf{Object-Oriented Programming:} Ability to write and understand OOP structures in Python
-	\end{itemize}
-}
-
-
-\frame{
-	\frametitle{About this Course}
-
-	\begin{itemize}
-		\item Focused on \textbf{predictive modeling} using traditional (pre-deep learning) machine learning methods.
-		\pause
-		\item Covers fundamental algorithms such as linear and logistic regression, decision trees, and ensemble methods.
-		\pause
-		\item Emphasis on \textbf{hands-on practice}: you will write code from scratch to implement and understand key algorithms.
-		\pause
-		\item Provides practical insights into common workflows: data preprocessing, model training, hyperparameter tuning, and model evaluation.
-		\pause
-		\item Prepares you to critically evaluate and improve models for real-world predictive tasks.
-	\end{itemize}
-}
-
-
-\frame{
-\frametitle{Mini Project}
-
-\begin{itemize}
-	\item \textbf{Group Work:} Form groups of 2--4 students. I will add an Excel sheet on Itslearning that you should use to form groups within next week. 
-	\item \textbf{Objective:} Apply the learned methods to a real-world data problem on a smaller scale.
-	\item \textbf{Feedback Sessions:} Each group can schedule up to two meetings (in-person or via Zoom) for guidance and feedback.
-	\item \textbf{Presentation:} Present your work to the class at the end of the semester (for me and an external grader).
-	\item \textbf{Documentation:} (Optional but recommended) Use a GitHub repository to share code and a short project report.
-	\item \textbf{Evaluation:} The project is graded (letter grade) and accounts for 30\% of the final grade.
-	\item \textbf{Exam Integration:} Be prepared to answer related questions during the final exam.
-\end{itemize}
-}
-
-
-\frame{
-\frametitle{Course Structure}
-
-\begin{itemize}
-	\item \textbf{Interactive Format:} Lectures will be as interactive as possible, minimizing traditional lecture-style teaching.
-	\pause
-	\item \textbf{Topic Introductions:} I will often start with a few slides to introduce a concept, then focus on live coding, examples, and exercises.
-	\pause
-	\item \textbf{Course Materials:} Expect one to two notebooks with background materials and one exercise notebook per session.
-	\pause
-	\item \textbf{Pre-class Preparation:} All notebooks will be available on Itslearning before each class, and you are expected to review them in advance.
-	\pause
-	\item \textbf{Project Guidance:} We will also devote time in some lectures to discuss the mini project and offer guidance on your approach.
-\end{itemize}
-}
-
-
-\frame{
-	\frametitle{Using Generative AI as a Learning Tool}
-
-	\begin{itemize}
-		\item Generative AI is a powerful resource for exploration, idea generation, and problem-solving.
-		\pause
-		\item Treat it as a learning partner rather than a replacement for your own reasoning skills.
-		\pause
-		\item Use it to enhance your understanding, spark creativity, and experiment with new approaches.
-		\pause
-		\item Focus on leveraging it as a supportive tool: ask questions, seek clarifications, and discover alternative solutions.
-		\pause
-		\item You can access \textbf{GPT-UiO}, a GDPR-compliant platform provided by UiO, for free.
-		\pause
-		%\item \textbf{GitHub Copilot} is also recommended. You should be able to get an educational license for free.
-		%\pause
-		\item Always apply critical thinking, ethical considerations, and proper attribution when using these tools.
-	\end{itemize}
-}
-
-\frame{
-    \frametitle{Use an Integrated Development Environment (IDE)}
-    \textbf{Why use an IDE?}
-    \begin{itemize}
-        \item Simplifies coding by integrating essential tools in one interface.
-        \item Enhances productivity with features like syntax highlighting, debugging, and extensions.
+        \pause
+        \item \textbf{Materials:} Background notebooks + Exercise notebooks (Available on Itslearning).
+        \pause
+        \item \textbf{Expectation:} Review notebooks \textit{before} class.
     \end{itemize}
+\end{frame}
 
+% -----------------------------------------------------------------------------
+% Generative AI
+% -----------------------------------------------------------------------------
+\begin{frame}{Using Generative AI as a Learning Tool}
+    \begin{itemize}
+        \item \textbf{Role:} Use GenAI as a learning partner, not a replacement for reasoning.
+        \pause
+        \item \textbf{Usage:} Ask for clarifications, alternative solutions, and code explanations.
+        \pause
+        \item \textbf{Tools:} 
+        \begin{itemize}
+            \item \textbf{GPT-UiO:} Free, GDPR-compliant.
+            \item \textbf{GitHub Copilot:} Recommended (Free for students).
+        \end{itemize}
+        \pause
+        \item \textbf{Warning:} Always apply critical thinking. You are responsible for the output.
+    \end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% IDE / Tools
+% -----------------------------------------------------------------------------
+\begin{frame}{Tools: Integrated Development Environment (IDE)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Why use an IDE?}
+            \begin{itemize}
+                \item Integrated tools (linting, debugging).
+                \item Higher productivity.
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \textbf{Recommendation: VS Code}
+            \begin{itemize}
+                \item Lightweight \& Cross-platform.
+                \item Excellent Python \& Jupyter support.
+                \item Built-in Git version control.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
     \vspace{1em}
-    \textbf{Why Visual Studio Code (VSCode)?}
-    \begin{itemize}
-        \item \textbf{Lightweight yet powerful:} Supports many programming languages and frameworks.
-        \item \textbf{Extensions:} Customize your environment with thousands of extensions (e.g., Python, Jupyter).
-        \item \textbf{Version Control:} Integrated Git support makes it easy to collaborate and track changes.
-        \item \textbf{Built-in terminal:} Run commands and scripts directly within the editor.
-        \item \textbf{Cross-platform:} Works seamlessly on Windows, macOS, and Linux.
-    \end{itemize}
+    \centering
+    \textit{VS Code is industry standard and free.}
+\end{frame}
 
+% -----------------------------------------------------------------------------
+% About the Students
+% -----------------------------------------------------------------------------
+\begin{frame}{About You}
+    \centering
+    \Large Let's get to know you.
+    
     \vspace{1em}
-    \textbf{Ideal for students:} VSCode is free, beginner-friendly, and widely used in the industry. As a student you might also be eligible for a free GitHub Copilot account.
-}
-
-
-\frame{
-	\frametitle{About You}
-	\begin{itemize}
-		\item Please introduce yourself: What is your name and your academic/professional background?
-		\pause
-		\item Do you have any specific career goals related to data science, analytics, or machine learning?
-		\pause
-		\item What are your main learning objectives or expectations for this course?
-		\pause
-		\item Are there any questions or concerns you have about the course structure, topics, or logistics?
-	\end{itemize}
-}
-
-
-\frame{
-	\frametitle{Plan for Today}
-	
-	\underline{\bf Working with Data in Jupyter Notebooks:}
-	
-	\begin{itemize}
-		\item Understand why \textbf{Jupyter notebooks} have become a standard tool for data exploration and ML prototyping.
-		\item Recognize that \textbf{data preprocessing} (cleaning, transforming, encoding, and scaling) is essential for high-quality predictive modeling.
-		\item Learn how to systematically apply preprocessing techniques in Python, ensuring reproducibility and consistency across projects.
-		\item Gain hands-on experience implementing common techniques (handling missing values, encoding categories, scaling features) to prepare data for modeling.
-	\end{itemize}
-	
-	\bigskip
-	\pause
-
-	\underline{\bf Material:}
-	\begin{itemize}
-		\item Lecture Notebook: \texttt{01\_Working\_with\_data\_in\_jupyter\_notebooks.ipynb}
-		\item Exercise Notebook: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
-	\end{itemize}
-}
-
-\frame{
-    \frametitle{Machine Learning Workflow}
+    \normalsize
     \begin{itemize}
-        \item \textbf{Define the problem and collect data:} Clarify your predictive task and gather relevant data.
-        \pause
-        \item \textbf{Data preprocessing:} Clean, transform, and encode data to ensure quality and consistency.
-        \pause
-        \item \textbf{Model selection:} Choose appropriate algorithms (e.g., linear regression, decision trees, ensembles).
-        \pause
-        \item \textbf{Training and tuning:} Fit models and tune hyperparameters using appropriate metrics.
-        \pause
-        \item \textbf{Evaluation and deployment:} Evaluate performance on unseen data and integrate the model into real-world applications.
+        \item Name and academic/professional background?
+        \item Career goals in Data Science/ML?
+        \item Main learning objectives for this course?
+        \item Questions/Concerns?
     \end{itemize}
-}
+\end{frame}
 
-\frame{
-    \frametitle{Traditional ML vs. Deep Learning}
+% -----------------------------------------------------------------------------
+% Plan for Today
+% -----------------------------------------------------------------------------
+\begin{frame}{Plan for Today}
+    \begin{block}{1. Working with Data in Jupyter}
+        \begin{itemize}
+            \item \textbf{Why Jupyter?} The standard for prototyping.
+            \item \textbf{Preprocessing:} Why cleaning, encoding, and scaling are mandatory.
+            \item \textbf{Reproducibility:} Systematic workflows in Python.
+        \end{itemize}
+    \end{block}
+    
+    \vspace{1em}
+    
+    \begin{exampleblock}{2. Hands-on Material}
+        \begin{itemize}
+            \item Lecture Notebook: \texttt{01\_Working\_with\_data\_in\_jupyter...ipynb}
+            \item Exercise Notebook: \texttt{01\_Data\_preprocessing\_titanic.ipynb}
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% ML Workflow
+% -----------------------------------------------------------------------------
+\begin{frame}{The Machine Learning Workflow}
+    \begin{enumerate}
+        \item \textbf{Define \& Collect:} Clarify task, gather data.
+        \pause
+        \item \textbf{Preprocessing:} Clean, transform, encode.
+        \pause
+        \item \textbf{Model Selection:} Choose algorithm (Linear, Tree, etc.).
+        \pause
+        \item \textbf{Training \& Tuning:} Fit model, optimize hyperparameters.
+        \pause
+        \item \textbf{Evaluation:} Test on unseen data, deploy.
+    \end{enumerate}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Traditional ML vs Deep Learning (Table Slide)
+% -----------------------------------------------------------------------------
+\begin{frame}{Traditional ML vs. Deep Learning}
+    \begin{table}
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.5} % Adds vertical padding
+    \begin{tabular}{p{2.5cm} p{5cm} p{5cm}}
+        \toprule
+        \textbf{Aspect} & \textbf{Traditional ML} & \textbf{Deep Learning} \\
+        \midrule
+        \textbf{Features} & Manual engineering (domain knowledge) & Automated extraction (representation learning) \\
+        \textbf{Data Needs} & Small/Medium structured data & Large datasets; Unstructured (Images/Text) \\
+        \textbf{Complexity} & Lower (Linear, Trees, SVM) & High (Deep Neural Networks) \\
+        \textbf{Interpretability} & Transparent (White-box) & Opaque (Black-box) \\
+        \bottomrule
+    \end{tabular}
+    \end{table}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Overfitting vs Underfitting
+% -----------------------------------------------------------------------------
+\begin{frame}{Overfitting vs. Underfitting}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Underfitting (High Bias)}
+                \begin{itemize}
+                    \item Model is too simple.
+                    \item Misses underlying trends.
+                    \item \textbf{Fix:} More complex model, new features.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        
+        \begin{column}{0.48\textwidth}
+            \begin{alertblock}{Overfitting (High Variance)}
+                \begin{itemize}
+                    \item Fits noise, not signal.
+                    \item Fails on unseen data.
+                    \item \textbf{Fix:} Regularization, more data, simpler model.
+                \end{itemize}
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Data Splits
+% -----------------------------------------------------------------------------
+\begin{frame}{Train, Validation, and Test Splits}
     \begin{itemize}
-        \item \textbf{Feature Engineering:}
-        \begin{itemize}
-            \item \textit{Traditional ML:} Often requires manual feature engineering (domain knowledge, handcrafted features).
-            \item \textit{Deep Learning:} Learns representations directly from raw data (images, text, etc.).
-        \end{itemize}
-        \pause
-        \item \textbf{Data Requirements:}
-        \begin{itemize}
-            \item \textit{Traditional ML:} Performs well with smaller datasets; structured data often sufficient.
-            \item \textit{Deep Learning:} Typically needs large datasets and significant computational resources.
-        \end{itemize}
-        \pause
-        \item \textbf{Model Complexity:}
-        \begin{itemize}
-            \item \textit{Traditional ML:} Simpler models like SVM, decision trees, linear models.
-            \item \textit{Deep Learning:} Neural networks with multiple layers (CNNs, RNNs, Transformers).
-        \end{itemize}
-        \pause
-        \item \textbf{Interpretability:}
-        \begin{itemize}
-            \item \textit{Traditional ML:} Models like linear/logistic regression can be straightforward to interpret.
-            \item \textit{Deep Learning:} Deep networks can be more opaque, requiring specialized interpretation methods.
-        \end{itemize}
+        \item \textbf{Training Set (60-80\%):} Fit model parameters.
+        \item \textbf{Validation Set (10-20\%):} Hyperparameter tuning \& model selection.
+        \item \textbf{Test Set (10-20\%):} Final evaluation on "unseen" data.
     \end{itemize}
-}
+    
+    \vspace{1em}
+    \centering
+    \rule{0.8\textwidth}{0.5pt} % Horizontal line
+    
+    \vspace{0.5em}
+    \textbf{Crucial:} Use random splits or stratification to ensure representative samples.
+\end{frame}
 
-\frame{
-    \frametitle{Overfitting vs. Underfitting}
-    \begin{itemize}
-        \item \textbf{Overfitting:}
-        \begin{itemize}
-            \item Model fits noise in the training data, failing to generalize.
-            \item Symptoms: Very low training error, high validation/test error.
-            \item Remedies: More data, regularization, dropout (in NN), simpler model.
-        \end{itemize}
-        \pause
-        \item \textbf{Underfitting:}
-        \begin{itemize}
-            \item Model is too simple to capture the underlying trend.
-            \item Symptoms: High training error, high validation/test error.
-            \item Remedies: More complex model, adding features, reducing regularization.
-        \end{itemize}
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{Train, Validation, and Test Splits}
-    \begin{itemize}
-        \item \textbf{Training Set:}
-        \begin{itemize}
-            \item Used to fit the parameters of your model.
-        \end{itemize}
-        \item \textbf{Validation Set:}
-        \begin{itemize}
-            \item Used for hyperparameter tuning and model selection.
-            \item Prevents overfitting to the training set.
-        \end{itemize}
-        \item \textbf{Test Set:}
-        \begin{itemize}
-            \item Used only for the final evaluation.
-            \item Mimics "unseen data" in the real world.
-        \end{itemize}
-        \item \textbf{Key Point:}
-        \begin{itemize}
-            \item Proper splitting strategies (e.g., random splits, stratification, cross-validation) are crucial for reliable performance estimates.
-        \end{itemize}
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{Interpreting Model Results}
-    \begin{itemize}
-        \item \textbf{Performance Metrics:} Use appropriate metrics (MAE, RMSE, F1-score, AUC) depending on the problem type.
-        \item \textbf{Visual Diagnostics:} Confusion matrices, ROC curves, residual plots provide deeper insights.
-        \item \textbf{Explainability Tools:} Techniques like SHAP help interpret complex models.
-        \item \textbf{Domain Knowledge:} Model results are more meaningful if interpreted in the context of the application area.
-        \item \textbf{Communication:} Clearly communicate strengths, weaknesses, and uncertainties to stakeholders.
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{Why Genuine Learning Matters in an AI-Powered World}
-    \textbf{Unlimited Resources, Home Exam:} You can use all available tools, including Generative AI models. \\
-    \bigskip
-
-    \textbf{But why understand the material?}
-    \begin{itemize}
-        \item \textbf{Long-Term Skill Building:} Real expertise isn't just about getting the right answer today—it’s about being able to solve unseen problems tomorrow.
-        \item \textbf{Critical Thinking:} Understanding how a solution is derived helps you detect AI mistakes and evaluate outcomes thoughtfully.
-        \item \textbf{Career Readiness:} Employers value people who can interpret and adapt AI-generated results, not just copy and paste them.
-        \item \textbf{Exam Rigor:} We will ask you to \emph{explain and justify} steps, ensuring you can interpret AI-produced solutions. 
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{My expectations:}
+% -----------------------------------------------------------------------------
+% Why Learn This?
+% -----------------------------------------------------------------------------
+\begin{frame}{Why Genuine Learning Matters}
+    \textit{You have unlimited resources (AI, Home Exam). Why learn the math?}
+    
+    \vspace{1em}
     
     \begin{itemize}
-        \item Engage actively with the course materials, exercises, and discussions.
-        \item Be ready to \textit{talk through your solutions} and justify each step logically.
-        \item Ultimately, \textbf{your genuine knowledge} is what matters most.
+        \item \textbf{Skill Building:} Solve unseen problems tomorrow, not just today's.
+        \item \textbf{Critical Thinking:} Detect AI hallucinations.
+        \item \textbf{Career:} Employers need people who can \textit{fix} AI, not just use it.
+        \item \textbf{Exam Rigor:} You must \textbf{justify} every step. "The AI said so" is not a valid answer.
     \end{itemize}
-}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Final Slide
+% -----------------------------------------------------------------------------
+\begin{frame}{Final Expectations}
+    \centering
+    \Large
+    \begin{itemize}
+        \item Engage actively.
+        \item Be ready to talk through your solutions.
+        \item \textbf{Your genuine knowledge is what matters.}
+    \end{itemize}
+\end{frame}
 
 \end{document}
