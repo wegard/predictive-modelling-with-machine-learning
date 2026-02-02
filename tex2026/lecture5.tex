@@ -16,7 +16,7 @@
 \frame{
   \frametitle{Plan for Today}
   \begin{enumerate}
-    \item Recap from Last Week
+    % \item Recap from Last Week
     \item Model Selection, Evaluation, and Assessment
     \item Information Criteria
     \item Cross-Validation
@@ -24,39 +24,39 @@
   \end{enumerate}
 }
 
-\begin{frame}
-\frametitle{Recap: Logistic Regression}
-\begin{itemize}
-    \item \textbf{Purpose:} Binary classification (generalized to multi-class).
-    \item \textbf{Log-odds Model:} 
-    \[
-      \log\Bigl(\frac{p}{1-p}\Bigr) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.
-    \]
-    \item \textbf{Sigmoid Function:} Maps any real value to \([0,1]\) for valid probabilities:
-    \[
-      p = \frac{1}{1 + e^{-z}}.
-    \]
-    \item \textbf{Estimation:} 
-      \begin{itemize}
-        \item Fit via maximum likelihood (minimize negative log-likelihood).
-        \item Interpret coefficients in terms of odds ratios (\(e^\beta\)).
-      \end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Recap: Decision Trees}
-\begin{itemize}
-    \item \textbf{Decision Trees}
-    \begin{itemize}
-        \item Non-parametric, recursively splits data to purify classes.
-        \item Splits chosen by impurity measures (Gini, Entropy).
-        \item Advantages: Interpretability, no feature scaling needed.
-        \item Drawbacks: Prone to overfitting if not pruned.
-    \end{itemize}
-\end{itemize}
-\end{frame}
+% \begin{frame}
+% \frametitle{Recap: Logistic Regression}
+% \begin{itemize}
+%     \item \textbf{Purpose:} Binary classification (generalized to multi-class).
+%     \item \textbf{Log-odds Model:} 
+%     \[
+%       \log\Bigl(\frac{p}{1-p}\Bigr) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.
+%     \]
+%     \item \textbf{Sigmoid Function:} Maps any real value to \([0,1]\) for valid probabilities:
+%     \[
+%       p = \frac{1}{1 + e^{-z}}.
+%     \]
+%     \item \textbf{Estimation:} 
+%       \begin{itemize}
+%         \item Fit via maximum likelihood (minimize negative log-likelihood).
+%         \item Interpret coefficients in terms of odds ratios (\(e^\beta\)).
+%       \end{itemize}
+% \end{itemize}
+% \end{frame}
+%
+%
+% \begin{frame}
+% \frametitle{Recap: Decision Trees}
+% \begin{itemize}
+%     \item \textbf{Decision Trees}
+%     \begin{itemize}
+%         \item Non-parametric, recursively splits data to purify classes.
+%         \item Splits chosen by impurity measures (Gini, Entropy).
+%         \item Advantages: Interpretability, no feature scaling needed.
+%         \item Drawbacks: Prone to overfitting if not pruned.
+%     \end{itemize}
+% \end{itemize}
+% \end{frame}
 
 
 \frame{
@@ -251,14 +251,14 @@
 
 \frame{
   \frametitle{Visualizing the Bias-Variance Trade-off}
-  \begin{center}
-    \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_1.png}
-    \vspace{0.5em}
-    
-    \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_2.png}
-    
-    \small{(Left: Example of high bias/underfitting. Right: Example of high variance/overfitting.)}
-  \end{center}
+  % \begin{center}
+  %   \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_1.png}
+  %   \vspace{0.5em}
+  %
+  %   \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_2.png}
+  %
+  %   \small{(Left: Example of high bias/underfitting. Right: Example of high variance/overfitting.)}
+  % \end{center}
 }
 
 \frame{
