@@ -1,8 +1,13 @@
 % !TEX TS-program = XeLaTeX
 % !TEX spellcheck = en-US
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169, 10pt]{beamer}
 
-\usetheme{example}
+% Standard neat theme suggestions (if 'example' doesn't work)
+\usetheme{example} 
+% \usecolortheme{beaver} % Optional: changes color scheme to red/grey
+
+\usepackage{booktabs} % For nicer tables
+\usepackage{multirow} % For the confusion matrix table
 
 \title{Lecture 5:\\ Model Selection, Evaluation, and Assessment}
 \institute{GRA4160: Predictive Modelling with Machine Learning}
@@ -13,270 +18,231 @@
 
 \maketitle
 
+%---------------------------------------------------------
 \frame{
   \frametitle{Plan for Today}
-  \begin{enumerate}
-    % \item Recap from Last Week
-    \item Model Selection, Evaluation, and Assessment
-    \item Information Criteria
-    \item Cross-Validation
-    \item Bias-Variance Trade-off
-  \end{enumerate}
+  \tableofcontents
+  % Alternatively, keep your manual enumeration if you prefer:
+  % \begin{enumerate}
+  %   \item Model Selection vs. Evaluation
+  %   \item Metrics \& Diagnostic Tools
+  %   \item Information Criteria (AIC/BIC)
+  %   \item Cross-Validation
+  %   \item The Bias-Variance Trade-off
+  % \end{enumerate}
 }
 
-% \begin{frame}
-% \frametitle{Recap: Logistic Regression}
-% \begin{itemize}
-%     \item \textbf{Purpose:} Binary classification (generalized to multi-class).
-%     \item \textbf{Log-odds Model:} 
-%     \[
-%       \log\Bigl(\frac{p}{1-p}\Bigr) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.
-%     \]
-%     \item \textbf{Sigmoid Function:} Maps any real value to \([0,1]\) for valid probabilities:
-%     \[
-%       p = \frac{1}{1 + e^{-z}}.
-%     \]
-%     \item \textbf{Estimation:} 
-%       \begin{itemize}
-%         \item Fit via maximum likelihood (minimize negative log-likelihood).
-%         \item Interpret coefficients in terms of odds ratios (\(e^\beta\)).
-%       \end{itemize}
-% \end{itemize}
-% \end{frame}
-%
-%
-% \begin{frame}
-% \frametitle{Recap: Decision Trees}
-% \begin{itemize}
-%     \item \textbf{Decision Trees}
-%     \begin{itemize}
-%         \item Non-parametric, recursively splits data to purify classes.
-%         \item Splits chosen by impurity measures (Gini, Entropy).
-%         \item Advantages: Interpretability, no feature scaling needed.
-%         \item Drawbacks: Prone to overfitting if not pruned.
-%     \end{itemize}
-% \end{itemize}
-% \end{frame}
-
+%---------------------------------------------------------
+\section{Selection \& Evaluation}
 
 \frame{
-  \frametitle{What is Model Selection?}
-  \begin{itemize}
-    \item Model selection is the process of choosing the best model from a set of candidate models.
-    \item A common (but potentially risky) approach is to compare performance on a held-out \textbf{validation} set and select the model with the best score.
-    \item \textbf{Pitfall:} Overusing a single validation set can lead to overfitting to that set.
-    \item \textbf{Alternatives:}
-      \begin{itemize}
-        \item \textbf{Cross-validation} - averages performance over multiple folds.
-        \item \textbf{Information criteria} - such as AIC or BIC, which balance model fit and complexity.
-      \end{itemize}
-  \end{itemize}
+  \frametitle{Model Selection vs. Evaluation}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Model Selection}
+        The process of choosing the best model (or hyperparameters) from a set of candidates.
+        \begin{itemize}
+            \item \textbf{Goal:} Select the model structure.
+            \item \textbf{Tool:} Validation sets, Information Criteria.
+        \end{itemize}
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Model Evaluation}
+        Measuring how well the \textit{final} model performs on unseen data.
+        \begin{itemize}
+            \item \textbf{Goal:} Estimate real-world error.
+            \item \textbf{Tool:} Test sets, Cross-Validation.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  
+  \vspace{1em}
+  \begin{alertblock}{The Pitfall}
+    Overusing a single validation set for selection can lead to overfitting that specific subset of data.
+  \end{alertblock}
 }
 
+%---------------------------------------------------------
 \frame{
-  \frametitle{What is Model Evaluation?}
-  \begin{itemize}
-    \item Model evaluation measures how well a model performs on new, unseen data.
-    \item Approaches include:
+  \frametitle{The Confusion Matrix}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      A confusion matrix summarizes a classification model’s performance by comparing predicted vs. actual values.
+      
+      \vspace{1em}
       \begin{itemize}
-        \item Splitting data into training and testing sets.
-        \item Using cross-validation techniques.
+        \item \textbf{TP:} Correctly identified positive.
+        \item \textbf{TN:} Correctly identified negative.
+        \item \textbf{FP (Type I):} False alarm.
+        \item \textbf{FN (Type II):} Missed detection.
       \end{itemize}
-    \item The aim is to estimate real-world performance.
-    \item Common evaluation metrics include accuracy, precision, recall, ROC curves, and AUC.
-    \item Visual tools like confusion matrices and decision boundary plots can help diagnose performance.
-  \end{itemize}
+    \end{column}
+    
+    \begin{column}{0.4\textwidth}
+      \centering
+      \renewcommand{\arraystretch}{1.5}
+      \begin{tabular}{cc|cc}
+        & & \multicolumn{2}{c}{\textbf{Predicted}} \\
+        & & Pos & Neg \\ \hline
+        \multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Actual}}} 
+        & Pos & \textbf{\color{green!60!black} TP} & \textbf{\color{red} FN} \\
+        & Neg & \textbf{\color{red} FP} & \textbf{\color{green!60!black} TN} \\
+      \end{tabular}
+    \end{column}
+  \end{columns}
 }
 
+%---------------------------------------------------------
 \frame{
   \frametitle{Common Metrics for Model Evaluation}
+  \small
   \begin{itemize}
-    \item \textbf{Accuracy:} Fraction of all predictions that are correct.
-    \item \textbf{Precision:} Fraction of positive predictions that are correct (important when false positives are costly).
-    \item \textbf{Recall (Sensitivity):} Ability to capture all positive instances (crucial when false negatives matter).
-    \item \textbf{ROC Curve:} Plots the true positive rate versus the false positive rate at different thresholds.
-    \item \textbf{AUC:} The area under the ROC curve, providing an overall performance measure.
-  \end{itemize}
-  %\vspace{0.5em}
-  %\small{(For more details, see Exercise 5 in the exercise notebook.)}
-}
+    \item \textbf{Accuracy:} Fraction of correct predictions. \textit{(Caution: Misleading in imbalanced datasets).}
+    $$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$
 
-\frame{
-  \frametitle{Understanding the Confusion Matrix}
-  \begin{itemize}
-    \item A confusion matrix summarizes a classification model’s performance.
-    \item It is composed of:
-      \begin{itemize}
-        \item \textbf{True Positives (TP):} Correctly predicted positive instances.
-        \item \textbf{True Negatives (TN):} Correctly predicted negative instances.
-        \item \textbf{False Positives (FP):} Incorrectly predicted positives (Type I error).
-        \item \textbf{False Negatives (FN):} Incorrectly predicted negatives (Type II error).
-      \end{itemize}
-    \item From these, we can compute:
-      \begin{itemize}
-        \item Precision = TP / (TP + FP)
-        \item Recall = TP / (TP + FN)
-        \item Accuracy = (TP + TN) / (TP + TN + FP + FN)
-      \end{itemize}
-    \item This matrix offers a fuller picture than accuracy alone.
+    \item \textbf{Precision:} Purity of positive predictions. Vital when \textbf{False Positives} are costly (e.g., spam filters).
+    $$ \text{Precision} = \frac{TP}{TP + FP} $$
+
+    \item \textbf{Recall (Sensitivity):} Ability to find positive instances. Vital when \textbf{False Negatives} are dangerous (e.g., cancer detection).
+    $$ \text{Recall} = \frac{TP}{TP + FN} $$
+
+    \item \textbf{F1-Score:} The harmonic mean of Precision and Recall. Useful when you need a balance between the two.
+
+    \item \textbf{ROC \& AUC:} Plots TPR vs. FPR. AUC (Area Under Curve) summarizes performance across \textit{all} thresholds.
   \end{itemize}
 }
 
-\frame{
-  \frametitle{What is Model Assessment?}
-  \begin{itemize}
-    \item Model assessment goes beyond simple evaluation—it examines multiple facets of a trained model.
-    \item Key aspects include:
-      \begin{itemize}
-        \item \textbf{Predictive Performance:} How well does the model generalize to new data?
-        \item \textbf{Complexity:} How many parameters or how intricate is the model?
-        \item \textbf{Interpretability:} How easy is it to understand the model’s decisions?
-        \item \textbf{Computational Efficiency:} What are the resource requirements for training and prediction?
-        \item \textbf{Scalability:} Can the model handle larger datasets or increased complexity?
-      \end{itemize}
-    \item Techniques like sensitivity analyses or stress tests can help ensure robustness.
-    \item Cross-validation is central to assessing model generalizability.
-  \end{itemize}
-}
+%---------------------------------------------------------
+\section{Information Criteria}
 
 \frame{
   \frametitle{Introduction to Information Criteria}
-  \begin{itemize}
-    \item Information criteria are statistical tools that help balance model fit with model complexity.
-    \item The goal is to select a model that explains the data well without being overly complex.
-    \item Two commonly used criteria are:
-      \begin{itemize}
-        \item \textbf{Akaike Information Criterion (AIC)}
-        \item \textbf{Bayesian Information Criterion (BIC)}
-      \end{itemize}
-    \item They rely on the concept of likelihood and penalize the number of parameters.
-  \end{itemize}
+  \textit{Goal: Select a model that explains the data well without being overly complex.}
+  
+  \vspace{1em}
+  Information criteria penalize the likelihood based on the number of parameters ($k$).
+  
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Akaike Information Criterion (AIC)}
+        $$ AIC = 2k - 2\ln(L) $$
+        \begin{itemize}
+            \item Estimates out-of-sample prediction error.
+            \item Penalizes complexity ($2k$).
+        \end{itemize}
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Bayesian Information Criterion (BIC)}
+        $$ BIC = \ln(n)k - 2\ln(L) $$
+        \begin{itemize}
+            \item penalizes complexity more heavily when $n$ is large.
+            \item Tends to favor simpler models than AIC.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  
+  \vspace{1em}
+  \centering \small{\textbf{Rule of thumb:} Lower values are better. Compare only on the same dataset.}
 }
 
-\frame{
-  \frametitle{Akaike and Bayesian Information Criteria}
-  \begin{itemize}
-    \item \textbf{Akaike Information Criterion (AIC):}
-      \begin{itemize}
-        \item Balances goodness of fit and complexity.
-        \item A lower AIC indicates a better model.
-        \item Calculated as: 
-          \[
-          AIC = 2k - 2\ln(L)
-          \]
-          where \( k \) is the number of parameters and \( L \) is the model likelihood.
-      \end{itemize}
-    \pause
-    \item \textbf{Bayesian Information Criterion (BIC):}
-      \begin{itemize}
-        \item Similar in form to AIC, but applies a larger penalty for complexity.
-        \item Tends to favor simpler models.
-        \item Calculated as:
-          \[
-          BIC = \ln(n)k - 2\ln(L)
-          \]
-          where \( n \) is the sample size.
-      \end{itemize}
-    \pause
-    \item \textbf{Note:} Both AIC and BIC are relative measures—use them to compare models on the same dataset.
-  \end{itemize}
-}
+%---------------------------------------------------------
+\section{Cross-Validation}
 
 \frame{
   \frametitle{\(k\)-Fold Cross-Validation}
-  \begin{itemize}
-    \item The dataset is divided into \( k \) equal (or nearly equal) parts (folds).
-    \item In each of \( k \) iterations:
-      \begin{itemize}
-        \item One fold is held out as the test set.
-        \item The remaining \( k-1 \) folds form the training set.
-      \end{itemize}
-    \item Performance is averaged across all folds, reducing bias and variance in the estimate.
-    \item Particularly useful when data is limited.
-    \item Common choices for \( k \) are 5 or 10, though the best value depends on the dataset size and computational resources.
-  \end{itemize}
+    \textbf{The Procedure:}
+    \begin{enumerate}
+        \item Shuffle the dataset.
+        \item Split into \( k \) groups (folds).
+        \item For each unique group:
+        \begin{itemize}
+            \item Take the group as a hold-out or test data set.
+            \item Take the remaining groups as a training data set.
+            \item Fit a model on the training set and evaluate it on the test set.
+        \end{itemize}
+        \item Summarize the skill of the model using the sample of model evaluation scores.
+    \end{enumerate}
 }
 
 \frame{
+
   \frametitle{\(k\)-Fold Cross-Validation}
+
   \begin{center}
+
     \includegraphics[scale=0.5]{figures/kFold_validation.png}
+
   \end{center}
+
   }
-
-
 \frame{
-  \frametitle{Additional Cross-Validation Techniques}
-  \begin{itemize}
-    \item \textbf{Stratified \(k\)-fold:} Ensures each fold maintains the same class distribution as the full dataset (especially useful for imbalanced classes).
-    \item \textbf{Leave-One-Out Cross-Validation (LOOCV):} Uses all but one observation for training; although nearly unbiased, it can be computationally expensive.
-    \item \textbf{Repeated Cross-Validation:} Repeats the \( k \)-fold process multiple times with different splits to obtain more robust performance estimates.
-  \end{itemize}
+  \frametitle{Advanced CV Techniques}
+  \begin{description}
+    \item[Stratified \(k\)-fold] \hfill \\
+    Ensures each fold maintains the same class distribution as the full dataset. \textbf{Essential for imbalanced classes.}
+    
+    \vspace{1em} 
+    \item[Leave-One-Out (LOOCV)] \hfill \\
+    \( k = n \). Uses all but one observation for training.
+    \begin{itemize}
+        \item Pro: Nearly unbiased.
+        \item Con: Computationally expensive.
+    \end{itemize}
+
+    \vspace{1em}
+    \item[Repeated CV] \hfill \\
+    Repeats the \( k \)-fold process multiple times with different splits to reduce variance in the estimate.
+  \end{description}
 }
+
+%---------------------------------------------------------
+\section{Bias-Variance Trade-off}
 
 \frame{
   \frametitle{The Bias-Variance Trade-off}
-  \begin{itemize}
-    \item A key concept in understanding model performance on unseen data.
-    \item \textbf{Bias:}
-      \begin{itemize}
-        \item Error from overly simplistic assumptions.
-        \item Leads to underfitting (missing important patterns).
-      \end{itemize}
-    \pause
-    \item \textbf{Variance:}
-      \begin{itemize}
-        \item Error from sensitivity to small fluctuations in the training data.
-        \item Leads to overfitting (capturing noise as if it were signal).
-      \end{itemize}
-    \pause
-    \item The goal is to balance bias and variance to achieve a model that generalizes well.
-  \end{itemize}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Bias (Underfitting)}
+        Error from erroneous assumptions (e.g., assuming data is linear when it's quadratic).
+        \begin{itemize}
+            \item Misses relevant relations.
+            \item \textbf{Fix:} Increase complexity, add features.
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \begin{exampleblock}{Variance (Overfitting)}
+        Error from sensitivity to small fluctuations in the training set.
+        \begin{itemize}
+            \item Models the random noise.
+            \item \textbf{Fix:} Regularization, more data, simplify model.
+        \end{itemize}
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{1em}
+  \centering
+  \textbf{Goal:} Find the sweet spot where Total Error (Bias\(^2\) + Variance) is minimized.
 }
 
-\frame{
-  \frametitle{Managing Bias and Variance}
-  \begin{itemize}
-    \item \textbf{High Bias (Underfitting):}
-      \begin{itemize}
-        \item Remedies include increasing model complexity (more features or a more flexible algorithm) or reducing regularization.
-      \end{itemize}
-    \pause
-    \item \textbf{High Variance (Overfitting):}
-      \begin{itemize}
-        \item Remedies include simplifying the model, increasing regularization, or gathering more training data.
-      \end{itemize}
-  \end{itemize}
-}
-
-% \frame{
-%   \frametitle{Visualizing the Bias-Variance Trade-off}
-  % \begin{center}
-  %   \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_1.png}
-  %   \vspace{0.5em}
-  %
-  %   \includegraphics[scale=0.5]{figures/bias_variance_tradeoff_2.png}
-  %
-  %   \small{(Left: Example of high bias/underfitting. Right: Example of high variance/overfitting.)}
-  % \end{center}
-% }
-
+%---------------------------------------------------------
 \frame{
   \frametitle{Summary and Key Takeaways}
   \begin{itemize}
-    \item \textbf{Model Selection:} Use techniques such as cross-validation and information criteria (AIC/BIC) to balance model fit and complexity.
-    \item \textbf{Model Evaluation:} Assess performance using metrics (accuracy, precision, recall, AUC) and diagnostic tools (confusion matrix).
-    \item \textbf{Model Assessment:} Consider broader factors like interpretability, computational efficiency, and scalability.
-    \item \textbf{Cross-Validation:} Essential for obtaining robust performance estimates, especially when data is scarce.
-    \item \textbf{Bias-Variance Trade-off:} Strive for a balance to avoid underfitting (high bias) and overfitting (high variance).
+    \item \textbf{Selection vs Evaluation:} Don't use your test set to tune parameters!
+    \item \textbf{Metrics:} Accuracy is not enough. Use Precision/Recall/AUC for a complete picture.
+    \item \textbf{Information Criteria:} AIC and BIC allow model comparison without a hold-out set, penalizing complexity.
+    \item \textbf{Robustness:} Cross-Validation (especially Stratified) is the gold standard for performance estimation.
+    \item \textbf{The Trade-off:} Machine Learning is largely the art of balancing Bias and Variance.
   \end{itemize}
 }
-
-% \frame{
-%   \frametitle{Questions?}
-%   \begin{center}
-%     \Large{Any questions or points for discussion?}
-%   \end{center}
-% }
 
 \end{document}
