@@ -115,134 +115,134 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{PCA: Mathematical Foundation}
-    \begin{itemize}
-        \item \textbf{Data Preparation:} 
-            \begin{itemize}
-                \item Mean-centering: Subtract the mean of each feature so that the dataset is centered at the origin.
-                \item Standardization: Scale features to have unit variance.
-            \end{itemize}
-        \item \textbf{Covariance Matrix:} 
-            \[
-            \Sigma = \frac{1}{n-1}X^TX
-            \]
-            \begin{itemize}
-                \item \(X\) is the data matrix (with each row representing an observation).
-                \item \(\Sigma\) captures the pairwise relationships between features.
-            \end{itemize}
-        \item \textbf{Eigen-decomposition:} Solve the equation:
-            \[
-            \Sigma \mathbf{v} = \lambda \mathbf{v}
-            \]
-            \begin{itemize}
-                \item \(\lambda\) is an eigenvalue.
-                \item \(\mathbf{v}\) is the corresponding eigenvector.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
+% \begin{frame}
+% \frametitle{PCA: Mathematical Foundation}
+%     \begin{itemize}
+%         \item \textbf{Data Preparation:} 
+%             \begin{itemize}
+%                 \item Mean-centering: Subtract the mean of each feature so that the dataset is centered at the origin.
+%                 \item Standardization: Scale features to have unit variance.
+%             \end{itemize}
+%         \item \textbf{Covariance Matrix:} 
+%             \[
+%             \Sigma = \frac{1}{n-1}X^TX
+%             \]
+%             \begin{itemize}
+%                 \item \(X\) is the data matrix (with each row representing an observation).
+%                 \item \(\Sigma\) captures the pairwise relationships between features.
+%             \end{itemize}
+%         \item \textbf{Eigen-decomposition:} Solve the equation:
+%             \[
+%             \Sigma \mathbf{v} = \lambda \mathbf{v}
+%             \]
+%             \begin{itemize}
+%                 \item \(\lambda\) is an eigenvalue.
+%                 \item \(\mathbf{v}\) is the corresponding eigenvector.
+%             \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
-% PCA: Mathematical Interpretation
-\begin{frame}
-\frametitle{PCA: Mathematical Interpretation}
-    \begin{itemize}
-        \item \textbf{Eigenvectors:} 
-            \begin{itemize}
-                \item These are special, non-zero vectors that do not change direction under the linear transformation defined by the covariance matrix \(\Sigma\).
-                \item In PCA, eigenvectors indicate the directions (principal components) along which the data varies the most.
-                \item They form an orthogonal basis for the feature space.
-            \end{itemize}
-        \item \textbf{Eigenvalues:}
-            \begin{itemize}
-                \item Each eigenvalue \(\lambda\) scales its corresponding eigenvector \(\mathbf{v}\).
-                \item In PCA, an eigenvalue represents the variance captured along the direction of its eigenvector.
-                \item A larger eigenvalue indicates a greater amount of variance along that principal component.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Eigen Decomposition: Detailed Steps}
-    \begin{itemize}
-        \item \textbf{Eigenvalue Equation:} $\Sigma \mathbf{v} = \lambda \mathbf{v}$
-            \begin{itemize}
-                \item \(\Sigma\): Covariance matrix, \(\lambda\): Eigenvalue, \(\mathbf{v}\): Eigenvector.
-            \end{itemize}
-        \item \textbf{Characteristic Equation:} $\det(\Sigma - \lambda I) = 0$
-            \begin{itemize}
-                \item This determinant yields a polynomial in \(\lambda\).
-                \item The roots of this polynomial are the eigenvalues.
-            \end{itemize}
-        \item \textbf{Solving for Eigenvectors:}
-            \begin{itemize}
-                \item For each eigenvalue \(\lambda_i\), solve:
-                \[
-                (\Sigma - \lambda_i I)\mathbf{v}_i = \mathbf{0}
-                \]
-                \item This provides the corresponding eigenvector \(\mathbf{v}_i\).
-            \end{itemize}
-        \item \textbf{Properties:}
-            \begin{itemize}
-                \item Since \(\Sigma\) is symmetric, all eigenvalues are real.
-                \item Eigenvectors corresponding to distinct eigenvalues are orthogonal.
-            \end{itemize}
-        \item \textbf{Numerical Methods:}
-            \begin{itemize}
-                \item For large matrices, iterative methods (e.g., QR algorithm or SVD) are used.
-            \end{itemize}
-    \end{itemize}
-    \end{frame}
-    
-% PCA: Algorithm Steps
-\begin{frame}
-    \frametitle{PCA: Algorithm Steps}
-    \begin{enumerate}
-        \item \textbf{Standardize Data:} 
-            \begin{itemize}
-                \item \emph{Mean-center} each feature by subtracting its mean.
-                \item Optionally, \emph{scale} features to have unit variance.
-            \end{itemize}
-        \item \textbf{Compute Covariance Matrix:}
-            \[
-            \Sigma = \frac{1}{n-1} X^\top X
-            \]
-            where \(X\) is the data matrix (each row is an observation).
-        \item \textbf{Eigen-decomposition:}
-            \[
-            \Sigma \mathbf{v} = \lambda \mathbf{v}
-            \]
-            \begin{itemize}
-                \item Solve for eigenvalues \(\lambda\) and eigenvectors \(\mathbf{v}\).
-                \item Each eigenvector points in a direction of maximum variance.
-            \end{itemize}
-
-        \end{enumerate}
-\end{frame}
-    
-
-\begin{frame}
-    \frametitle{PCA: Algorithm Steps cont.}
-\begin{enumerate}
-\setcounter{enumi}{3}
-\item \textbf{Sort Eigenpairs:}
-\begin{itemize}
-    \item Order the eigenpairs by descending eigenvalues.
-\end{itemize}
-\item \textbf{Form Projection Matrix:}
-\begin{itemize}
-    \item Select the top \( k \) eigenvectors.
-    \item Construct the projection matrix \(\mathbf{W} \in \mathbb{R}^{d \times k}\) by using these eigenvectors as its columns.
-    \item This matrix \(\mathbf{W}\) contains the \( k \) principal components.
-\end{itemize}
-\item \textbf{Project Data:}
-\[
-\mathbf{Y} = \mathbf{XW}
-\]
-\begin{itemize}
-    \item \(\mathbf{Y}\) is the representation of the data in the reduced \( k \)-dimensional space.
-\end{itemize}
-\end{enumerate}
-\end{frame}
+% % PCA: Mathematical Interpretation
+% \begin{frame}
+% \frametitle{PCA: Mathematical Interpretation}
+%     \begin{itemize}
+%         \item \textbf{Eigenvectors:} 
+%             \begin{itemize}
+%                 \item These are special, non-zero vectors that do not change direction under the linear transformation defined by the covariance matrix \(\Sigma\).
+%                 \item In PCA, eigenvectors indicate the directions (principal components) along which the data varies the most.
+%                 \item They form an orthogonal basis for the feature space.
+%             \end{itemize}
+%         \item \textbf{Eigenvalues:}
+%             \begin{itemize}
+%                 \item Each eigenvalue \(\lambda\) scales its corresponding eigenvector \(\mathbf{v}\).
+%                 \item In PCA, an eigenvalue represents the variance captured along the direction of its eigenvector.
+%                 \item A larger eigenvalue indicates a greater amount of variance along that principal component.
+%             \end{itemize}
+%     \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%     \frametitle{Eigen Decomposition: Detailed Steps}
+%     \begin{itemize}
+%         \item \textbf{Eigenvalue Equation:} $\Sigma \mathbf{v} = \lambda \mathbf{v}$
+%             \begin{itemize}
+%                 \item \(\Sigma\): Covariance matrix, \(\lambda\): Eigenvalue, \(\mathbf{v}\): Eigenvector.
+%             \end{itemize}
+%         \item \textbf{Characteristic Equation:} $\det(\Sigma - \lambda I) = 0$
+%             \begin{itemize}
+%                 \item This determinant yields a polynomial in \(\lambda\).
+%                 \item The roots of this polynomial are the eigenvalues.
+%             \end{itemize}
+%         \item \textbf{Solving for Eigenvectors:}
+%             \begin{itemize}
+%                 \item For each eigenvalue \(\lambda_i\), solve:
+%                 \[
+%                 (\Sigma - \lambda_i I)\mathbf{v}_i = \mathbf{0}
+%                 \]
+%                 \item This provides the corresponding eigenvector \(\mathbf{v}_i\).
+%             \end{itemize}
+%         \item \textbf{Properties:}
+%             \begin{itemize}
+%                 \item Since \(\Sigma\) is symmetric, all eigenvalues are real.
+%                 \item Eigenvectors corresponding to distinct eigenvalues are orthogonal.
+%             \end{itemize}
+%         \item \textbf{Numerical Methods:}
+%             \begin{itemize}
+%                 \item For large matrices, iterative methods (e.g., QR algorithm or SVD) are used.
+%             \end{itemize}
+%     \end{itemize}
+%     \end{frame}
+%
+% % PCA: Algorithm Steps
+% \begin{frame}
+%     \frametitle{PCA: Algorithm Steps}
+%     \begin{enumerate}
+%         \item \textbf{Standardize Data:} 
+%             \begin{itemize}
+%                 \item \emph{Mean-center} each feature by subtracting its mean.
+%                 \item Optionally, \emph{scale} features to have unit variance.
+%             \end{itemize}
+%         \item \textbf{Compute Covariance Matrix:}
+%             \[
+%             \Sigma = \frac{1}{n-1} X^\top X
+%             \]
+%             where \(X\) is the data matrix (each row is an observation).
+%         \item \textbf{Eigen-decomposition:}
+%             \[
+%             \Sigma \mathbf{v} = \lambda \mathbf{v}
+%             \]
+%             \begin{itemize}
+%                 \item Solve for eigenvalues \(\lambda\) and eigenvectors \(\mathbf{v}\).
+%                 \item Each eigenvector points in a direction of maximum variance.
+%             \end{itemize}
+%
+%         \end{enumerate}
+% \end{frame}
+%
+%
+% \begin{frame}
+%     \frametitle{PCA: Algorithm Steps cont.}
+% \begin{enumerate}
+% \setcounter{enumi}{3}
+% \item \textbf{Sort Eigenpairs:}
+% \begin{itemize}
+%     \item Order the eigenpairs by descending eigenvalues.
+% \end{itemize}
+% \item \textbf{Form Projection Matrix:}
+% \begin{itemize}
+%     \item Select the top \( k \) eigenvectors.
+%     \item Construct the projection matrix \(\mathbf{W} \in \mathbb{R}^{d \times k}\) by using these eigenvectors as its columns.
+%     \item This matrix \(\mathbf{W}\) contains the \( k \) principal components.
+% \end{itemize}
+% \item \textbf{Project Data:}
+% \[
+% \mathbf{Y} = \mathbf{XW}
+% \]
+% \begin{itemize}
+%     \item \(\mathbf{Y}\) is the representation of the data in the reduced \( k \)-dimensional space.
+% \end{itemize}
+% \end{enumerate}
+% \end{frame}
     
 
 \begin{frame}
@@ -358,83 +358,83 @@
         \end{itemize}
         \end{frame}
 
-        \begin{frame}
-            \frametitle{K-Means: Properties}
-            \begin{itemize}
-                \item \textbf{Convergence Properties:}
-                \begin{itemize}
-                    \item K-Means employs an iterative process of assigning points to the nearest centroid and then updating the centroids.
-                    \item This procedure guarantees convergence to a \emph{local optimum}—the solution may depend on the initial centroid positions.
-                    \item Multiple runs with different initializations (e.g., using k-means++ for better initialization) are often performed to find a more robust solution.
-                \end{itemize}
-            \item \textbf{Cluster Assumptions:}
-                \begin{itemize}
-                    \item K-Means works best when the clusters are:
-                        \begin{itemize}
-                            \item \textbf{Convex and roughly spherical:} The algorithm relies on Euclidean distance, which is most effective when clusters are isotropic.
-                            \item \textbf{Similar in size:} Large variations in cluster size can lead to suboptimal assignments.
-                        \end{itemize}
-                    \item If clusters have irregular shapes or densities, alternative clustering algorithms might perform better.
-                \end{itemize}
-            \item \textbf{Scalability and Efficiency:}
-                \begin{itemize}
-                    \item K-Means is computationally efficient, making it suitable for large datasets.
-                    \item However, its performance and quality of clustering can be sensitive to the number of clusters \(k\) and initial conditions.
-                \end{itemize}
-        \end{itemize}
-\end{frame}
-        
-
-\begin{frame}
-    \frametitle{K-Means: Algorithm Steps (Lloyd's Algorithm)}
-    \begin{enumerate}
-        \item \textbf{Initialization:}
-            \begin{itemize}
-                \item Choose \(k\) initial centroids.
-                \item Common methods include:
-                    \begin{itemize}
-                        \item \emph{Random Initialization:} Select \(k\) random points from the dataset.
-                        \item \emph{k-means++:} A more systematic approach that spreads out the initial centroids.
-                    \end{itemize}
-                \item The choice of initialization can significantly affect the final clusters.
-            \end{itemize}
-        \item \textbf{Assignment:}
-            \begin{itemize}
-                \item For each data point \(\mathbf{x}_i\), compute its distance to every centroid.
-                \item Assign \(\mathbf{x}_i\) to the cluster corresponding to the nearest centroid.
-                \item Typically, the Euclidean distance is used:
-                \[
-                \text{distance}(\mathbf{x}_i, \mu_j) = \|\mathbf{x}_i - \mu_j\|
-                \]
-            \end{itemize}
-    \end{enumerate}
-    \end{frame}
-    
-    \begin{frame}
-        \frametitle{K-Means: Algorithm Steps (Lloyd's Algorithm) cont.}
-        \begin{enumerate}
-            % start counting from three
-            \setcounter{enumi}{3}
-            \item \textbf{Update:}
-            \begin{itemize}
-                \item For each cluster \(j\), recalculate the centroid \(\mu_j\) by taking the mean of all points assigned to that cluster:
-                \[
-                \mu_j = \frac{1}{|C_j|} \sum_{\mathbf{x}_i \in C_j} \mathbf{x}_i
-                \]
-                \item This step shifts the centroids to better represent the current cluster members.
-            \end{itemize}
-        \item \textbf{Iteration and Convergence:}
-            \begin{itemize}
-                \item Repeat the \emph{Assignment} and \emph{Update} steps until:
-                    \begin{itemize}
-                        \item The centroids do not change significantly between iterations, or
-                        \item The assignments of data points to clusters stabilize, or
-                        \item A maximum number of iterations is reached.
-                    \end{itemize}
-                \item Lloyd's algorithm is guaranteed to converge to a local optimum, though not necessarily the global optimum.
-            \end{itemize}
-    \end{enumerate}
-    \end{frame} 
+%         \begin{frame}
+%             \frametitle{K-Means: Properties}
+%             \begin{itemize}
+%                 \item \textbf{Convergence Properties:}
+%                 \begin{itemize}
+%                     \item K-Means employs an iterative process of assigning points to the nearest centroid and then updating the centroids.
+%                     \item This procedure guarantees convergence to a \emph{local optimum}—the solution may depend on the initial centroid positions.
+%                     \item Multiple runs with different initializations (e.g., using k-means++ for better initialization) are often performed to find a more robust solution.
+%                 \end{itemize}
+%             \item \textbf{Cluster Assumptions:}
+%                 \begin{itemize}
+%                     \item K-Means works best when the clusters are:
+%                         \begin{itemize}
+%                             \item \textbf{Convex and roughly spherical:} The algorithm relies on Euclidean distance, which is most effective when clusters are isotropic.
+%                             \item \textbf{Similar in size:} Large variations in cluster size can lead to suboptimal assignments.
+%                         \end{itemize}
+%                     \item If clusters have irregular shapes or densities, alternative clustering algorithms might perform better.
+%                 \end{itemize}
+%             \item \textbf{Scalability and Efficiency:}
+%                 \begin{itemize}
+%                     \item K-Means is computationally efficient, making it suitable for large datasets.
+%                     \item However, its performance and quality of clustering can be sensitive to the number of clusters \(k\) and initial conditions.
+%                 \end{itemize}
+%         \end{itemize}
+% \end{frame}
+%
+%
+% \begin{frame}
+%     \frametitle{K-Means: Algorithm Steps (Lloyd's Algorithm)}
+%     \begin{enumerate}
+%         \item \textbf{Initialization:}
+%             \begin{itemize}
+%                 \item Choose \(k\) initial centroids.
+%                 \item Common methods include:
+%                     \begin{itemize}
+%                         \item \emph{Random Initialization:} Select \(k\) random points from the dataset.
+%                         \item \emph{k-means++:} A more systematic approach that spreads out the initial centroids.
+%                     \end{itemize}
+%                 \item The choice of initialization can significantly affect the final clusters.
+%             \end{itemize}
+%         \item \textbf{Assignment:}
+%             \begin{itemize}
+%                 \item For each data point \(\mathbf{x}_i\), compute its distance to every centroid.
+%                 \item Assign \(\mathbf{x}_i\) to the cluster corresponding to the nearest centroid.
+%                 \item Typically, the Euclidean distance is used:
+%                 \[
+%                 \text{distance}(\mathbf{x}_i, \mu_j) = \|\mathbf{x}_i - \mu_j\|
+%                 \]
+%             \end{itemize}
+%     \end{enumerate}
+%     \end{frame}
+%
+%     \begin{frame}
+%         \frametitle{K-Means: Algorithm Steps (Lloyd's Algorithm) cont.}
+%         \begin{enumerate}
+%             % start counting from three
+%             \setcounter{enumi}{3}
+%             \item \textbf{Update:}
+%             \begin{itemize}
+%                 \item For each cluster \(j\), recalculate the centroid \(\mu_j\) by taking the mean of all points assigned to that cluster:
+%                 \[
+%                 \mu_j = \frac{1}{|C_j|} \sum_{\mathbf{x}_i \in C_j} \mathbf{x}_i
+%                 \]
+%                 \item This step shifts the centroids to better represent the current cluster members.
+%             \end{itemize}
+%         \item \textbf{Iteration and Convergence:}
+%             \begin{itemize}
+%                 \item Repeat the \emph{Assignment} and \emph{Update} steps until:
+%                     \begin{itemize}
+%                         \item The centroids do not change significantly between iterations, or
+%                         \item The assignments of data points to clusters stabilize, or
+%                         \item A maximum number of iterations is reached.
+%                     \end{itemize}
+%                 \item Lloyd's algorithm is guaranteed to converge to a local optimum, though not necessarily the global optimum.
+%             \end{itemize}
+%     \end{enumerate}
+%     \end{frame} 
 
     \begin{frame}
         \frametitle{K-Means: Practical Considerations}
