@@ -42,7 +42,7 @@
         \item \textbf{Bagging} (Bootstrap Aggregating)
         \begin{itemize}
             \item Examples: Random Forests, Extra Trees
-            \item Reduces variance by training multiple models on bootstrap samples and averaging predictions
+            \item Reduces variance by training multiple models on \textbf{bootstrap samples} and averaging predictions
         \end{itemize}
 		\pause
         \item \textbf{Boosting} (Sequential Learning)
@@ -83,7 +83,7 @@
         \item Combine their predictions (via majority vote or averaging) to form a final prediction
         \item Subsets are created using sampling with replacement
         \item Effective at reducing variance and mitigating overfitting for high-variance base learners (e.g., large decision trees)
-        \item An \textbf{out-of-bag (OOB) error} estimate can be obtained without a separate validation set
+        % \item An \textbf{out-of-bag (OOB) error} estimate can be obtained without a separate validation set
         %COMMENT: Added the mention of OOB error and expanded on how bagging can reduce overfitting.
     \end{itemize}
 }
@@ -232,18 +232,18 @@
     \end{itemize}
 }
 
-\frame{
-    \frametitle{Hyper-parameters for random forests}
-    \begin{itemize}
-        \item \texttt{n\_estimators}: number of trees. More trees can improve performance, but increases computation
-        \item \texttt{max\_features}: number of features to consider at each split (often \(\sqrt{\text{number of features}}\))
-        \item \texttt{max\_depth}: maximum depth of each tree. Deeper trees can overfit if not regularized
-        \item \texttt{min\_samples\_split}: min number of samples required to further split a node
-        \item \texttt{min\_samples\_leaf}: min number of samples in each leaf node
-        \item Typically, random forests are quite robust to hyperparameter choices
-        %COMMENT: Added a concluding statement about the robustness of RF to hyperparameters.
-    \end{itemize}
-}
+% \frame{
+%     \frametitle{Hyper-parameters for random forests}
+%     \begin{itemize}
+%         \item \texttt{n\_estimators}: number of trees. More trees can improve performance, but increases computation
+%         \item \texttt{max\_features}: number of features to consider at each split (often \(\sqrt{\text{number of features}}\))
+%         \item \texttt{max\_depth}: maximum depth of each tree. Deeper trees can overfit if not regularized
+%         \item \texttt{min\_samples\_split}: min number of samples required to further split a node
+%         \item \texttt{min\_samples\_leaf}: min number of samples in each leaf node
+%         \item Typically, random forests are quite robust to hyperparameter choices
+%         %COMMENT: Added a concluding statement about the robustness of RF to hyperparameters.
+%     \end{itemize}
+% }
 
 \frame{
     \frametitle{Extra trees}
@@ -252,7 +252,7 @@
         \item Similar to Random Forest in that multiple trees are trained on bootstrap samples
         \item At each node, a random subset of features is chosen (like in RF)
         \item \textbf{Key difference}: Extra Trees picks \textit{random} splitting thresholds, rather than searching for the optimal threshold
-        \item This extra randomness can further reduce variance (but sometimes increases bias)
+        % \item This extra randomness can further reduce variance (but sometimes increases bias)
         %COMMENT: Clarified that Extra Trees uses random thresholds rather than the best threshold among all possible splits.
     \end{itemize}
 }
