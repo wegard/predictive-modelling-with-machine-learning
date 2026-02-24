@@ -19,24 +19,21 @@
 \frame{
     \frametitle{Plan for today:}
     \begin{itemize}
-        \item \textbf{Topic:} \textit{Backpropagation and Gradient Descent} - understanding how neural networks learn  
-        \item \textbf{Key Concepts:} Gradient descent variants, computational graphs, the chain rule, backpropagation algorithm  
-        \item \textbf{Approach:} Start from first principles, then live-code a simple automatic differentiation engine 
+        \item \textbf{Topic:} \textit{Backpropagation and Gradient Descent} - understanding how neural networks learn
+        \item \textbf{Key Concepts:} Gradient descent variants, computational graphs, the chain rule, backpropagation algorithm
+        \item \textbf{Approach:} Start from first principles, then live-code a simple automatic differentiation engine
         \item \textbf{Goal:} Build intuition on how gradients are computed and used to train models
     \end{itemize}
-    Two examples:
-    \begin{itemize}
-        \item ADALINE for binary classification
-        \item Logistic regression
-    \end{itemize}
+    \bigskip
+    Example: Logistic regression
 }
 
 \frame{
     \frametitle{What is Gradient Descent?}
     \begin{itemize}
-        \item An optimization algorithm to \textbf{minimize a loss function} by iteratively moving in the direction of \textbf{steepest descent} (negative gradient).  
-        \item \textbf{Update rule:} For a parameter $w$, 
-        \[w \leftarrow w - \eta \,\nabla_w L,\] 
+        \item An optimization algorithm to \textbf{minimize a loss function} by iteratively moving in the direction of \textbf{steepest descent} (negative gradient).
+        \item \textbf{Update rule:} For a parameter $w$,
+        \[w \leftarrow w - \eta \,\nabla_w L,\]
         where $\eta$ is the learning rate (step size).  
         \item \textbf{Objective:} find parameters that minimize the loss (error) on training data, by continuously updating weights opposite to the gradient.
     \end{itemize}
