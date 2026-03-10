@@ -6,8 +6,8 @@
 
 \title{Lecture 10:\\ Traditional ML vs Deep Learning}
 \institute{GRA4160: Predictive modelling with machine learning}
-\date{March 11th, 2026}
-\author{Vegard Høghaug Larsen}
+\date{March 11th 2026}
+\author{Vegard H\o ghaug Larsen}
 
 \begin{document}
 
@@ -41,6 +41,20 @@
 	\item High accuracy, high computational cost, low interpretability
 	\item Often "black-box" models
 \end{itemize}
+}
+
+\frame{
+\frametitle{Performance vs Dataset Size}
+\begin{itemize}
+	\item Traditional ML models plateau quickly --- adding more data beyond a threshold yields diminishing returns
+	\item Deep learning models scale better with data: performance continues to improve with larger datasets
+	\item With \textbf{small data}, traditional ML often outperforms deep learning due to fewer parameters and less overfitting
+	\item With \textbf{large data}, deep learning leverages its capacity to learn richer representations
+	\item Key insight: the crossover point depends on task complexity and feature quality
+\end{itemize}
+\bigskip
+\centering
+\textit{``More data beats a cleverer algorithm, but only if the algorithm can exploit it.''}
 }
 
 \frame{
@@ -135,6 +149,29 @@
 \end{itemize}}
 
 \frame{
+\frametitle{Summary: Traditional ML vs Deep Learning}
+\centering
+\small
+\begin{tabular}{lll}
+\hline
+\textbf{Aspect} & \textbf{Traditional ML} & \textbf{Deep Learning} \\
+\hline
+Feature engineering & Manual & Automatic \\
+Data requirement & Small--medium & Large \\
+Interpretability & High & Low \\
+Computational cost & Low & High \\
+Structured data & Excellent & Good \\
+Unstructured data & Limited & Excellent \\
+Training time & Fast & Slow \\
+Overfitting risk & Lower & Higher \\
+\hline
+\end{tabular}
+\bigskip
+
+Neither approach dominates --- the best choice depends on the \textbf{data}, the \textbf{task}, and the \textbf{constraints}.
+}
+
+\frame{
 \frametitle{Tools in Practice}
 \textbf{Scikit-learn:}
 \begin{itemize}
@@ -156,6 +193,37 @@
 	\item \textbf{Foundation Models}: GPT, Stable Diffusion, general-purpose models
 	\item \textbf{AutoML/No-Code ML}: Automated model building, increased accessibility
 \end{itemize}}
+
+\frame{
+\frametitle{Transfer Learning in Practice}
+\begin{itemize}
+	\item \textbf{Idea}: Take a model pre-trained on a large dataset and adapt it to a new, smaller task
+	\item Common workflow:
+	\begin{enumerate}
+		\item Start with a pre-trained model (e.g., ResNet for images, BERT for text)
+		\item Freeze early layers that capture general features
+		\item Fine-tune later layers on your specific dataset
+	\end{enumerate}
+	\item \textbf{Why it works}: Early layers learn generic features (edges, textures, word meanings) that transfer across tasks
+	\item Dramatically reduces data requirements and training time
+	\item Example: Fine-tuning a pre-trained BERT model for sentiment analysis can achieve strong results with just a few hundred labeled examples
+\end{itemize}
+}
+
+\frame{
+\frametitle{Practical Decision Checklist}
+When choosing between traditional ML and deep learning, consider:
+\begin{enumerate}
+	\item \textbf{Data size}: $<$10k samples? Start with traditional ML
+	\item \textbf{Data type}: Tabular $\rightarrow$ tree-based methods; images/text/audio $\rightarrow$ deep learning
+	\item \textbf{Interpretability}: Required by regulation or stakeholders? Prefer traditional ML or add XAI methods
+	\item \textbf{Compute budget}: Limited GPU access? Traditional ML or smaller DL models
+	\item \textbf{Iteration speed}: Need quick experiments? Scikit-learn is faster to prototype
+	\item \textbf{Baseline first}: Always start with a simple model --- you need a benchmark to justify complexity
+\end{enumerate}
+\bigskip
+\textit{Rule of thumb: if a gradient boosted tree (XGBoost/LightGBM) works well on your tabular data, deep learning will rarely beat it by much.}
+}
 
 % \frame{
 % \frametitle{Visualization Resources}
